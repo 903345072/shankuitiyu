@@ -1,0 +1,102 @@
+{
+    "spf": {
+        "1-1": {
+            "met": "1-1",
+            "name": "主胜",
+            "pl": "0",
+            "check": false
+        },
+        "1-2": {
+            "met": "1-2",
+            "name": "平",
+            "pl": "0",
+            "check": false
+        },
+        "1-3": {
+            "met": "1-3",
+            "name": "客胜",
+            "pl": "0",
+            "check": false
+        }
+    },
+    "rq": {
+        "2-1": {
+            "met": "2-1",
+            "name": "让胜",
+            "pl": "0",
+            "check": false
+        },
+        "2-2": {
+            "met": "2-2",
+            "name": "让平",
+            "pl": "0",
+            "check": false
+        },
+        "2-3": {
+            "met": "2-3",
+            "name": "让负",
+            "pl": "0",
+            "check": false
+        }
+    },
+    "footrq": {
+        "1-1": {
+            "met": "1-1",
+            "name": "主胜",
+            "pl": "0",
+            "check": false
+        },
+        "1-2": {
+            "met": "1-2",
+            "name": "客胜",
+            "pl": "0",
+            "check": false
+        }
+        
+    },
+    "daxiaoqiu": {
+        "1-1": {
+            "met": "1-1",
+            "name": "大球",
+            "pl": "0",
+            "check": false
+        },
+        "1-2": {
+            "met": "1-2",
+            "name": "小球",
+            "pl": "0",
+            "check": false
+        }
+        
+    },
+    "rfsf": {
+        "1-1": {
+            "met": "1-1",
+            "name": "主胜",
+            "pl": "0",
+            "check": false
+        },
+        "1-2": {
+            "met": "1-2",
+            "name": "客胜",
+            "pl": "0",
+            "check": false
+        }
+        
+    },
+    "dxf": {
+        "1-1": {
+            "met": "1-1",
+            "name": "大分",
+            "pl": "0",
+            "check": false
+        },
+        "1-2": {
+            "met": "1-2",
+            "name": "小分",
+            "pl": "0",
+            "check": false
+        }
+        
+    }
+}
