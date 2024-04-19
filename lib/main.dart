@@ -5,7 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:jingcai_app/components/BottomTabBar/TabNavigationWidget.dart';
 import 'package:jingcai_app/model/jcFootModel.dart';
