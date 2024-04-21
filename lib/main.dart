@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Future _playLocalSound() async {
-    return await _audioPlayer!.play(AssetSource("music/hecai.mp3"));
+    // return await _audioPlayer!.play(AssetSource("music/hecai.mp3"));
   }
 
   void connectToWebSocket() async {
@@ -166,18 +166,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _channel!.stream.listen(
         (message) {
           Map<String, dynamic> d = jsonDecode(message);
-          JcFootModel j = JcFootModel.fromJson(d);
-          // 处理接收到的消息12
-          if (j.leagues != null) {
-            _playLocalSound();
-            // displayOverlayMessage(context, j);
-            showMessageOverlay(j);
+          if (d.containsValue("ping")) {
+          } else {
+            JcFootModel j = JcFootModel.fromJson(d);
+            // 处理接收到的消息12
+            if (j.leagues != null) {
+              _playLocalSound();
+              // displayOverlayMessage(context, j);
+              showMessageOverlay(j);
+            }
           }
         },
         onError: (error) {
           // 处理错误
 
-          Loading.tip("uriw", error.toString());
+          // Loading.tip("uriw", error.toString());
           reconnect(); // 可以在这里实现重连逻辑
         },
         onDone: () {

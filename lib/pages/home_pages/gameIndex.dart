@@ -11,7 +11,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class gameIndex extends StatefulWidget {
   int? id;
-  gameIndex({required this.id});
+  int have_jc = 0;
+  int have_bd = 0;
+  gameIndex({required this.id, required this.have_bd, required this.have_jc});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -26,11 +28,24 @@ class gameIndex_ extends State<gameIndex> with TickerProviderStateMixin {
   int _cur_index = 0;
 
   PageController _pageController = PageController(initialPage: 0);
-  late final TabController _tabC = TabController(
-    length: tabs.length,
-    initialIndex: 0,
-    vsync: this,
-  );
+  late final TabController _tabC;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.have_jc == 0) {
+      tabs.removeAt(0);
+    }
+    if (widget.have_bd == 0) {
+      tabs.removeAt(0);
+    }
+    _tabC = TabController(
+      length: tabs.length,
+      initialIndex: 0,
+      vsync: this,
+    );
+  }
 
   void _onRefresh() async {
     // monitor network fetch

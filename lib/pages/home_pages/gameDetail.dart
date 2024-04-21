@@ -46,6 +46,8 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
   Map away_data = {};
   int is_ani = 0;
   bool show_head = false;
+  int have_jc = 0;
+  int have_bd = 0;
   WebViewController controller = WebViewController();
   // ..setJavaScriptMode(JavaScriptMode.unrestricted)
   // ..setBackgroundColor(const Color(0x00000000))
@@ -99,6 +101,8 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
             JcFootModel.fromJson((value["footData"] as Map<String, dynamic>));
         home_data = value["home_detail"] ?? {};
         away_data = value["away_detail"] ?? {};
+        have_jc = value["have_jc"];
+        have_bd = value["have_bd"];
         controller
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
           ..setBackgroundColor(const Color(0x00000000))
@@ -438,6 +442,8 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
           ),
           gameIndex(
             id: foot.id,
+            have_bd: have_bd,
+            have_jc: have_jc,
           ),
           lineUp(
             id: foot.id,
@@ -471,6 +477,8 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
           ),
           gameIndex(
             id: foot.id,
+            have_bd: have_bd,
+            have_jc: have_jc,
           ),
           lineUp(
             id: foot.id,
