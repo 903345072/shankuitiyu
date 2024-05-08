@@ -249,14 +249,14 @@ class _HelpPageState extends State<HelpPage> {
               height: 20.w,
             ),
             const TextWidget(
-              'Q：如何查看我的红币使用记录',
+              'Q：如何查看我的金豆使用记录',
               fontWeight: FontWeight.bold,
             ),
             SizedBox(
               height: 20.w,
             ),
             const TextWidget(
-              'A:点击红币余额，即可进入查看红币使用记录。',
+              'A:点击金豆余额，即可进入查看金豆使用记录。',
               maxLines: 10,
               textAlign: TextAlign.left,
             ),
@@ -334,7 +334,7 @@ class _HelpPageState extends State<HelpPage> {
               height: 20.w,
             ),
             const TextWidget(
-              'Q：山葵大数据预测购买后如何查看？',
+              'Q：福神大数据预测购买后如何查看？',
               fontWeight: FontWeight.bold,
             ),
             SizedBox(
@@ -527,7 +527,7 @@ class _UserManualItemState extends State<UserManualItem> {
               ),
             ),
             title: const TextWidget(
-              '即使比分',
+              '即时比分',
               textAlign: TextAlign.left,
             ),
             subtitle: const TextWidget(

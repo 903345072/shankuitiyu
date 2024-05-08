@@ -1,13 +1,16 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jingcai_app/model/userModel.dart';
+import 'package:jingcai_app/pages/botom_pages/my/page/cancelAccount.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 
 import 'package:jingcai_app/pages/login/userEvent.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
+import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,6 +83,17 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
               text: "${widget.user?.realName.toString()}",
             ),
             buildRow(
+              '账户id',
+              rightIcon: Icon(Icons.copy),
+              () {
+                Clipboard.setData(
+                        ClipboardData(text: "${widget.user?.uid.toString()}"))
+                    .then((value) => Loading.tip("click", "复制成功",
+                        icon: Icons.tips_and_updates, color: Colors.green));
+              },
+              text: "${widget.user?.uid.toString()}",
+            ),
+            buildRow(
               '手机',
               () {
                 Routes.pushPage(ChangeThePhoneBindingPage(
@@ -102,10 +116,16 @@ class _AccountSettingsPageState extends State<AccountSettingsPage> {
                 Routes.pushPage(const PasswordSettingsPage());
               },
             ),
-            // buildRow(
-            //   '注销账户',
-            //   () {},
-            // ),
+            buildRow(
+              '注销账户',
+              () {
+                Routes.pushPage(cancelAccount()).then((value) {
+                  if (value == "logout") {
+                    G.router.pop(context);
+                  }
+                });
+              },
+            ),
             onClick(
                 Container(
                   margin: EdgeInsets.only(top: 30.w),

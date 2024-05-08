@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:jingcai_app/util/G.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widget/PreferredSizeWidget.dart';
 
@@ -13,7 +15,24 @@ class GoalReminderSettingsPage extends StatefulWidget {
 }
 
 class _GoalReminderSettingsPageState extends State<GoalReminderSettingsPage> {
-  bool _switchnotificationEnabled = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getState();
+  }
+
+  getState() {
+    G.api.user.getSettingState({}).then((value) {
+      setState(() {
+        flow_on = value["flow_on"] == 1 ? true : false;
+        sound_on = value["sound_on"] == 1 ? true : false;
+      });
+    });
+  }
+
+  bool flow_on = false;
+  bool sound_on = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,39 +44,34 @@ class _GoalReminderSettingsPageState extends State<GoalReminderSettingsPage> {
               buildRowSwitch(
                 '仅提示我关注的',
                 CupertinoSwitch(
-                  value: _switchnotificationEnabled,
+                  value: flow_on,
                   activeColor: Colors.red,
                   trackColor: Colors.black26,
                   dragStartBehavior: DragStartBehavior.down,
-                  onChanged: (value) {
-                    _switchnotificationEnabled = value;
+                  onChanged: (value) async {
+                    flow_on = value;
                     setState(() {});
+                    G.api.user.settingState({"flow_on": flow_on ? 1 : 0});
+                    SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setBool("flow_on", flow_on);
                   },
                 ),
               ),
               buildRowSwitch(
                 '声音',
                 CupertinoSwitch(
-                  value: _switchnotificationEnabled,
+                  value: sound_on,
                   activeColor: Colors.red,
                   trackColor: Colors.black26,
                   dragStartBehavior: DragStartBehavior.down,
-                  onChanged: (value) {
-                    _switchnotificationEnabled = value;
+                  onChanged: (value) async {
+                    sound_on = value;
                     setState(() {});
-                  },
-                ),
-              ),
-              buildRowSwitch(
-                '震动',
-                CupertinoSwitch(
-                  value: _switchnotificationEnabled,
-                  activeColor: Colors.red,
-                  trackColor: Colors.black26,
-                  dragStartBehavior: DragStartBehavior.down,
-                  onChanged: (value) {
-                    _switchnotificationEnabled = value;
-                    setState(() {});
+                    G.api.user.settingState({"sound_on": sound_on ? 1 : 0});
+                    SharedPreferences sharedPreferences =
+                        await SharedPreferences.getInstance();
+                    sharedPreferences.setBool("sound_on", sound_on);
                   },
                 ),
               ),

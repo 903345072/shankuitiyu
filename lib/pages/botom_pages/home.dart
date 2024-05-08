@@ -195,10 +195,13 @@ class _Home extends State<Home>
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  headLogo,
-                  width: rpx(100),
-                  fit: BoxFit.cover,
+                // Image.asset(
+                //   headLogo,
+                //   width: rpx(100),
+                //   fit: BoxFit.cover,
+                // ),
+                Container(
+                  width: rpx(1),
                 ),
                 onClick(getTextInputWidget(), () {
                   G.router.navigateTo(context, "/talentSearch");
@@ -210,11 +213,11 @@ class _Home extends State<Home>
             flexibleSpace: FlexibleSpaceBar(
               background: GestureDetector(
                 onTap: () {
-                  G.router.navigateTo(context, "/basketSubject",
-                      transition: TransitionType.inFromRight);
+                  // G.router.navigateTo(context, "/basketSubject",
+                  //     transition: TransitionType.inFromRight);
                 },
                 child: Image.asset(
-                  "assets/images/HomeBanner.png",
+                  "assets/images/HomeBanner.jpg",
                   fit: BoxFit.cover,
                 ),
               ),

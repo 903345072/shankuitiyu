@@ -25,6 +25,7 @@ class footing extends State<foot> with TickerProviderStateMixin {
   GlobalKey<courseing> coursekey = GlobalKey<courseing>();
   GlobalKey<finishing> finishkey = GlobalKey<finishing>();
   GlobalKey<flowMatchs> flowkey = GlobalKey<flowMatchs>();
+  int type = 0;
   @override
   void initState() {
     super.initState();
@@ -45,6 +46,10 @@ class footing extends State<foot> with TickerProviderStateMixin {
 
   refreshData({Object? value}) {
     if (value != null) {
+      setState(() {
+        var g = value as Map;
+        type = g["index"];
+      });
       if (timekey.currentState != null) {
         timekey.currentState?.clearData(value as Map);
         timekey.currentState?.loadArticle();
@@ -128,6 +133,7 @@ class footing extends State<foot> with TickerProviderStateMixin {
         //在实际开发中我们通过接口获取tabar和children的数量 用list存储
         timely(
           dataSourceFactory().getFootDataSource("/common/score/getScoreList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },
@@ -136,6 +142,7 @@ class footing extends State<foot> with TickerProviderStateMixin {
         course(
           dataSourceFactory()
               .getFootDataSource("/common/score/getScoreCourseList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },
@@ -144,6 +151,7 @@ class footing extends State<foot> with TickerProviderStateMixin {
         finished(
           dataSourceFactory()
               .getFootDataSource("/common/score/getScoreCourseList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },

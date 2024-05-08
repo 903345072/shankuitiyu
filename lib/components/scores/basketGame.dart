@@ -58,7 +58,44 @@ class _basketGame extends State<basketGame> {
                           child:
                               getBasketGameStateText(widget.basketListElement),
                         )),
-                    Expanded(flex: 6, child: Container())
+                    Expanded(
+                      flex: 6,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextWidget(
+                                widget.basketListElement.jc != null
+                                    ? widget.basketListElement.jc!.matchNumStr
+                                        .toString()
+                                    : "",
+                                color: Colors.grey),
+                            Container(
+                              width: rpx(15),
+                            ),
+                            widget.basketListElement.plan_num! > 0
+                                ? Container(
+                                    height: rpx(20),
+                                    padding: EdgeInsets.only(left: 3, right: 3),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: Colors.red, width: 1)),
+                                    child: Text(
+                                      widget.basketListElement.plan_num
+                                              .toString() +
+                                          "方案",
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: rpx(11)),
+                                    ),
+                                  )
+                                : Container()
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
                 Container(
@@ -75,8 +112,7 @@ class _basketGame extends State<basketGame> {
                               Container(
                                 width: rpx(80),
                                 child: Text(
-                                  widget.basketListElement.awayTeam!.nameShort
-                                      .toString(),
+                                  "(客)${widget.basketListElement.awayTeam!.nameShort}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: rpx(15)),
                                 ),
@@ -140,8 +176,7 @@ class _basketGame extends State<basketGame> {
                               Container(
                                 width: rpx(80),
                                 child: Text(
-                                  widget.basketListElement.homeTeam!.nameShort!
-                                      .toString(),
+                                  "(主)${widget.basketListElement.homeTeam!.nameShort!}",
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: rpx(15)),
                                 ),

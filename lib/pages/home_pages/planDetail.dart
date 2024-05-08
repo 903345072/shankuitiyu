@@ -231,11 +231,12 @@ class talentDetail_ extends State<planDetail> {
                                           crossAxisAlignment:
                                               WrapCrossAlignment.center,
                                           children: [
-                                            Text(widget.plan["fans"].toString(),
+                                            Text(
+                                                widget.plan["looks"].toString(),
                                                 style: TextStyle(
                                                     color: Color(0xff6f6f6f),
                                                     fontSize: rpx(12))),
-                                            Text("购买",
+                                            Text("浏览",
                                                 style: TextStyle(
                                                     color: Color(0xff6f6f6f),
                                                     fontSize: rpx(12)))
@@ -458,7 +459,7 @@ class talentDetail_ extends State<planDetail> {
                 Container(
                   padding: EdgeInsets.all(rpx(15)),
                   child: Text(
-                    "免责声明：山葵足球仅为信息发布平台，并不对第三方发布的信息真实性及准确性负责，且不提供彩票售卖服务，请您注意投资风险，理性购买！",
+                    "免责声明：福神体育仅为信息发布平台，并不对第三方发布的信息真实性及准确性负责，且不提供彩票售卖服务，请您注意投资风险，理性购买！",
                     softWrap: true,
                     style: TextStyle(color: Colors.grey, fontSize: rpx(13)),
                   ),
@@ -541,7 +542,7 @@ class talentDetail_ extends State<planDetail> {
                                 fontWeight: FontWeight.bold,
                               ),
                               TextWidget(
-                                "红币",
+                                "金豆",
                                 fontSize: rpx(16),
                                 fontWeight: FontWeight.w300,
                               ),
@@ -592,7 +593,7 @@ class talentDetail_ extends State<planDetail> {
     G.api.pay.getPayList({}).then((value) {
       setState(() {
         payList = value;
-        _selectedPayment = value.isNotEmpty ? value[0]["pay_name"] : "红币";
+        _selectedPayment = value.isNotEmpty ? value[0]["pay_name"] : "金豆";
       });
       showModalBottomSheet(
         context: context,
@@ -663,11 +664,11 @@ class talentDetail_ extends State<planDetail> {
                               onClick(
                                   Row(
                                     children: [
-                                      _selectedPayment.toString() != "红币"
+                                      _selectedPayment.toString() != "金豆"
                                           ? TextWidget("$_selectedPayment支付")
                                           : Row(
                                               children: [
-                                                const TextWidget("红币支付"),
+                                                const TextWidget("金豆支付"),
                                                 SizedBox(
                                                   width: rpx(10),
                                                 ),
@@ -716,7 +717,7 @@ class talentDetail_ extends State<planDetail> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                     TextWidget(
-                                      "红币",
+                                      "金豆",
                                       fontSize: rpx(16),
                                       fontWeight: FontWeight.w300,
                                     ),
@@ -729,7 +730,7 @@ class talentDetail_ extends State<planDetail> {
                                           setss(() {
                                             is_click = false;
                                           });
-                                          if (_selectedPayment == "红币") {
+                                          if (_selectedPayment == "金豆") {
                                             if (money <
                                                 double.parse(
                                                     widget.plan["price"])) {
@@ -738,7 +739,7 @@ class talentDetail_ extends State<planDetail> {
                                               });
                                               showConfirmationDialog(
                                                   context, () {},
-                                                  title: "红币数量不足,请换个支付方式",
+                                                  title: "金豆数量不足,请换个支付方式",
                                                   rightTxt: "前往充值");
                                               return;
                                             }
@@ -751,7 +752,7 @@ class talentDetail_ extends State<planDetail> {
                                                 });
                                                 showConfirmationDialog(
                                                     context, () {},
-                                                    title: "红币数量不足,请换个支付方式",
+                                                    title: "金豆数量不足,请换个支付方式",
                                                     rightTxt: "前往充值");
                                                 return;
                                               }
@@ -870,7 +871,7 @@ class talentDetail_ extends State<planDetail> {
                           title: Row(
                             children: [
                               TextWidget(
-                                "红币支付",
+                                "金豆支付",
                                 textAlign: TextAlign.left,
                               ),
                               SizedBox(
@@ -891,7 +892,7 @@ class talentDetail_ extends State<planDetail> {
                                     color: Colors.grey,
                                   ),
                                   TextWidget(
-                                    "$money红币",
+                                    "$money金豆",
                                     color: Colors.grey,
                                   ),
                                   const TextWidget(
@@ -903,7 +904,7 @@ class talentDetail_ extends State<planDetail> {
                               )
                             ],
                           ),
-                          value: "红币",
+                          value: "金豆",
                           groupValue: _selectedPayment,
                           onChanged: (String? newValue) {
                             setss(() {

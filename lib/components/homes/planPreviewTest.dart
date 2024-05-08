@@ -127,7 +127,7 @@ class planPreview_ extends State<planPreviewTest> {
                         children: [
                           Text(widget.recmodel.price.toInt().toString(),
                               style: TextStyle(color: Colors.red)),
-                          Text("红币", style: TextStyle(color: Colors.red))
+                          Text("金豆", style: TextStyle(color: Colors.red))
                         ],
                       )
                     : Container(

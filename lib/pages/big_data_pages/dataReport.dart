@@ -142,7 +142,7 @@ class dataReport_ extends State<dataReport> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextWidget(
-                  "山葵大数据报告",
+                  "福神大数据报告",
                   color: co,
                   fontSize: rpx(19),
                 ),
@@ -204,7 +204,7 @@ class dataReport_ extends State<dataReport> {
                                       color: Colors.red,
                                     ),
                                     TextWidget(
-                                      "红币/月",
+                                      "金豆/月",
                                       fontSize: rpx(13),
                                       color: Colors.red,
                                     )
@@ -232,11 +232,14 @@ class dataReport_ extends State<dataReport> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                SizedBox(
+                  height: rpx(10),
+                ),
                 Container(
                   color: Colors.white,
                   padding: EdgeInsets.only(left: rpx(15), right: rpx(10)),
                   width: MediaQuery.of(context).size.width,
-                  height: rpx(50),
+                  height: rpx(35),
                   child: Row(
                     children: [
                       Wrap(

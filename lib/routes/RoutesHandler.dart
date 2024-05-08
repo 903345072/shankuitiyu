@@ -20,6 +20,7 @@ import 'package:jingcai_app/pages/botom_pages/my/page/ApplicationInfluencerPage.
 import 'package:jingcai_app/pages/botom_pages/my/page/SubmitExpertInformationPage.dart';
 import 'package:jingcai_app/pages/botom_pages/my/page/publish.dart';
 import 'package:jingcai_app/pages/botom_pages/my/page/publishPlan.dart';
+import 'package:jingcai_app/pages/botom_pages/my/page/realName.dart';
 import 'package:jingcai_app/pages/botom_pages/my/page/withdraw.dart';
 import 'package:jingcai_app/pages/commity_pages/expertTalent.dart';
 import 'package:jingcai_app/pages/commity_pages/talentRank.dart';
@@ -237,4 +238,8 @@ var loginHand = Handler(
 var withdrawHand = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
   return withdraw();
+});
+var realNameHand = Handler(
+    handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+  return realName();
 });

@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:jingcai_app/pages/login/userEvent.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
+import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
 import '../../widget/PreferredSizeWidget.dart';
 import '../../widget/colors.dart';
@@ -25,6 +27,7 @@ class _InviteFriendsPageState extends State<InviteFriendsPage> {
   int count = 0;
   String money = "";
   int bag_count = 0;
+  String invite_code = "";
   StreamSubscription? loginSubscription;
   @override
   void initState() {
@@ -51,6 +54,7 @@ class _InviteFriendsPageState extends State<InviteFriendsPage> {
         count = value["invite_count"];
         money = value["award"];
         bag_count = value["bag_count"];
+        invite_code = value["invite_code"].toString();
       });
     });
   }
@@ -235,7 +239,7 @@ class _InviteFriendsPageState extends State<InviteFriendsPage> {
                           textAlign: TextAlign.left,
                         ),
                         TextWidget(
-                          '4、活动最终解释权，归山葵足球所有，若有发现利用非法漏洞参与活动，非法牟利或破坏计算机系统等行为，本平台保有法律途径手段与权力 ',
+                          '4、活动最终解释权，归福神体育所有，若有发现利用非法漏洞参与活动，非法牟利或破坏计算机系统等行为，本平台保有法律途径手段与权力 ',
                           maxLines: 4,
                           color: Color(0xff2f2f2f),
                           textAlign: TextAlign.left,
@@ -250,14 +254,44 @@ class _InviteFriendsPageState extends State<InviteFriendsPage> {
               ),
             ),
             Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(
-                  bottom: rpx(30), top: 30.w, left: 30.w, right: 30.w),
-              color: MyColors.white,
-              child: clickBtn('立即邀请', () {
-                Routes.pushPage(const SharePage());
-              }),
-            ),
+                width: double.infinity,
+                padding: EdgeInsets.only(
+                    bottom: rpx(30), top: 30.w, left: 30.w, right: 30.w),
+                color: MyColors.white,
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextWidget("邀请码:"),
+                        SizedBox(
+                          width: rpx(10),
+                        ),
+                        TextWidget(invite_code),
+                        SizedBox(
+                          width: rpx(5),
+                        ),
+                        onClick(
+                            Icon(
+                              Icons.copy,
+                            ), () {
+                          Clipboard.setData(
+                                  ClipboardData(text: "${invite_code}"))
+                              .then((value) => Loading.tip("click", "复制成功",
+                                  icon: Icons.tips_and_updates,
+                                  color: Colors.green));
+                        })
+                      ],
+                    ),
+                    Container(
+                      height: rpx(5),
+                    ),
+                    clickBtn('立即邀请', () {
+                      Routes.pushPage(const SharePage());
+                    }),
+                  ],
+                )),
             Positioned(
               top: 50.w,
               left: 20.w,

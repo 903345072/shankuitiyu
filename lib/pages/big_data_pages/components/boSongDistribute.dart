@@ -234,7 +234,7 @@ class dataReport_ extends State<boSongDistribute> {
                                         color: Colors.red,
                                       ),
                                       TextWidget(
-                                        "红币/月",
+                                        "金豆/月",
                                         fontSize: rpx(13),
                                         color: Colors.red,
                                       )

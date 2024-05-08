@@ -31,7 +31,7 @@ class _InterestState extends State<Interest> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "山葵专家",
+                    "福神专家",
                   ),
                 ),
               ),

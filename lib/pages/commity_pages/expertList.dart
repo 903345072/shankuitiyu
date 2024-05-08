@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jingcai_app/model/expert.dart';
 import 'package:jingcai_app/model/talentExpert.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
@@ -57,7 +58,12 @@ class expertList_ extends State<expertList> {
               data.length,
               (index) => onClick(
                   Container(
-                    padding: EdgeInsets.all(rpx(5)),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: rpx(1), color: Colors.grey.shade300))),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: rpx(10), vertical: rpx(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -107,19 +113,28 @@ class expertList_ extends State<expertList> {
                                 data[index]["introduce"].toString(),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: rpx(12)),
                               ),
                             )
                           ],
                         ),
                         Wrap(
                           direction: Axis.vertical,
+                          crossAxisAlignment: WrapCrossAlignment.center,
                           spacing: 5,
                           children: [
                             Wrap(
                               spacing: 3,
                               children: [
-                                Text("粉丝数"),
-                                Text(data[index]["fans"].toString())
+                                TextWidget(
+                                  "粉丝数",
+                                  color: Colors.grey,
+                                ),
+                                TextWidget(
+                                  data[index]["fans"].toString(),
+                                  color: Colors.grey,
+                                )
                               ],
                             ),
                             getFlowButton(data[index]["is_subscribe"], index)

@@ -24,7 +24,7 @@ class flowMatch extends StatefulWidget {
   }
 }
 
-class flowMatchs extends State<flowMatch> with TickerProviderStateMixin {
+class flowMatchs extends State<flowMatch> with AutomaticKeepAliveClientMixin {
   // FootModel datra;
   List<JcFootModel> list1_living = [];
   List<JcFootModel> list1_Noliving = [];
@@ -46,9 +46,9 @@ class flowMatchs extends State<flowMatch> with TickerProviderStateMixin {
 
   Future loadArticle() async {
     Map<String, dynamic> p = {"page": page, "offset": offset, "type": type};
-    if (leagus_id.isNotEmpty) {
-      p["league_id[]"] = leagus_id;
-    }
+    // if (leagus_id.isNotEmpty) {
+    //   p["league_id[]"] = leagus_id;
+    // }
 
     return G.api.gameAdd.getScoreList(p, widget.dataSource_.url).then((value) {
       setState(() {
@@ -145,4 +145,8 @@ class flowMatchs extends State<flowMatch> with TickerProviderStateMixin {
       }
     });
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

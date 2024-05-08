@@ -7,6 +7,7 @@ import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class footGame extends StatefulWidget {
   JcFootModel footListElement;
@@ -296,13 +297,26 @@ class _footGame extends State<footGame> {
                                       ), () {
                                     G.api.gameAdd.collectMatch({
                                       "id": widget.footListElement.id
-                                    }).then((value) {
+                                    }).then((value) async {
                                       setState(() {
                                         widget.footListElement.flow =
                                             widget.footListElement.flow == 0
                                                 ? 1
                                                 : 0;
                                       });
+                                      SharedPreferences sharedPreferences =
+                                          await SharedPreferences.getInstance();
+                                      List<String>? dd = sharedPreferences
+                                          .getStringList("flows");
+                                      if (widget.footListElement.flow == 0) {
+                                        dd!.remove(widget.footListElement.id
+                                            .toString());
+                                      } else {
+                                        dd!.add(widget.footListElement.id
+                                            .toString());
+                                      }
+                                      sharedPreferences.setStringList(
+                                          "flows", dd);
                                     });
                                   })
                                 ],

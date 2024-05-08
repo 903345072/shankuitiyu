@@ -104,7 +104,7 @@ class gameBigDatas extends State<gameBigData> {
         foregroundColor: Colors.white,
         backgroundColor: Color(0xff36394c),
         title: TextWidget(
-          "山葵大数据",
+          "福神大数据",
           fontSize: rpx(16),
           color: Colors.white,
         ),

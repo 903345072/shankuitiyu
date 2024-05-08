@@ -59,6 +59,7 @@ class living_ extends State<living> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       spacing: rpx(5),
                       children: [
                         Container(
@@ -67,7 +68,7 @@ class living_ extends State<living> {
                         Container(
                           width: rpx(2),
                           height: rpx(18),
-                          color: Colors.red,
+                          color: Colors.blue,
                         ),
                         TextWidget(
                           widget.foot.homeTeam!.nameShort.toString(),
@@ -76,6 +77,7 @@ class living_ extends State<living> {
                       ],
                     ),
                     Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       spacing: rpx(5),
                       children: [
                         TextWidget(
@@ -85,7 +87,7 @@ class living_ extends State<living> {
                         Container(
                           width: rpx(2),
                           height: rpx(18),
-                          color: Color(0xff002868),
+                          color: Colors.yellow,
                         ),
                         Container(
                           width: rpx(10),
@@ -235,7 +237,7 @@ class living_ extends State<living> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Wrap(
-                          spacing: rpx(5),
+                          spacing: rpx(13),
                           children: [
                             Image.asset(
                               "assets/images/corner.png",
@@ -254,7 +256,7 @@ class living_ extends State<living> {
                           ],
                         ),
                         Container(
-                          width: rpx(10),
+                          width: rpx(5),
                         ),
                         Row(
                           children: [
@@ -262,12 +264,12 @@ class living_ extends State<living> {
                               padding: EdgeInsets.symmetric(horizontal: rpx(6)),
                               alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: Colors.blue,
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(rpx(16)),
                                       topLeft: Radius.circular(rpx(16)))),
                               height: rpx(16),
-                              width: getStraitWith() * rpx(150),
+                              width: getStraitWith() * rpx(130),
                               child: TextWidget(
                                 (getStraitWith() * 100).toStringAsFixed(0) +
                                     "%",
@@ -279,27 +281,27 @@ class living_ extends State<living> {
                               padding: EdgeInsets.symmetric(horizontal: rpx(6)),
                               alignment: Alignment.centerRight,
                               decoration: BoxDecoration(
-                                  color: Color(0xff002868),
+                                  color: Colors.yellow,
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(rpx(16)),
                                       topRight: Radius.circular(rpx(16)))),
                               height: rpx(16),
-                              width: (1 - getStraitWith()) * rpx(150),
+                              width: (1 - getStraitWith()) * rpx(130),
                               child: TextWidget(
                                 ((1 - getStraitWith()) * 100)
                                         .toStringAsFixed(0) +
                                     "%",
                                 fontSize: rpx(10),
-                                color: Colors.white,
+                                color: Colors.grey,
                               ),
                             ),
                           ],
                         ),
                         Container(
-                          width: rpx(10),
+                          width: rpx(5),
                         ),
                         Wrap(
-                          spacing: rpx(5),
+                          spacing: rpx(13),
                           children: [
                             TextWidget(
                                 widget.away_data["shots_on_goal"].toString()),
@@ -335,7 +337,7 @@ class living_ extends State<living> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Wrap(
-                          spacing: rpx(5),
+                          spacing: rpx(13),
                           children: [
                             Container(
                               width: rpx(17),
@@ -360,7 +362,7 @@ class living_ extends State<living> {
                           ],
                         ),
                         Container(
-                          width: rpx(10),
+                          width: rpx(5),
                         ),
                         Row(
                           children: [
@@ -368,12 +370,12 @@ class living_ extends State<living> {
                               padding: EdgeInsets.symmetric(horizontal: rpx(6)),
                               alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
-                                  color: Colors.red,
+                                  color: Colors.blue,
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(rpx(16)),
                                       topLeft: Radius.circular(rpx(16)))),
                               height: rpx(16),
-                              width: getAskewWith() * rpx(150),
+                              width: getAskewWith() * rpx(130),
                               child: TextWidget(
                                 (getAskewWith() * 100).toStringAsFixed(0) + "%",
                                 fontSize: rpx(10),
@@ -384,27 +386,27 @@ class living_ extends State<living> {
                               padding: EdgeInsets.symmetric(horizontal: rpx(6)),
                               alignment: Alignment.centerRight,
                               decoration: BoxDecoration(
-                                  color: Color(0xff002868),
+                                  color: Colors.yellow,
                                   borderRadius: BorderRadius.only(
                                       bottomRight: Radius.circular(rpx(16)),
                                       topRight: Radius.circular(rpx(16)))),
                               height: rpx(16),
-                              width: (1 - getAskewWith()) * rpx(150),
+                              width: (1 - getAskewWith()) * rpx(130),
                               child: TextWidget(
                                 ((1 - getAskewWith()) * 100)
                                         .toStringAsFixed(0) +
                                     "%",
                                 fontSize: rpx(10),
-                                color: Colors.white,
+                                color: Colors.grey,
                               ),
                             ),
                           ],
                         ),
                         Container(
-                          width: rpx(10),
+                          width: rpx(5),
                         ),
                         Wrap(
-                          spacing: rpx(5),
+                          spacing: rpx(13),
                           children: [
                             Container(
                               child: TextWidget(
@@ -417,7 +419,7 @@ class living_ extends State<living> {
                             ),
                             Container(
                               child: TextWidget(
-                                  widget.away_data["yellow_kicks"] ?? "0"),
+                                  widget.away_data["yellow_cards"] ?? "0"),
                               width: rpx(17),
                             ),
                             Container(
@@ -435,10 +437,14 @@ class living_ extends State<living> {
               SizedBox(
                 height: rpx(10),
               ),
-              Wrap(
-                spacing: rpx(20),
-                direction: Axis.vertical,
-                children: getChild(),
+              Container(
+                padding: EdgeInsets.only(top: rpx(15)),
+                color: Color(0xfff0f0f0),
+                child: Wrap(
+                  spacing: rpx(20),
+                  direction: Axis.vertical,
+                  children: getChild(),
+                ),
               )
             ],
           )
@@ -463,7 +469,8 @@ class living_ extends State<living> {
       1: "assets/images/have_goal.png",
       6: "assets/images/corner.png",
       22: "assets/images/red_card.png",
-      20: "assets/images/yellow_card.png"
+      20: "assets/images/yellow_card.png",
+      26: "assets/images/exchange.png"
     };
     if (events.containsKey(id)) {
       c = Image.asset(
@@ -492,14 +499,15 @@ class living_ extends State<living> {
                   live_data[index]["type_id"] == 41 ||
                           live_data[index]["type_id"] == 42
                       ? Container(
-                          padding: EdgeInsets.symmetric(horizontal: rpx(6)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: rpx(6), vertical: rpx(6)),
                           height: rpx(50),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(rpx(4)),
                               color: Color(0xfff0f0f0),
                               border: Border.all(
-                                  width: rpx(0.5), color: Color(0xffdbdbdb))),
+                                  width: rpx(0.5), color: Colors.grey)),
                           width: rpx(290),
                           child: Text(
                             live_data[index]["text"],
@@ -508,6 +516,12 @@ class living_ extends State<living> {
                           ),
                         )
                       : Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: rpx(6), vertical: rpx(6)),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(rpx(4)),
+                            color: Colors.white,
+                          ),
                           width: rpx(290),
                           child: Text(
                             live_data[index]["time"] +
@@ -540,8 +554,7 @@ class living_ extends State<living> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(rpx(4)),
                   color: Color(0xfff0f0f0),
-                  border:
-                      Border.all(width: rpx(0.5), color: Color(0xffdbdbdb))),
+                  border: Border.all(width: rpx(0.5), color: Colors.grey)),
               child: TextWidget("随着裁判的一声哨响,上半场比赛开始"),
             )
           ],
@@ -560,7 +573,7 @@ class living_ extends State<living> {
           Image.asset(
             "assets/images/jingcaizuqiu.png",
             fit: BoxFit.cover,
-            width: rpx(70),
+            width: rpx(40),
           ),
           Container(
             width: rpx(10),

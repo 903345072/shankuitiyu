@@ -85,8 +85,8 @@ class _ApplicationInfluencerPageState extends State<ApplicationInfluencerPage> {
 
   Widget stepbar() {
     var arr1 = [0, 1, 2];
-    var arr2 = [3, 4];
-    var arr3 = [5];
+    var arr2 = [3, 4, 5];
+    var arr3 = [6];
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

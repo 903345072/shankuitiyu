@@ -172,7 +172,7 @@ class historyData_ extends State<vipModel> with TickerProviderStateMixin {
                               color: Colors.red,
                               borderRadius: BorderRadius.circular(rpx(35))),
                           child: TextWidget(
-                            "订阅此数据模型${getPrice(id)}红币每月",
+                            "订阅此数据模型${getPrice(id)}金豆每月",
                             color: Colors.white,
                           ),
                         ),

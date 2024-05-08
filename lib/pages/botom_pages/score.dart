@@ -74,62 +74,64 @@ class _score extends State<score> with TickerProviderStateMixin {
               FloatingActionButtonLocation.centerFloat,
           appBar: AppBar(
             actions: [
-              Container(
-                margin: EdgeInsets.only(right: rpx(20)),
-                child: GestureDetector(
-                  onTap: () {
-                    Map<String, dynamic> p = {"date": date_};
-                    if (_cur_index == 0) {
-                      G.router
-                          .navigateTo(
-                              context, '/footScreen' + G.parseQuery(params: p),
-                              transition: TransitionType.inFromRight)
-                          .then((value) {
-                        if (value != null) {
-                          setState(() {
-                            if (value["index"] == 0) {
-                              value["index"] = 1;
-                            }
-                            if (value["index"] == 1) {
-                              value["index"] = 0;
-                            }
-                            game_index = value["index"];
-                          });
-                        }
+              show_tab
+                  ? Container(
+                      margin: EdgeInsets.only(right: rpx(20)),
+                      child: GestureDetector(
+                        onTap: () {
+                          Map<String, dynamic> p = {"date": date_};
+                          if (_cur_index == 0) {
+                            G.router
+                                .navigateTo(context,
+                                    '/footScreen' + G.parseQuery(params: p),
+                                    transition: TransitionType.inFromRight)
+                                .then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  if (value["index"] == 0) {
+                                    value["index"] = 1;
+                                  }
+                                  if (value["index"] == 1) {
+                                    value["index"] = 0;
+                                  }
+                                  game_index = value["index"];
+                                });
+                              }
 
-                        footkey.currentState?.refreshData(value: value);
-                      });
-                    } else {
-                      G.router
-                          .navigateTo(context,
-                              '/basketScreen' + G.parseQuery(params: p),
-                              transition: TransitionType.inFromRight)
-                          .then((value) {
-                        if (value != null) {
-                          setState(() {
-                            if (value["index"] == 0) {
-                              value["index"] = 1;
-                            }
-                            if (value["index"] == 1) {
-                              value["index"] = 0;
-                            }
-                            game_index = value["index"];
-                          });
-                        }
-                        basketkey.currentState?.refreshData(value: value);
-                      });
-                    }
-                  },
-                  child: Center(
-                    child: Image.asset(
-                      "assets/images/choose.png",
-                      width: rpx(20),
-                      height: rpx(20),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              )
+                              footkey.currentState?.refreshData(value: value);
+                            });
+                          } else {
+                            G.router
+                                .navigateTo(context,
+                                    '/basketScreen' + G.parseQuery(params: p),
+                                    transition: TransitionType.inFromRight)
+                                .then((value) {
+                              if (value != null) {
+                                setState(() {
+                                  if (value["index"] == 0) {
+                                    value["index"] = 1;
+                                  }
+                                  if (value["index"] == 1) {
+                                    value["index"] = 0;
+                                  }
+                                  game_index = value["index"];
+                                });
+                              }
+                              basketkey.currentState?.refreshData(value: value);
+                            });
+                          }
+                        },
+                        child: Center(
+                          child: Image.asset(
+                            "assets/images/choose.png",
+                            width: rpx(20),
+                            height: rpx(20),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container()
             ],
             centerTitle: true,
             leading: GestureDetector(
@@ -190,7 +192,7 @@ class _score extends State<score> with TickerProviderStateMixin {
                                 setState(() {
                                   game_index = index;
                                 });
-                                if (footkey.currentState != null) {
+                                if (_cur_index == 0) {
                                   footkey.currentState?.refreshData(
                                       value: {"index": game_index});
                                 } else {
@@ -326,7 +328,7 @@ class _score extends State<score> with TickerProviderStateMixin {
               close_tab: (value) {
                 setState(() {
                   show_tab = value;
-                  game_index = 0;
+                  // game_index = 0;
                 });
               },
             ),
@@ -340,7 +342,7 @@ class _score extends State<score> with TickerProviderStateMixin {
               close_tab: (value) {
                 setState(() {
                   show_tab = value;
-                  game_index = 0;
+                  // game_index = 0;
                 });
               },
             ),

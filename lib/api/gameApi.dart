@@ -320,6 +320,13 @@ class gameApi {
     return d;
   }
 
+  Future getMyPlan(Map<String, dynamic> p) async {
+    Response res = await dio_.get("/api/user/getMyPlan", queryParameters: p);
+    List d = res.data["data"];
+
+    return d;
+  }
+
   Future getUserBuyData(Map<String, dynamic> p) async {
     Response res =
         await dio_.get("/api/user/getUserBuyData", queryParameters: p);

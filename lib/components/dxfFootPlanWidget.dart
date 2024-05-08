@@ -68,7 +68,7 @@ class plan_ extends State<dxfFootPlanWidget> {
                     width: rpx(30),
                   ),
                   TextWidget(
-                    j.awayTeam!.nameShort.toString(),
+                    "(客)${j.awayTeam!.nameShort}",
                     fontSize: rpx(14),
                   )
                 ],
@@ -90,7 +90,7 @@ class plan_ extends State<dxfFootPlanWidget> {
                     width: rpx(30),
                   ),
                   TextWidget(
-                    j.homeTeam!.nameShort.toString(),
+                    "(主)${j.homeTeam!.nameShort}",
                     fontSize: rpx(14),
                   )
                 ],

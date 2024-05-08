@@ -73,12 +73,14 @@ class planPreview extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        data["title"].toString(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                            fontSize: rpx(14), fontWeight: FontWeight.bold),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        width: rpx(300),
+                        child: TextWidget(
+                          data["title"].toString(),
+                          fontSize: rpx(14),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       getPlanState(data["plan_result"])
                     ],
@@ -147,11 +149,11 @@ class planPreview extends StatelessWidget {
                             spacing: 3,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              Text(data["fans"].toString(),
+                              Text(data["looks"].toString(),
                                   style: TextStyle(
                                       color: Color(0xff6f6f6f),
                                       fontSize: rpx(12))),
-                              Text("购买",
+                              Text("浏览",
                                   style: TextStyle(
                                       color: Color(0xff6f6f6f),
                                       fontSize: rpx(12)))
@@ -178,7 +180,7 @@ class planPreview extends StatelessWidget {
         children: [
           Text(double.parse(data["price"].toString()).toStringAsFixed(0),
               style: TextStyle(color: Colors.red)),
-          Text("红币", style: TextStyle(color: Colors.red)),
+          Text("金豆", style: TextStyle(color: Colors.red)),
         ],
       );
     }

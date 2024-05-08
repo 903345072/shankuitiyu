@@ -21,17 +21,17 @@ class _TabNavigationWidget extends State<TabNavigationWidget> {
       "selectIcon": 'assets/images/home.png'
     },
     {
-      "title": "比分",
+      "title": "比赛",
       "normalIcon": 'assets/images/score_grey.png',
       "selectIcon": 'assets/images/score.png'
     },
     {
-      "title": "社区",
+      "title": "广场",
       "normalIcon": 'assets/images/commity_grey.png',
       "selectIcon": 'assets/images/commity.png'
     },
     {
-      "title": "大数据",
+      "title": "数据",
       "normalIcon": 'assets/images/data_grey.png',
       "selectIcon": 'assets/images/data.png'
     },
@@ -91,11 +91,13 @@ class _TabNavigationWidget extends State<TabNavigationWidget> {
             item['title'],
             style: TextStyle(
               fontSize: 12,
-              color: currentIndex == index ? Colors.black : Colors.black,
+              color: currentIndex == index
+                  ? Color.fromARGB(255, 255, 230, 0)
+                  : Colors.black,
             ),
           ),
           SizedBox(
-            height: 12,
+            height: 18,
           ),
         ],
       ),

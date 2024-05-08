@@ -22,6 +22,7 @@ import 'package:jingcai_app/pages/pushBf.dart';
 import 'package:jingcai_app/routes/routes.dart';
 import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'util/G.dart';
@@ -77,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   AudioPlayer? _audioPlayer;
   int _currentIndex = 0;
   AnimationController? _controller;
-
+  List my_flows = [];
+  bool sound_on = true;
+  bool flow_on = false;
   Animation<Offset>? _offsetAnimation;
   final List<Widget> _pageList = [
     Home(),
@@ -106,7 +109,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       end: Offset(0, 0.5), // 向左偏移一个屏幕宽度
     ).animate(_controller!);
     _audioPlayer = AudioPlayer();
+    getState();
     connectToWebSocket();
+  }
+
+  getState() {
+    G.api.user.getSettingState({}).then((value) async {
+      setState(() {
+        flow_on = value["flow_on"] == 1 ? true : false;
+        sound_on = value["sound_on"] == 1 ? true : false;
+        my_flows = value["flows"];
+      });
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      sharedPreferences.setBool("flow_on", flow_on);
+      sharedPreferences.setBool("sound_on", sound_on);
+      List<String> sr = my_flows.map((e) {
+        return e.toString();
+      }).toList();
+      sharedPreferences.setStringList("flows", sr);
+    });
   }
 
   void displayOverlayMessage(BuildContext context, JcFootModel foot) {
@@ -135,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     OverlayEntry overlayEntry;
     overlayEntry = OverlayEntry(
       builder: (BuildContext context) => Positioned(
-        bottom: rpx(130),
+        bottom: rpx(150),
         right: 0,
         left: 0,
         child: Material(
@@ -155,31 +177,46 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   Future _playLocalSound() async {
-    // return await _audioPlayer!.play(AssetSource("music/hecai.mp3"));
+    return await _audioPlayer!.play(AssetSource("music/hecai.mp3"));
   }
 
   void connectToWebSocket() async {
     try {
       _channel =
-          WebSocketChannel.connect(Uri.parse('ws://47.122.18.242:84?id=1'));
+          WebSocketChannel.connect(Uri.parse('ws://47.122.18.242:85?id=1'));
 
       _channel!.stream.listen(
-        (message) {
+        (message) async {
           Map<String, dynamic> d = jsonDecode(message);
           if (d.containsValue("ping")) {
           } else {
             JcFootModel j = JcFootModel.fromJson(d);
             // 处理接收到的消息12
             if (j.leagues != null) {
-              _playLocalSound();
-              // displayOverlayMessage(context, j);
-              showMessageOverlay(j);
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              bool? flow_on = sharedPreferences.getBool("flow_on");
+              bool? sound_on = sharedPreferences.getBool("sound_on");
+              List<String>? flows = sharedPreferences.getStringList("flows");
+              if (flow_on!) {
+                if (flows!.contains(j.id.toString())) {
+                  if (sound_on!) {
+                    _playLocalSound();
+                  }
+                  showMessageOverlay(j);
+                }
+              } else {
+                if (sound_on!) {
+                  _playLocalSound();
+                }
+                showMessageOverlay(j);
+              }
             }
           }
         },
         onError: (error) {
           // 处理错误
-
+          print(error.toString());
           // Loading.tip("uriw", error.toString());
           reconnect(); // 可以在这里实现重连逻辑
         },
@@ -192,7 +229,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         },
         cancelOnError: true,
       );
-      _reconnerctTimer!.cancel();
+      if (_reconnerctTimer != null) {
+        _reconnerctTimer!.cancel();
+        _reconnerctTimer = null;
+      }
+
       startHeartbeat();
     } catch (e) {
       print('WebSocket connection failed: $e');
@@ -206,6 +247,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     _heartbeatTimer = Timer.periodic(Duration(seconds: 10), (timer) {
       if (_channel != null) {
+        // print("发送细条");
         _channel!.sink.add('heartbeat'); // 发送心跳包，这里可以根据你的协议发送特定的心跳消息
       } else {
         // 如果连接未打开，可以取消定时器或尝试重连
@@ -227,6 +269,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     // 等待一段时间后重连
 
     _reconnerctTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+      //  print("重连中");
       connectToWebSocket();
     });
   }

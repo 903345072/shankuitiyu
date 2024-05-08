@@ -99,7 +99,7 @@ flutter:
     - assets/images/headLogo.png
     - assets/images/home_grey.png
     - assets/images/home.png
-    - assets/images/HomeBanner.png
+    - assets/images/HomeBanner.jpg
     - assets/images/mine_grey.png
     - assets/images/mine.png
     - assets/images/score_grey.png
@@ -111,9 +111,9 @@ flutter:
     - assets/images/live.png
     - assets/images/bigdata.png
     - assets/images/back.png
-    - assets/images/sq_banner_1.png
-    - assets/images/sq_banner_2.png
-    - assets/images/sq_banner_3.png
+    - assets/images/sq_banner_1.jpg
+    - assets/images/sq_banner_2.jpg
+    - assets/images/sq_banner_3.jpg
     - assets/images/seeMore.png
     - assets/images/top.png
     - assets/images/second.png

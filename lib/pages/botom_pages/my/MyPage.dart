@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jingcai_app/model/PlanModel.dart';
 import 'package:jingcai_app/model/userModel.dart';
+import 'package:jingcai_app/pages/botom_pages/my/page/myPlan.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/loading.dart';
@@ -152,18 +153,24 @@ class _MyPageState extends State<MyPage> {
               'widget': const PurchaseRecordPage(),
               'img': "assets/images/buy_recorde.png"
             },
+            {
+              'name': '我的方案',
+              'icon': Icons.settings,
+              'widget': const myPlan(),
+              'img': 'assets/images/help_center.png'
+            },
             // {
             //   'name': '我的收藏',
             //   'icon': Icons.star_border,
             //   'widget': const MyCollectionPage(),
             //   'img': ''
             // },
-            // {
-            //   'name': '系统设置',
-            //   'icon': Icons.settings,
-            //   'widget': const SystemSettings(),
-            //   'img': 'assets/images/system_setting.png'
-            // },
+            {
+              'name': '系统设置',
+              'icon': Icons.settings,
+              'widget': const SystemSettings(),
+              'img': 'assets/images/system_setting.png'
+            },
             {
               'name': '人工客服',
               'icon': Icons.local_phone,
@@ -242,87 +249,71 @@ class _MyPageState extends State<MyPage> {
   getUserTop() {
     return is_login
         ? onClick(
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: rpx(50),
-                  height: rpx(50),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(rpx(50)),
-                    child: netImg(user?.avatar, rpx(50), rpx(50)),
-                  ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(rpx(50)),
+                  child: netImg(user?.avatar, rpx(50), rpx(50)),
                 ),
                 SizedBox(
-                  width: rpx(20),
+                  height: rpx(6),
                 ),
                 SizedBox(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextWidget(
-                        user.realName.toString(),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: rpx(14),
+                      SizedBox(
+                        height: rpx(6),
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextWidget(
-                            "ID: ${user.uid}",
+                            user.realName.toString(),
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: rpx(14),
                           ),
-                          SizedBox(
-                            width: rpx(20),
-                          ),
                           onClick(
-                              Icon(
-                                Icons.copy,
-                                size: rpx(16),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 7, horizontal: 16),
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
-                              ), () {
-                            Clipboard.setData(
-                                    ClipboardData(text: "${user.uid}"))
-                                .then((value) => Loading.tip("click", "复制成功",
-                                    icon: Icons.tips_and_updates,
-                                    color: Colors.green));
-                          }),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30),
+                                ),
+                              ),
+                              child: TextWidget(
+                                user.type == 0 ? '申请达人' : "+发布方案",
+                                color: Colors.blue,
+                                fontSize: rpx(15),
+                              ),
+                            ),
+                            () {
+                              if (user.type == 0) {
+                                G.router
+                                    .navigateTo(context, "/applyTalent",
+                                        routeSettings:
+                                            RouteSettings(arguments: Map()))
+                                    .then((value) {
+                                  getUser();
+                                });
+                              } else {
+                                G.router.navigateTo(
+                                  context,
+                                  "/publishPlan",
+                                );
+                              }
+                            },
+                          )
                         ],
                       )
                     ],
                   ),
                 ),
-                const Spacer(),
-                onClick(
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 7, horizontal: 16),
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(54, 80, 126, 1),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                    ),
-                    child: TextWidget(
-                      user.type == 0 ? '申请达人' : "+发布方案",
-                      color: Colors.white,
-                      fontSize: rpx(15),
-                    ),
-                  ),
-                  () {
-                    if (user.type == 0) {
-                      G.router.navigateTo(context, "/applyTalent",
-                          routeSettings: RouteSettings(arguments: Map()));
-                    } else {
-                      G.router.navigateTo(
-                        context,
-                        "/publishPlan",
-                      );
-                    }
-                  },
-                )
               ],
             ), () {
             Routes.pushPage(AccountSettingsPage(
@@ -334,38 +325,40 @@ class _MyPageState extends State<MyPage> {
               },
             ));
           })
-        : Row(
-            children: [
-              SizedBox(
-                width: rpx(50),
-                height: rpx(50),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(rpx(50)),
-                  child: Image.asset(
-                    "assets/images/default_head.png",
-                    width: rpx(50),
+        : Container(
+            margin: EdgeInsets.only(bottom: rpx(10)),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: rpx(50),
+                  height: rpx(50),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(rpx(50)),
+                    child: Image.asset(
+                      "assets/images/default_head.png",
+                      width: rpx(50),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: rpx(20),
-              ),
-              onClick(
-                  Container(
-                    alignment: Alignment.center,
-                    height: rpx(30),
-                    padding: EdgeInsets.symmetric(horizontal: rpx(20)),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(rpx(30)),
-                        border: Border.all(color: Colors.white)),
-                    child: TextWidget(
-                      "登录",
-                      color: Colors.white,
-                    ),
-                  ), () {
-                G.router.navigateTo(context, "/login");
-              })
-            ],
+                SizedBox(
+                  width: rpx(20),
+                ),
+                onClick(
+                    Container(
+                      alignment: Alignment.center,
+                      height: rpx(30),
+                      padding: EdgeInsets.symmetric(horizontal: rpx(20)),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(rpx(30)),
+                          border: Border.all(color: Colors.black26)),
+                      child: TextWidget(
+                        "登录",
+                      ),
+                    ), () {
+                  G.router.navigateTo(context, "/login");
+                })
+              ],
+            ),
           );
   }
 
@@ -382,66 +375,101 @@ class _MyPageState extends State<MyPage> {
             child: Column(
               children: [
                 SizedBox(
-                  height: rpx(270),
+                  height: is_login ? rpx(270) : rpx(250),
                   child: Stack(
                     children: [
                       Container(
                         height: rpx(200),
-                        color: const Color.fromRGBO(17, 47, 100, 0.9),
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft, // 渐变开始的位置
+
+                            end: Alignment.bottomRight, // 渐变结束的位置
+
+                            colors: [
+                              Color.fromARGB(255, 247, 235, 104),
+                              Color(0xfff5e84d)
+                            ], // 渐变的颜色列表
+
+                            tileMode: TileMode.clamp, // 渐变模式，这里使用clamp表示不重复
+                          ),
+                        ),
                         padding: EdgeInsets.symmetric(horizontal: rpx(20)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            getUserTop(),
-                            SizedBox(
-                              height: rpx(10),
+                            Container(
+                              height: MediaQuery.of(context).padding.top,
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: rpx(1),
+                                ),
+                                is_login
+                                    ? onClick(
+                                        Container(
+                                          child: Icon(
+                                            Icons.settings,
+                                            color: Colors.white,
+                                          ),
+                                        ), () {
+                                        Routes.pushPage(SystemSettings());
+                                      })
+                                    : Container(),
+                              ],
+                            ),
+                            getUserTop(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 onClick(
-                                  Column(
+                                  Row(
                                     children: [
                                       TextWidget(
                                         user != null
-                                            ? user!.yhq.toString()
+                                            ? user!.fans.toString()
                                             : "0",
-                                        whiteColor: true,
-                                        fontSize: rpx(30),
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: rpx(18),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       const SizedBox(
-                                        height: 5,
+                                        width: 5,
                                       ),
                                       TextWidget(
-                                        '优惠券',
-                                        color: Colors.white70,
-                                        fontSize: rpx(16),
+                                        '粉丝',
+                                        color: Colors.white,
+                                        fontSize: rpx(13),
                                       ),
                                     ],
                                   ),
                                   () {
-                                    Routes.pushPage(const Conpon());
+                                    //Routes.pushPage(const Conpon());
                                   },
                                 ),
+                                const SizedBox(
+                                  width: 15,
+                                ),
                                 onClick(
-                                  Column(
+                                  Row(
                                     children: [
                                       TextWidget(
                                         user != null
                                             ? user!.flow.toString()
                                             : "0",
-                                        whiteColor: true,
-                                        fontSize: rpx(30),
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: rpx(18),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       const SizedBox(
-                                        height: 5,
+                                        width: 5,
                                       ),
                                       TextWidget(
                                         '关注',
-                                        color: Colors.white70,
-                                        fontSize: rpx(16),
+                                        fontSize: rpx(13),
+                                        color: Colors.white,
                                       ),
                                     ],
                                   ),
@@ -454,24 +482,27 @@ class _MyPageState extends State<MyPage> {
                                         transition: TransitionType.inFromRight);
                                   },
                                 ),
+                                const SizedBox(
+                                  width: 15,
+                                ),
                                 onClick(
-                                  Column(
+                                  Row(
                                     children: [
                                       TextWidget(
                                         user != null
                                             ? user!.notice.toString()
                                             : "0",
-                                        whiteColor: true,
-                                        fontSize: rpx(30),
-                                        fontWeight: FontWeight.w500,
+                                        fontSize: rpx(18),
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                       const SizedBox(
-                                        height: 5,
+                                        width: 5,
                                       ),
                                       TextWidget(
                                         '消息',
-                                        color: Colors.white70,
-                                        fontSize: rpx(16),
+                                        fontSize: rpx(13),
+                                        color: Colors.white,
                                       ),
                                     ],
                                   ),
@@ -480,13 +511,16 @@ class _MyPageState extends State<MyPage> {
                                   },
                                 ),
                               ],
+                            ),
+                            Container(
+                              height: rpx(15),
                             )
                           ],
                         ),
                       ),
                       Positioned(
                           width: MediaQuery.of(context).size.width,
-                          bottom: rpx(10),
+                          bottom: rpx(-5),
                           child: Container(
                             margin: EdgeInsets.symmetric(horizontal: 10.w),
                             padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -495,7 +529,7 @@ class _MyPageState extends State<MyPage> {
                             decoration: const BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                Radius.circular(15),
                               ),
                             ),
                             child: Row(
@@ -511,7 +545,7 @@ class _MyPageState extends State<MyPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           TextWidget(
-                                            '全部红币',
+                                            '全部金豆',
                                             fontSize: rpx(15),
                                           ),
                                           TextWidget(
@@ -550,6 +584,9 @@ class _MyPageState extends State<MyPage> {
                           ))
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: rpx(15),
                 ),
                 Expanded(
                   child: SingleChildScrollView(

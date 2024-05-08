@@ -43,8 +43,7 @@ class talentPlanRecord_ extends State<talentPlanRecord> {
       });
     }
 
-    return G.api.game
-        .getUserBuyPlan({"page": page, "type": type}).then((value) {
+    return G.api.game.getMyPlan({"page": page, "type": type}).then((value) {
       setState(() {
         expert_list.addAll(value);
       });
@@ -86,30 +85,9 @@ class talentPlanRecord_ extends State<talentPlanRecord> {
                               ),
                             );
                           }),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: rpx(10)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextWidget(
-                                  "实付金额: ${expert_list[index]["pay_money"]}",
-                                  color: Colors.grey,
-                                ),
-                                TextWidget(
-                                  "正常",
-                                  color: Colors.grey,
-                                ),
-                                Container()
-                              ],
-                            ),
-                          ),
                           SizedBox(
                             height: rpx(10),
                           ),
-                          Container(
-                            height: rpx(4),
-                            color: Colors.grey.shade100,
-                          )
                         ],
                       )),
             )

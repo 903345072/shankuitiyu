@@ -153,7 +153,7 @@ class _SubmitProposalInformationPageState extends State<publishPlan> {
                       width: rpx(10),
                     ),
                     const TextWidget(
-                      "红币",
+                      "金豆",
                       color: Colors.red,
                     )
                   ],

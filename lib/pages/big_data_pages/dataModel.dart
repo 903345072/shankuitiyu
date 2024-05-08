@@ -130,7 +130,7 @@ class dataModel_ extends State<dataModel> {
                                                       fontSize: rpx(19),
                                                       color: Colors.red),
                                                 ),
-                                                Text("红币/月",
+                                                Text("金豆/月",
                                                     style: TextStyle(
                                                         fontSize: rpx(12),
                                                         color: Colors.red))

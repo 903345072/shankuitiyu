@@ -34,7 +34,7 @@ class twoSidePie extends StatelessWidget {
     final double radius = 4;
     return [
       PieChartSectionData(
-        color: const Color(0xffef2f2f),
+        color: Colors.blue,
         value: pie1,
         title: pie1.toString() + '%',
         showTitle: false,
@@ -45,7 +45,7 @@ class twoSidePie extends StatelessWidget {
             color: const Color(0xffffffff)),
       ),
       PieChartSectionData(
-        color: const Color(0xff002868),
+        color: Colors.yellow,
         value: pie2,
         title: pie2.toString() + '%',
         showTitle: false,

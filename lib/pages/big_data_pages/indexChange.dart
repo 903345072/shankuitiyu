@@ -146,7 +146,7 @@ class dataReport_ extends State<indexChange> with TickerProviderStateMixin {
                                         color: Colors.red,
                                       ),
                                       TextWidget(
-                                        "红币/月",
+                                        "金豆/月",
                                         fontSize: rpx(13),
                                         color: Colors.red,
                                       )

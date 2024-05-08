@@ -1,5 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/InputWidget.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/routes.dart';
+import 'package:jingcai_app/pages/login/purchase.dart';
+import 'package:jingcai_app/pages/login/userEvent.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
@@ -18,16 +24,33 @@ class _RechargePageState extends State<RechargePage> {
   int groupValue = 0;
   List data = [];
   double money = 0.0;
+  double pay_money = 0.0;
   int cur_index = 0;
   String? _selectedxy = "0";
   bool _isChecked = false;
   List payList = [];
   String? _selectedPayment = "pay1";
+  StreamSubscription? loginSubscription;
+  TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     super.initState();
-    getData();
+    loginSubscription = eventBus.on<userEvent>().listen((event) {
+      if (mounted) {
+        if (event.is_login == true) {
+          getData();
+        }
+      }
+    });
     getPayList();
+    getData();
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        setState(() {
+          cur_index = -1;
+        });
+      }
+    });
   }
 
   getPayList() {
@@ -42,12 +65,16 @@ class _RechargePageState extends State<RechargePage> {
   getData() {
     G.api.pay.getPriceList({}).then((value) {
       setState(() {
-        data = value["data"];
-        money = double.parse(value["money"]);
+        data = value["data"] ?? [];
+        money = value["money"] != null ? double.parse(value["money"]) : 0.0;
+        if (data.isNotEmpty) {
+          _controller.text = data[0]["price"].toString();
+        }
       });
     });
   }
 
+  FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +101,7 @@ class _RechargePageState extends State<RechargePage> {
                       fontWeight: FontWeight.bold,
                     ),
                     TextWidget(
-                      ' 红币',
+                      ' 金豆',
                       color: MyColors.red,
                       fontSize: rpx(15),
                     ),
@@ -121,7 +148,7 @@ class _RechargePageState extends State<RechargePage> {
                       ],
                     ),
                     TextWidget(
-                      "1元=1红币",
+                      "1元=1金豆",
                       fontSize: rpx(14),
                       color: MyColors.grey_33,
                     ),
@@ -144,6 +171,20 @@ class _RechargePageState extends State<RechargePage> {
                       ),
                     ],
                   ),
+                ),
+                InputWidget(
+                  hintText: "自定义充值金额",
+                  focusNode: focusNode,
+                  controller: _controller,
+                  textInputType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      pay_money = double.parse(value);
+                    });
+                  },
+                ),
+                Divider(
+                  height: rpx(1),
                 )
               ],
             ),
@@ -216,7 +257,7 @@ class _RechargePageState extends State<RechargePage> {
                   height: rpx(12),
                 ),
                 const TextWidget(
-                  '1、山葵足球非购彩平台，红币一经充值成功，只用于购买专家方案，不支持提现、购彩等操作',
+                  '1、福神体育非购彩平台，金豆一经充值成功，只用于购买专家方案，不支持提现、购彩等操作',
                   color: MyColors.grey_33,
                   textAlign: TextAlign.left,
                   maxLines: 2,
@@ -225,7 +266,7 @@ class _RechargePageState extends State<RechargePage> {
                   height: rpx(5),
                 ),
                 const TextWidget(
-                  '2、红币充值和消费过程上遇到问题，请及时联系客服。',
+                  '2、金豆充值和消费过程上遇到问题，请及时联系客服。',
                   color: MyColors.grey_33,
                   textAlign: TextAlign.left,
                   maxLines: 2,
@@ -253,10 +294,13 @@ class _RechargePageState extends State<RechargePage> {
                           '支付即表示同意',
                           color: MyColors.grey_99,
                         ),
-                        const TextWidget(
-                          '《山葵足球用户购买协议》',
-                          color: Colors.blue,
-                        ),
+                        onClick(
+                            TextWidget(
+                              '《福神体育用户购买协议》',
+                              color: Colors.blue,
+                            ), () {
+                          Routes.pushPage(purchase());
+                        }),
                       ],
                     ), () {
                   setState(() {
@@ -306,7 +350,7 @@ class _RechargePageState extends State<RechargePage> {
                       color: MyColors.red,
                     ),
                     TextWidget(
-                      '${data[index]["price"]}红币',
+                      '${data[index]["price"]}金豆',
                       fontSize: rpx(13),
                       color: MyColors.red,
                     ),
@@ -331,7 +375,7 @@ class _RechargePageState extends State<RechargePage> {
                       color: MyColors.black_00,
                     ),
                     TextWidget(
-                      '${data[index]["price"]}红币',
+                      '${data[index]["price"]}金豆',
                       fontSize: rpx(13),
                       color: MyColors.grey_33,
                     ),
@@ -340,6 +384,8 @@ class _RechargePageState extends State<RechargePage> {
               ), () {
       setState(() {
         cur_index = index;
+        focusNode.unfocus();
+        _controller.text = data[index]["price"].toString();
       });
     });
     return c;

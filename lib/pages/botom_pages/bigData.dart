@@ -14,7 +14,7 @@ class bigData extends StatefulWidget {
 
 class bigData_ extends State<bigData> with TickerProviderStateMixin {
   late TabController _tabC;
-  var tabs = ["数据模型", "山葵AI", "资料库"];
+  var tabs = ["数据模型", "福神AI方案", "资料库"];
   @override
   void initState() {
     super.initState();

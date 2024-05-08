@@ -56,7 +56,7 @@ class playerRank_ extends State<playerRank> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView(
+    return Column(
       children: [
         Container(
           height: rpx(40),
@@ -65,18 +65,15 @@ class playerRank_ extends State<playerRank> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width: rpx(50),
                 child: TextWidget("类别"),
               ),
               Container(
-                width: rpx(70),
                 child: TextWidget("排名"),
               ),
               Container(
                 child: TextWidget("球员"),
               ),
               Container(
-                width: rpx(100),
                 child: TextWidget("球队"),
               ),
               Container(
@@ -85,15 +82,13 @@ class playerRank_ extends State<playerRank> {
             ],
           ),
         ),
-        Row(
+        Expanded(
+            child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              color: Color.fromARGB(255, 247, 247, 247),
-              width: rpx(95),
-              height: rpx(370),
+            Expanded(
+              flex: 2,
               child: ListView(
                 children: List.generate(
                     rankNames.length,
@@ -124,11 +119,8 @@ class playerRank_ extends State<playerRank> {
               ),
             ),
             data.isNotEmpty
-                ? Container(
-                    height: rpx(370),
-                    margin: EdgeInsets.only(bottom: rpx(30)),
-                    padding: EdgeInsets.only(left: rpx(5), top: 10),
-                    width: MediaQuery.of(context).size.width - rpx(95),
+                ? Expanded(
+                    flex: 6,
                     child: ListView(
                       children: List.generate(
                           data.length,
@@ -170,14 +162,24 @@ class playerRank_ extends State<playerRank> {
                                       height: rpx(40),
                                       width: rpx(70),
                                       child: Text(
-                                        data[index]["player"]["name"],
+                                        data[index]["player"] != null
+                                            ? data[index]["player"]["name"]
+                                            : "",
                                         style: TextStyle(fontSize: rpx(13)),
                                         softWrap: true,
                                       ),
                                     ),
                                     Container(
-                                      child: netImg(data[index]["team"]["logo"],
-                                          rpx(20), rpx(20)),
+                                      width: rpx(20),
+                                    ),
+                                    Container(
+                                      child: netImg(
+                                          data[index]["team"] != null
+                                              ? data[index]["team"]["logo"]
+                                                  .toString()
+                                              : "null",
+                                          rpx(20),
+                                          rpx(20)),
                                     ),
                                     Container(
                                       width: rpx(5),
@@ -185,9 +187,11 @@ class playerRank_ extends State<playerRank> {
                                     Container(
                                       alignment: Alignment.centerLeft,
                                       height: rpx(40),
-                                      width: rpx(70),
+                                      width: rpx(50),
                                       child: Text(
-                                        data[index]["team"]["name_short"],
+                                        data[index]["team"] != null
+                                            ? data[index]["team"]["name_short"]
+                                            : "",
                                         style: TextStyle(fontSize: rpx(13)),
                                         softWrap: true,
                                       ),
@@ -213,7 +217,7 @@ class playerRank_ extends State<playerRank> {
                     child: TextWidget("暂无数据"),
                   )
           ],
-        )
+        ))
       ],
     );
   }

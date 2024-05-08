@@ -16,7 +16,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class timely extends StatefulWidget {
   dataSource dataSource_;
   Function setDate;
-  timely(this.dataSource_, {required this.setDate, super.key});
+  int type = 0;
+  timely(this.dataSource_,
+      {required this.setDate, super.key, required this.type});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +27,7 @@ class timely extends StatefulWidget {
   }
 }
 
-class timeling extends State<timely> {
+class timeling extends State<timely> with SingleTickerProviderStateMixin {
   // FootModel datra;
   List<JcFootModel> list1_living = [];
   List<JcFootModel> list1_Noliving = [];
@@ -38,7 +40,9 @@ class timeling extends State<timely> {
   @override
   void initState() {
     super.initState();
-
+    setState(() {
+      type = widget.type;
+    });
     loadArticle();
   }
 
@@ -100,8 +104,8 @@ class timeling extends State<timely> {
       list1_Noliving = [];
       list1_living = [];
       offset = 0;
-      type = 0;
-      leagus_id = [];
+      //type = 0;
+      // leagus_id = [];
     });
     loadArticle();
     refreshController.loadComplete();

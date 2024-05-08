@@ -25,14 +25,13 @@ class pushBf extends StatelessWidget {
       children: [
         Container(
             alignment: Alignment.center,
-            height: rpx(100),
             child: Image.asset(
               "assets/images/bf_push.png",
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             )),
         Positioned(
-            right: rpx(40),
-            top: rpx(21),
+            left: rpx(27),
+            top: rpx(20),
             child: Row(
               crossAxisAlignment: foot.change_id == 1
                   ? CrossAxisAlignment.center
@@ -65,24 +64,24 @@ class pushBf extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          Container(
-                            width: rpx(25),
-                            alignment: Alignment.center,
-                            child: TextWidget(
-                              foot.elapsed != null
-                                  ? foot.elapsed!.toString() + "'"
-                                  : "",
-                              textAlign: TextAlign.center,
-                              color: Colors.black,
-                            ),
-                          )
+                          // Container(
+                          //   width: rpx(25),
+                          //   alignment: Alignment.center,
+                          //   child: TextWidget(
+                          //     foot.elapsed != null
+                          //         ? foot.elapsed!.toString() + "'"
+                          //         : "",
+                          //     textAlign: TextAlign.center,
+                          //     color: Colors.black,
+                          //   ),
+                          // )
+                          Container()
                         ],
                       ),
                     ),
                     Container(
-                      width: rpx(140),
+                      width: rpx(290),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                             alignment: Alignment.centerLeft,
@@ -95,19 +94,36 @@ class pushBf extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            width: rpx(25),
+                            width: rpx(100),
+                          ),
+                          Container(
+                            width: rpx(35),
                             alignment: Alignment.center,
                             child: TextWidget(
                               getGoal(1) + " ",
                               textAlign: TextAlign.center,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: rpx(15),
+                            ),
+                          ),
+                          Container(
+                            width: rpx(20),
+                          ),
+                          Container(
+                            width: rpx(35),
+                            alignment: Alignment.center,
+                            child: TextWidget(
+                              "进球",
+                              textAlign: TextAlign.center,
+                              color: Colors.black,
                             ),
                           )
                         ],
                       ),
                     ),
                     Container(
-                      width: rpx(140),
+                      width: rpx(290),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -122,17 +138,36 @@ class pushBf extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            width: rpx(25),
+                            width: rpx(100),
+                          ),
+                          Container(
+                            width: rpx(35),
                             alignment: Alignment.center,
                             child: TextWidget(
                               getGoal(2) + " ",
                               textAlign: TextAlign.center,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: rpx(15),
+                            ),
+                          ),
+                          Container(
+                            width: rpx(20),
+                          ),
+                          Container(
+                            width: rpx(35),
+                            alignment: Alignment.center,
+                            child: TextWidget(
+                              foot.elapsed != null
+                                  ? foot.elapsed!.toString() + "'"
+                                  : "",
+                              textAlign: TextAlign.center,
+                              color: Colors.black,
                             ),
                           )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 )
               ],

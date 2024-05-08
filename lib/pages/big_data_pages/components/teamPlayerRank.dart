@@ -89,7 +89,7 @@ class teamPlayerRank_ extends State<teamPlayerRank> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView(
+    return Column(
       children: [
         rounds.isNotEmpty
             ? Container(
@@ -174,21 +174,19 @@ class teamPlayerRank_ extends State<teamPlayerRank> {
               ),
               Container(
                 alignment: Alignment.centerRight,
-                width: rpx(125),
+                width: rpx(115),
                 child: TextWidget("总数"),
               ),
             ],
           ),
         ),
-        Row(
+        Expanded(
+            child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              color: Color.fromARGB(255, 247, 247, 247),
-              width: rpx(95),
-              height: rpx(370),
+            Expanded(
+              flex: 1,
               child: ListView(
                 children: List.generate(
                     rankNames.length,
@@ -223,11 +221,8 @@ class teamPlayerRank_ extends State<teamPlayerRank> {
               ),
             ),
             data.isNotEmpty
-                ? Container(
-                    height: rpx(370),
-                    margin: EdgeInsets.only(bottom: rpx(30)),
-                    padding: EdgeInsets.only(left: rpx(5), top: 10),
-                    width: MediaQuery.of(context).size.width - rpx(95),
+                ? Expanded(
+                    flex: 3,
                     child: ListView(
                       children: List.generate(
                           data.length,
@@ -295,7 +290,7 @@ class teamPlayerRank_ extends State<teamPlayerRank> {
                     child: TextWidget("暂无数据"),
                   )
           ],
-        )
+        ))
       ],
     );
   }

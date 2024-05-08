@@ -5,7 +5,10 @@ import 'package:jingcai_app/pages/botom_pages/widget/InputWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/MyContainerNoLG.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/colors.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/routes.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
+import 'package:jingcai_app/pages/login/privacy.dart';
+import 'package:jingcai_app/pages/login/userServiceDue.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/loading.dart';
@@ -34,6 +37,7 @@ class login_ extends State<login> {
   bool is_gree = false;
   String password = "";
   bool can_click = true;
+  bool obscure = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -163,9 +167,17 @@ class login_ extends State<login> {
                                       color: MyColors.tip, fontSize: 14),
                                   textStyle: const TextStyle(
                                       color: MyColors.black_33, fontSize: 14),
-                                  textInputType: TextInputType.text,
+                                  obscureText: obscure,
                                   controller: passCtr,
                                 )),
+                                onClick(
+                                    Icon(obscure
+                                        ? Icons.visibility_off
+                                        : Icons.visibility), () {
+                                  setState(() {
+                                    obscure = obscure ? false : true;
+                                  });
+                                })
                               ],
                             ),
                           ),
@@ -241,10 +253,13 @@ class login_ extends State<login> {
                     Container(
                       width: rpx(5),
                     ),
-                    TextWidget(
-                      "《用户服务条款》",
-                      color: Colors.blue,
-                    ),
+                    onClick(
+                        TextWidget(
+                          "《用户服务条款》",
+                          color: Colors.blue,
+                        ), () {
+                      Routes.pushPage(userServiceDue());
+                    }),
                     Container(
                       width: rpx(5),
                     ),
@@ -252,10 +267,13 @@ class login_ extends State<login> {
                     Container(
                       width: rpx(5),
                     ),
-                    TextWidget(
-                      "隐私协议",
-                      color: Colors.blue,
-                    )
+                    onClick(
+                        TextWidget(
+                          "隐私协议",
+                          color: Colors.blue,
+                        ), () {
+                      Routes.pushPage(privacy());
+                    })
                   ],
                 ),
               ),
@@ -289,22 +307,28 @@ class login_ extends State<login> {
                   Container(
                     height: MediaQuery.of(context).padding.top,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Stack(
                     children: [
-                      onClick(
-                          Icon(
-                            Icons.arrow_back_ios,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextWidget(
+                            "登录",
                             color: Colors.white,
-                          ), () {
-                        G.router.pop(context);
-                      }),
-                      TextWidget(
-                        "登录",
-                        color: Colors.white,
-                        fontSize: rpx(18),
+                            fontSize: rpx(18),
+                          ),
+                          Container()
+                        ],
                       ),
-                      Container()
+                      Positioned(
+                          left: rpx(10),
+                          child: onClick(
+                              Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white,
+                              ), () {
+                            G.router.pop(context);
+                          }))
                     ],
                   )
                 ],

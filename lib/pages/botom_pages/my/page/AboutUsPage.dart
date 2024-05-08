@@ -17,6 +17,7 @@ class AboutUsPage extends StatefulWidget {
 
 class _AboutUsPageState extends State<AboutUsPage> {
   String? logo;
+  String content = "";
   List gzh = [];
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
       setState(() {
         logo = value["logo"];
         gzh = value["gzh"];
+        content = value["content"];
       });
     });
   }
@@ -52,21 +54,21 @@ class _AboutUsPageState extends State<AboutUsPage> {
             height: 30.w,
           ),
           TextWidget(
-            '山葵足球',
+            '福神体育',
             fontWeight: FontWeight.bold,
             fontSize: rpx(25),
           ),
           SizedBox(
             height: 20.w,
           ),
-          const TextWidget('版本好：4.70'),
+          const TextWidget('版本号：1.1.0'),
           SizedBox(
             height: 30.w,
           ),
           Container(
             padding: EdgeInsets.all(rpx(10)),
             child: TextWidget(
-              '山葵足球汇集各路专家高手，通过专家推荐和智能大数据预测，为竞足用户提供足球赛事推荐分析比赛数据、赛事直播等内容，共同建立体育用户互动交流社区和一站式服务平台，让用户更好的享受竞足的乐趣。',
+              content,
               maxLines: 10,
               textAlign: TextAlign.left,
             ),
@@ -79,24 +81,24 @@ class _AboutUsPageState extends State<AboutUsPage> {
           SizedBox(
             height: rpx(30),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              gzh.length,
-              (index) => Column(
-                children: [
-                  Container(
-                    child: netImg(gzh[index]["url"], rpx(100), rpx(100)),
-                  ),
-                  SizedBox(
-                    height: rpx(15),
-                  ),
-                  const TextWidget('微信公众号：'),
-                  TextWidget(gzh[index]["name"]),
-                ],
-              ),
-            ),
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: List.generate(
+          //     gzh.length,
+          //     (index) => Column(
+          //       children: [
+          //         Container(
+          //           child: netImg(gzh[index]["url"], rpx(100), rpx(100)),
+          //         ),
+          //         SizedBox(
+          //           height: rpx(15),
+          //         ),
+          //         const TextWidget('微信公众号：'),
+          //         TextWidget(gzh[index]["name"]),
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

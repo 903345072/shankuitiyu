@@ -113,7 +113,7 @@ class subscribeDataDetail_ extends State<subscribeDataDetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextWidget("商品原价"),
-                TextWidget(widget.data!["price"].toString() + "红币")
+                TextWidget(widget.data!["price"].toString() + "金豆")
               ],
             ),
           ),
@@ -136,7 +136,7 @@ class subscribeDataDetail_ extends State<subscribeDataDetail> {
               children: [
                 TextWidget("实际付款"),
                 TextWidget(
-                  widget.data!["pay_money"].toString() + "红币",
+                  widget.data!["pay_money"].toString() + "金豆",
                   color: Colors.red,
                 )
               ],

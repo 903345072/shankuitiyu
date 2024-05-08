@@ -32,6 +32,9 @@ class planCheck_ extends State<planCheck> {
     if (widget.state == planCheckState.noCheck.number) {
       return noCheck();
     }
+    if (widget.state == planCheckState.planCheckSuc.number) {
+      return planSuc();
+    }
     if (widget.state == planCheckState.checking.number ||
         widget.state == planCheckState.memberChecking.number) {
       return checking();
@@ -228,6 +231,37 @@ class planCheck_ extends State<planCheck> {
     );
   }
 
+  Widget planSuc() {
+    return Wrap(
+      spacing: rpx(10),
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      direction: Axis.vertical,
+      children: [
+        Image.asset(
+          width: rpx(180),
+          "assets/images/talent_check.png",
+          fit: BoxFit.cover,
+        ),
+        TextWidget(
+          "达人方案审核已通过，请实名认证 ",
+          fontSize: rpx(14),
+        ),
+        SizedBox(
+          height: rpx(20),
+        ),
+        Container(
+          width: rpx(200),
+          child: clickBtn("实名认证", () async {
+            await G.router.navigateTo(context, "/realName").then((value) {
+              widget.setCheckState!();
+            });
+          }),
+        )
+      ],
+    );
+  }
+
   Widget checking() {
     return Wrap(
       spacing: rpx(10),
@@ -291,7 +325,7 @@ class planCheck_ extends State<planCheck> {
           color: Colors.red,
         ),
         TextWidget(
-          "恭喜您成为山葵足球达人!",
+          "恭喜您成为福神体育达人!",
           fontSize: rpx(26),
           color: Colors.grey,
         ),
@@ -318,7 +352,7 @@ class planCheck_ extends State<planCheck> {
               height: 10,
             ),
             TextWidget(
-              '         山葵足球致力于为内容创作者提供良好的创作环境，平台鼓励原创，鼓励提高行文质量，给读者以更高的阅读体验。同时，对文章内容进行严格的把控，严禁杜绝抄袭、敷衍推荐等行为，并持续进行严厉的打击。为规范管理山葵足球，为用户打造公平、高品质的平台，特发公告如下：',
+              '         福神体育致力于为内容创作者提供良好的创作环境，平台鼓励原创，鼓励提高行文质量，给读者以更高的阅读体验。同时，对文章内容进行严格的把控，严禁杜绝抄袭、敷衍推荐等行为，并持续进行严厉的打击。为规范管理福神体育，为用户打造公平、高品质的平台，特发公告如下：',
               fontSize: rpx(16),
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -429,13 +463,13 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '1.抄袭的鉴定经用户举报抄袭的推荐文章，山葵足球官方会对推荐进行再审核，抄袭的判定标准如下：',
+              '1.抄袭的鉴定经用户举报抄袭的推荐文章，福神体育官方会对推荐进行再审核，抄袭的判定标准如下：',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
             ),
             TextWidget(
-              '(1）推荐文章与他人文章内容完全重合或由多篇文章拼凑而成（包括山葵足球内容及其他任意网站内容，内容包括基本面数据、分析，球队胜负平概率、球队比分差距分析等所有内容，下同)；',
+              '(1）推荐文章与他人文章内容完全重合或由多篇文章拼凑而成（包括福神体育内容及其他任意网站内容，内容包括基本面数据、分析，球队胜负平概率、球队比分差距分析等所有内容，下同)；',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -459,7 +493,7 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '如用户举报抄袭经山葵足球官方鉴定属实，将做出如下处理：',
+              '如用户举报抄袭经福神体育官方鉴定属实，将做出如下处理：',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -495,13 +529,13 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '山葵足球官方对无实质内容、堆积数据等内容质量差的推荐文章坚决禁止。推荐内容是山葵足球的核心，也是山葵足球专家与用户间的桥梁。为保证用户的阅读体验，现面向山葵足球专家及用户申明山葵足球官方对内容质量的规定。',
+              '福神体育官方对无实质内容、堆积数据等内容质量差的推荐文章坚决禁止。推荐内容是福神体育的核心，也是福神体育专家与用户间的桥梁。为保证用户的阅读体验，现面向福神体育专家及用户申明福神体育官方对内容质量的规定。',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
             ),
             TextWidget(
-              '1.内容质量差的鉴定经用户举报内容质量差的文章，山葵足球官方会对推荐进行审核，内容质量差的判定标准如下：',
+              '1.内容质量差的鉴定经用户举报内容质量差的文章，福神体育官方会对推荐进行审核，内容质量差的判定标准如下：',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -639,7 +673,7 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '评定标准：专家战绩统计以山葵足球官方统计为准，专家文章中不可出现虚假统计、自我统计或不易查询的统计数据。',
+              '评定标准：专家战绩统计以福神体育官方统计为准，专家文章中不可出现虚假统计、自我统计或不易查询的统计数据。',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -651,7 +685,7 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '判定标准：标题、或文章中出现诱导性文字内容。如专家A目前5连红，当日连续发文2篇，发文使用“冲击7连红“等；在标题及文章中使用“重锤单“、“此单必杀”、“本场必中"、“信心单”、“XX%信心"等文字，或在总结过去推荐中使用“重锤连红”、“稳胆全中"等。山葵足球专家推荐文章时，每篇文章都应具备相同的认真态度，不可出现某一场比赛特别研究、特别看好等诱导性标题。',
+              '判定标准：标题、或文章中出现诱导性文字内容。如专家A目前5连红，当日连续发文2篇，发文使用“冲击7连红“等；在标题及文章中使用“重锤单“、“此单必杀”、“本场必中"、“信心单”、“XX%信心"等文字，或在总结过去推荐中使用“重锤连红”、“稳胆全中"等。福神体育专家推荐文章时，每篇文章都应具备相同的认真态度，不可出现某一场比赛特别研究、特别看好等诱导性标题。',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -717,7 +751,7 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '用户举报文章内容质量差经山葵足球官方鉴定属实，将做出如下处理：',
+              '用户举报文章内容质量差经福神体育官方鉴定属实，将做出如下处理：',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,
@@ -729,7 +763,7 @@ class planCheck_ extends State<planCheck> {
               maxLines: 10,
             ),
             TextWidget(
-              '(2)大量出现内容质量差文章的专家，将做出注销山葵足球账号处理；',
+              '(2)大量出现内容质量差文章的专家，将做出注销福神体育账号处理；',
               fontSize: 16,
               textAlign: TextAlign.left,
               maxLines: 10,

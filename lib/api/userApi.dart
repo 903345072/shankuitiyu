@@ -82,6 +82,18 @@ class userApi {
     return res.data["msg"];
   }
 
+  Future cancelUser(Map<String, dynamic> p) async {
+    Response res = await dio_.post("/api/user/cancelUser", data: p);
+
+    return res.data["msg"];
+  }
+
+  Future realName(Map<String, dynamic> p) async {
+    Response res = await dio_.post("/api/user/RealNameAuthentication", data: p);
+
+    return res.data["data"];
+  }
+
   Future editBank(Map<String, dynamic> p) async {
     Response res = await dio_.post("/api/user/editBank", data: p);
 
@@ -177,6 +189,19 @@ class userApi {
     Response res = await dio_.get("/api/user/getAllIsBuy", queryParameters: p);
     List d = res.data["data"];
 
+    return d;
+  }
+
+  Future getSettingState(Map<String, dynamic> p) async {
+    Response res =
+        await dio_.get("/api/user/getSettingState", queryParameters: p);
+    Map d = res.data["data"];
+    return d;
+  }
+
+  Future settingState(Map<String, dynamic> p) async {
+    Response res = await dio_.get("/api/user/settingState", queryParameters: p);
+    dynamic d = res.data["data"];
     return d;
   }
 

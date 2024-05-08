@@ -57,7 +57,7 @@ class _RedCoinRecordsPageState extends State<RedCoinRecordsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: appbar('红币记录'),
+      appBar: appbar('金豆记录'),
       body: data.isNotEmpty
           ? SmartRefresher(
               controller: refreshController,

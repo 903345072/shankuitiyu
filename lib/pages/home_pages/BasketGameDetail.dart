@@ -5,6 +5,7 @@ import 'package:jingcai_app/components/gameDetail.dart/gameDetailPlan.dart';
 import 'package:jingcai_app/model/footMatchModel.dart';
 import 'package:jingcai_app/model/footModel.dart';
 import 'package:jingcai_app/model/jcFootModel.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/pages/home_pages/basketLiving.dart';
 import 'package:jingcai_app/pages/home_pages/basketPlayerData.dart';
@@ -18,6 +19,7 @@ import 'package:jingcai_app/styles/gameDetailStyle.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class BasketGameDetail extends StatefulWidget {
   int id;
@@ -45,6 +47,8 @@ class gameDetail_ extends State<BasketGameDetail>
   List away_player = [];
   Map home_team = {};
   Map away_team = {};
+  WebViewController controller = WebViewController();
+  int is_ani = 0;
   void initState() {
     super.initState();
     _tabC = TabController(
@@ -64,6 +68,26 @@ class gameDetail_ extends State<BasketGameDetail>
         away_player = value["away_player"];
         home_team = value["home_team"] ?? {};
         away_team = value["away_team"] ?? {};
+        controller
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setBackgroundColor(const Color(0x00000000))
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onProgress: (int progress) {
+                // Update loading bar.
+              },
+              onPageStarted: (String url) {},
+              onPageFinished: (String url) {},
+              onWebResourceError: (WebResourceError error) {},
+              onNavigationRequest: (NavigationRequest request) {
+                if (request.url.startsWith('https://www.baidu.com/')) {
+                  return NavigationDecision.prevent;
+                }
+                return NavigationDecision.navigate;
+              },
+            ),
+          )
+          ..loadRequest(Uri.parse(value["url"]));
       });
     });
   }
@@ -75,7 +99,13 @@ class gameDetail_ extends State<BasketGameDetail>
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            G.router.pop(context);
+            if (is_ani == 0) {
+              G.router.pop(context);
+            } else {
+              setState(() {
+                is_ani = 0;
+              });
+            }
           },
           child: Icon(
             Icons.arrow_back_ios,
@@ -153,82 +183,123 @@ class gameDetail_ extends State<BasketGameDetail>
           SliverAppBar(
             primary: false,
             leading: Container(),
-            expandedHeight: rpx(150),
+            expandedHeight: is_ani == 1 ? rpx(210) : rpx(150),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
-              background: GestureDetector(
-                onTap: () {},
-                child: Stack(
-                  children: [
-                    Positioned(
-                        child: Image.asset(
-                      "assets/images/basketBack.png",
-                      width: rpx(375),
-                      fit: BoxFit.cover,
-                    )),
-                    Container(
-                      margin: EdgeInsets.only(top: rpx(15)),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+              background: is_ani == 0
+                  ? GestureDetector(
+                      onTap: () {},
+                      child: Stack(
                         children: [
-                          Wrap(
-                            spacing: rpx(15),
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            direction: Axis.vertical,
-                            children: [
-                              netImg(foot.awayTeam!.logo.toString(), rpx(40),
-                                  rpx(40)),
-                              Container(
-                                width: rpx(120),
-                                child: TextWidget(
-                                  foot.awayTeam!.nameShort.toString(),
-                                  color: Colors.white,
+                          Positioned(
+                              child: Image.asset(
+                            "assets/images/basketBack.png",
+                            width: rpx(375),
+                            fit: BoxFit.cover,
+                          )),
+                          Container(
+                            margin: EdgeInsets.only(top: rpx(15)),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Wrap(
+                                  spacing: rpx(15),
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  direction: Axis.vertical,
+                                  children: [
+                                    netImg(foot.awayTeam!.logo.toString(),
+                                        rpx(40), rpx(40)),
+                                    Container(
+                                      width: rpx(120),
+                                      child: TextWidget(
+                                        "(客)${foot.awayTeam!.nameShort}",
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              getBasketGameStateText(foot,
-                                  size: rpx(18), is_white: true),
-                              SizedBox(
-                                height: rpx(20),
-                              ),
-                              getBasketGameScoreTextWithWhite(
-                                  foot.statusId, foot.currentScore,
-                                  size: rpx(18)),
-                              SizedBox(
-                                height: rpx(10),
-                              ),
-                              SizedBox(
-                                height: rpx(5),
-                              ),
-                            ],
-                          ),
-                          Wrap(
-                            spacing: rpx(15),
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            direction: Axis.vertical,
-                            children: [
-                              netImg(foot.homeTeam!.logo.toString(), rpx(40),
-                                  rpx(40)),
-                              Container(
-                                width: rpx(120),
-                                child: TextWidget(
-                                  foot.homeTeam!.nameShort.toString(),
-                                  color: Colors.white,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    getBasketGameStateText(foot,
+                                        size: rpx(18), is_white: true),
+                                    SizedBox(
+                                      height: rpx(20),
+                                    ),
+                                    getBasketGameScoreTextWithWhite(
+                                        foot.statusId, foot.currentScore,
+                                        size: rpx(18)),
+                                    SizedBox(
+                                      height: rpx(10),
+                                    ),
+                                    SizedBox(
+                                      height: rpx(5),
+                                    ),
+                                    foot.has_ani == 1
+                                        ? onClick(
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                  left: rpx(9), right: rpx(9)),
+                                              alignment: Alignment.center,
+                                              height: rpx(26),
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromRGBO(
+                                                      0, 0, 0, .3),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          rpx(26))),
+                                              child: Wrap(
+                                                spacing: rpx(3),
+                                                crossAxisAlignment:
+                                                    WrapCrossAlignment.center,
+                                                children: [
+                                                  Image.asset(
+                                                    "assets/images/football_field.png",
+                                                    width: rpx(16),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  Text(
+                                                    "动画直播",
+                                                    style: TextStyle(
+                                                        fontSize: rpx(12),
+                                                        color: Colors.white),
+                                                  )
+                                                ],
+                                              ),
+                                            ), () {
+                                            setState(() {
+                                              is_ani = 1;
+                                            });
+                                          })
+                                        : Container(),
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
+                                Wrap(
+                                  spacing: rpx(15),
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  direction: Axis.vertical,
+                                  children: [
+                                    netImg(foot.homeTeam!.logo.toString(),
+                                        rpx(40), rpx(40)),
+                                    Container(
+                                      width: rpx(120),
+                                      child: TextWidget(
+                                        "(主)${foot.homeTeam!.nameShort}",
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     )
-                  ],
-                ),
-              ),
+                  : Container(
+                      child: WebViewWidget(controller: controller),
+                    ),
             ),
             pinned: false,
             floating: true,

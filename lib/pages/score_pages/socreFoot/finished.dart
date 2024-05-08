@@ -14,7 +14,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class finished extends StatefulWidget {
   dataSource dataSource_;
   Function setDate;
-  finished(this.dataSource_, {required this.setDate, super.key});
+  int type = 0;
+  finished(this.dataSource_,
+      {required this.setDate, super.key, required this.type});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -42,6 +44,9 @@ class finishing extends State<finished> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      type = widget.type;
+    });
     var dd_ = DateTime.now();
     var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
     for (var i = 30; i >= 0; i--) {
@@ -274,7 +279,7 @@ class finishing extends State<finished> with SingleTickerProviderStateMixin {
     setState(() {
       page = 1;
       list = [];
-      leagus_id = [];
+      // leagus_id = [];
     });
     loadArticle();
     refreshController.refreshCompleted();

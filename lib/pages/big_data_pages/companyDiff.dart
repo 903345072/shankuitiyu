@@ -213,7 +213,7 @@ class dataReport_ extends State<companyDiff> {
                             Container(
                               width: rpx(280),
                               child: TextWidget(
-                                " 根据山葵数据库模型进行分析运算，计算各公司机构的机构分歧差异数值。通过与返还率的对比，反应各项赔率存在的风险和机构态度。机构分歧大于返还率，则不容易打出，小于则容易打出。 ",
+                                " 根据福神数据库模型进行分析运算，计算各公司机构的机构分歧差异数值。通过与返还率的对比，反应各项赔率存在的风险和机构态度。机构分歧大于返还率，则不容易打出，小于则容易打出。 ",
                                 fontSize: rpx(14),
                                 maxLines: 4,
                                 color: Colors.white,
@@ -234,7 +234,7 @@ class dataReport_ extends State<companyDiff> {
                                         color: Colors.red,
                                       ),
                                       TextWidget(
-                                        "红币/月",
+                                        "金豆/月",
                                         fontSize: rpx(13),
                                         color: Colors.red,
                                       )

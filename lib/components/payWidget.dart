@@ -66,7 +66,7 @@ class payWidget_ extends State<payWidget> {
       G.api.pay.getPayList({}).then((value) {
         setState(() {
           payList = value;
-          _selectedPayment = value.isNotEmpty ? value[0]["pay_name"] : "红币";
+          _selectedPayment = value.isNotEmpty ? value[0]["pay_name"] : "金豆";
         });
         showModalBottomSheet(
           context: context,
@@ -75,8 +75,8 @@ class payWidget_ extends State<payWidget> {
               return Container(
                 padding: EdgeInsets.all(rpx(20)),
                 constraints: BoxConstraints(
-                    minHeight: 100, // 设置最小高度
-                    maxHeight: 160),
+                    minHeight: rpx(120), // 设置最小高度
+                    maxHeight: rpx(180)),
                 decoration: const BoxDecoration(
                   color: Colors.white, // 设置背景颜色为白色
                   borderRadius: BorderRadius.only(
@@ -137,11 +137,11 @@ class payWidget_ extends State<payWidget> {
                                 onClick(
                                     Row(
                                       children: [
-                                        _selectedPayment.toString() != "红币"
+                                        _selectedPayment.toString() != "金豆"
                                             ? TextWidget("$_selectedPayment支付")
                                             : Row(
                                                 children: [
-                                                  const TextWidget("红币支付"),
+                                                  const TextWidget("金豆支付"),
                                                   SizedBox(
                                                     width: rpx(10),
                                                   ),
@@ -191,7 +191,7 @@ class payWidget_ extends State<payWidget> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                       TextWidget(
-                                        "红币",
+                                        "金豆",
                                         fontSize: rpx(16),
                                         fontWeight: FontWeight.w300,
                                       ),
@@ -204,7 +204,7 @@ class payWidget_ extends State<payWidget> {
                                             setss(() {
                                               is_click = false;
                                             });
-                                            if (_selectedPayment == "红币") {
+                                            if (_selectedPayment == "金豆") {
                                               if (money <
                                                   double.parse(widget.price
                                                       .toString())) {
@@ -213,7 +213,7 @@ class payWidget_ extends State<payWidget> {
                                                 });
                                                 showConfirmationDialog(
                                                     context, () {},
-                                                    title: "红币数量不足,请换个支付方式",
+                                                    title: "金豆数量不足,请换个支付方式",
                                                     rightTxt: "前往充值");
                                                 return;
                                               }
@@ -229,7 +229,7 @@ class payWidget_ extends State<payWidget> {
                                                     });
                                                     showConfirmationDialog(
                                                         context, () {},
-                                                        title: "红币数量不足,请换个支付方式",
+                                                        title: "金豆数量不足,请换个支付方式",
                                                         rightTxt: "前往充值");
                                                     return;
                                                   }
@@ -254,7 +254,7 @@ class payWidget_ extends State<payWidget> {
                                                     });
                                                     showConfirmationDialog(
                                                         context, () {},
-                                                        title: "红币数量不足,请换个支付方式",
+                                                        title: "金豆数量不足,请换个支付方式",
                                                         rightTxt: "前往充值");
                                                     return;
                                                   }
@@ -276,7 +276,7 @@ class payWidget_ extends State<payWidget> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     )
 
@@ -373,7 +373,7 @@ class payWidget_ extends State<payWidget> {
                           title: Row(
                             children: [
                               TextWidget(
-                                "红币支付",
+                                "金豆支付",
                                 textAlign: TextAlign.left,
                               ),
                               SizedBox(
@@ -394,7 +394,7 @@ class payWidget_ extends State<payWidget> {
                                     color: Colors.grey,
                                   ),
                                   TextWidget(
-                                    "$money红币",
+                                    "$money金豆",
                                     color: Colors.grey,
                                   ),
                                   const TextWidget(
@@ -406,7 +406,7 @@ class payWidget_ extends State<payWidget> {
                               )
                             ],
                           ),
-                          value: "红币",
+                          value: "金豆",
                           groupValue: _selectedPayment,
                           onChanged: (String? newValue) {
                             setss(() {

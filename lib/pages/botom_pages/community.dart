@@ -16,6 +16,8 @@ import 'package:jingcai_app/model/HotGameModel.dart';
 import 'package:jingcai_app/model/expert.dart';
 import 'package:jingcai_app/model/recommendModel.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/routes.dart';
+import 'package:jingcai_app/pages/login/login.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/rpx.dart';
 
@@ -30,7 +32,7 @@ class community extends StatefulWidget {
 class _community extends State<community>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late TabController _tabC;
-  var tabs = ["山葵专家", "红榜达人", "视频推荐"];
+  var tabs = ["福神专家", "红榜达人", "视频推荐"];
   late ScrollController _scrollController;
   late AnimationController controller;
   var headLogo = "assets/images/headLogo.png";
@@ -144,20 +146,25 @@ class _community extends State<community>
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  headLogo,
-                  width: rpx(100),
-                  fit: BoxFit.cover,
+                // Image.asset(
+                //   headLogo,
+                //   width: rpx(100),
+                //   fit: BoxFit.cover,
+                // ),
+                Container(
+                  width: 1,
                 ),
                 onClick(getTextInputWidget(), () {
                   G.router.navigateTo(context, "/talentSearch");
                 }),
               ],
             )),
-            expandedHeight: rpx(170),
+            expandedHeight: rpx(175),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: Swiper(
+                  autoplay: true,
+                  duration: 5,
                   pagination: const SwiperPagination(
                     margin: EdgeInsets.only(bottom: 5),
                     builder: DotSwiperPaginationBuilder(
@@ -168,10 +175,26 @@ class _community extends State<community>
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     var index_ = index + 1;
-                    return Image.asset(
-                      "assets/images/sq_banner_$index_.png",
-                      fit: BoxFit.cover,
-                    );
+                    return onClick(
+                        Image.asset(
+                          "assets/images/sq_banner_$index_.jpg",
+                          fit: BoxFit.cover,
+                        ), () {
+                      if (index == 1) {
+                        G.api.user.getUserIfno({}).then((value) {
+                          if (value.uid! > 0) {
+                            G.router.navigateTo(context, "/applyTalent",
+                                routeSettings: RouteSettings(arguments: Map()));
+                          } else {
+                            Routes.pushPage(login());
+                          }
+                        });
+                      }
+                      if (index == 2) {
+                        G.router.navigateTo(context,
+                            "/talentRank" + G.parseQuery(params: {"index": 0}));
+                      }
+                    });
                   },
                   itemCount: 3),
             ),

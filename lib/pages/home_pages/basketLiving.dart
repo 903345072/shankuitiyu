@@ -69,7 +69,7 @@ class living_ extends State<basketLiving> {
                           double.parse(widget.away_data![field] ?? "0"),
                           double.parse(widget.away_data![field] ?? "0") +
                               double.parse(widget.home_data![field] ?? "0")),
-                      decoration: BoxDecoration(color: Colors.red),
+                      decoration: BoxDecoration(color: Colors.yellow),
                     ),
                     Container(
                       height: rpx(10),
@@ -80,7 +80,7 @@ class living_ extends State<basketLiving> {
                                   double.parse(
                                       widget.home_data![field] ?? "0")),
                       decoration: BoxDecoration(
-                        color: Color(0xff002868),
+                        color: Colors.blue,
                       ),
                     ),
                   ],
@@ -356,7 +356,7 @@ class living_ extends State<basketLiving> {
                                 Container(
                                   height: rpx(14),
                                   width: rpx(2),
-                                  color: Colors.red,
+                                  color: Colors.yellow,
                                 ),
                                 TextWidget(
                                     widget.foot.awayTeam!.nameShort!.toString())
@@ -371,7 +371,7 @@ class living_ extends State<basketLiving> {
                                 Container(
                                   height: rpx(14),
                                   width: rpx(2),
-                                  color: Color(0xff002868),
+                                  color: Colors.blue,
                                 ),
                               ],
                             ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jingcai_app/pages/login/privacy.dart';
+import 'package:jingcai_app/pages/login/userServiceDue.dart';
 import '../../widget/PreferredSizeWidget.dart';
 import '../../widget/colors.dart';
 import '../../widget/routes.dart';
@@ -27,23 +29,13 @@ class _SystemSettingsState extends State<SystemSettings> {
         child: ListView(
           children: <Widget>[
             buildRow('隐私协议', () {
-              Routes.pushPage(const WebViewPage(
-                title: '隐私协议',
-              ));
+              Routes.pushPage(privacy());
             }),
             buildRow('用户服务条款', () {
-              Routes.pushPage(const WebViewPage(
-                title: '用户服务条款',
-              ));
-            }),
-            buildRow('推送设置', () {
-              Routes.pushPage(const PushSettingsPage());
+              Routes.pushPage(userServiceDue());
             }),
             buildRow('进球提醒设置', () {
               Routes.pushPage(const GoalReminderSettingsPage());
-            }),
-            buildRow('个人信息保护设置', () {
-              Routes.pushPage(const InformationProtectionSettingsPage());
             }),
           ],
         ),

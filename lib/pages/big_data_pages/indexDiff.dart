@@ -215,7 +215,7 @@ class dataReport_ extends State<indexDiff> {
                             Container(
                               width: rpx(280),
                               child: TextWidget(
-                                " 根据山葵数据库模型进行分析运算，计算各公司机构的指数分歧差异。指数分歧数值越小，各公司机构观点接近，越容易打出；指数分歧数值越大则意见分歧大，结果不易打出。 ",
+                                " 根据福神数据库模型进行分析运算，计算各公司机构的指数分歧差异。指数分歧数值越小，各公司机构观点接近，越容易打出；指数分歧数值越大则意见分歧大，结果不易打出。 ",
                                 fontSize: rpx(14),
                                 maxLines: 4,
                                 color: Colors.white,
@@ -236,7 +236,7 @@ class dataReport_ extends State<indexDiff> {
                                         color: Colors.red,
                                       ),
                                       TextWidget(
-                                        "红币/月",
+                                        "金豆/月",
                                         fontSize: rpx(13),
                                         color: Colors.red,
                                       )

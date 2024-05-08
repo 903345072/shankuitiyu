@@ -61,5 +61,7 @@ class Routes {
         handler: loginHand, transitionType: TransitionType.inFromRight);
     router.define('/withdraw',
         handler: withdrawHand, transitionType: TransitionType.inFromRight);
+    router.define('/realName',
+        handler: realNameHand, transitionType: TransitionType.inFromRight);
   }
 }

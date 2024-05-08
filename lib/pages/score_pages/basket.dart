@@ -21,7 +21,7 @@ class basket extends StatefulWidget {
 
 class basketing extends State<basket> with TickerProviderStateMixin {
   late TabController _tabC;
-
+  int type = 0;
   var tabs = ["即时", "赛程", "已完场", "关注"];
   GlobalKey<timeling> timekey = GlobalKey<timeling>();
   GlobalKey<courseing> coursekey = GlobalKey<courseing>();
@@ -46,6 +46,10 @@ class basketing extends State<basket> with TickerProviderStateMixin {
 
   refreshData({Object? value}) {
     if (value != null) {
+      setState(() {
+        var g = value as Map;
+        type = g["index"];
+      });
       if (timekey.currentState != null) {
         timekey.currentState?.clearData(value as Map);
         timekey.currentState?.loadArticle();
@@ -131,6 +135,7 @@ class basketing extends State<basket> with TickerProviderStateMixin {
         timely(
           dataSourceFactory()
               .getBasketDataSource("/common/basket/getScoreList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },
@@ -139,6 +144,7 @@ class basketing extends State<basket> with TickerProviderStateMixin {
         course(
           dataSourceFactory()
               .getBasketDataSource("/common/basket/getScoreCourseList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },
@@ -147,6 +153,7 @@ class basketing extends State<basket> with TickerProviderStateMixin {
         finished(
           dataSourceFactory()
               .getBasketDataSource("/common/basket/getScoreCourseList"),
+          type: type,
           setDate: (e) {
             widget.setDate(e);
           },

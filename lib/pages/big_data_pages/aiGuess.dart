@@ -103,13 +103,13 @@ class aiGuess_ extends State<aiGuess> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              " 山葵AI",
+                              " 福神AI方案",
                               style: TextStyle(fontSize: rpx(20)),
                             ),
                             Container(
                               width: rpx(175),
                               child: Text(
-                                  " 山葵AI运用大数据算法，通过对比赛球队的各项数据、关键指标进行多维度、智能分析，预测得出各种玩法的结果！ "),
+                                  " 福神AI方案运用大数据算法，通过对比赛球队的各项数据、关键指标进行多维度、智能分析，预测得出各种玩法的结果！ "),
                             )
                           ],
                         ),

@@ -18,7 +18,7 @@ class expertTalent extends StatefulWidget {
 
 class _expertTalent extends State<expertTalent> with TickerProviderStateMixin {
   late TabController _tabC;
-  // var tabs = ["山葵专家", "红榜达人"];
+  // var tabs = ["福神专家", "红榜达人"];
   var tabs = ["红榜达人"];
   @override
   void initState() {
