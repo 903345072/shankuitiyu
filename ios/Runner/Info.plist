@@ -50,7 +50,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>若不允许，您将无法使用相机拍摄图片作为头像。</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>若不允许，您将无法使用使用麦克风对话</string>
+	<string>若不允许，您将无法使用麦克风对话</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>若不允许，您将无法播放系统提示音。</string>
 </dict>
