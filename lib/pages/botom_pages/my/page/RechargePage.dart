@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +9,12 @@ import 'package:jingcai_app/pages/login/purchase.dart';
 import 'package:jingcai_app/pages/login/userEvent.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
+import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
 import '../../widget/PreferredSizeWidget.dart';
 import '../../widget/colors.dart';
 import '../../widget/textWidget.dart';
+import 'buyEngin.dart';
 
 class RechargePage extends StatefulWidget {
   const RechargePage({Key? key}) : super(key: key);
@@ -32,6 +35,7 @@ class _RechargePageState extends State<RechargePage> {
   String? _selectedPayment = "pay1";
   StreamSubscription? loginSubscription;
   TextEditingController _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -172,20 +176,24 @@ class _RechargePageState extends State<RechargePage> {
                     ],
                   ),
                 ),
-                InputWidget(
-                  hintText: "自定义充值金额",
-                  focusNode: focusNode,
-                  controller: _controller,
-                  textInputType: TextInputType.number,
-                  onChanged: (value) {
-                    setState(() {
-                      pay_money = double.parse(value);
-                    });
-                  },
-                ),
-                Divider(
-                  height: rpx(1),
-                )
+                Platform.isIOS
+                    ? InputWidget(
+                        hintText: "自定义充值金额",
+                        focusNode: focusNode,
+                        controller: _controller,
+                        textInputType: TextInputType.number,
+                        onChanged: (value) {
+                          setState(() {
+                            pay_money = double.parse(value);
+                          });
+                        },
+                      )
+                    : Container(),
+                Platform.isIOS
+                    ? Divider(
+                        height: rpx(1),
+                      )
+                    : Container()
               ],
             ),
           ),
@@ -193,54 +201,57 @@ class _RechargePageState extends State<RechargePage> {
             height: rpx(10),
             color: MyColors.grey_6f6,
           ),
-          Container(
-              padding: EdgeInsets.all(rpx(10)),
-              child: Column(
-                children: [
-                  Row(
+          Platform.isAndroid
+              ? Container(
+                  padding: EdgeInsets.all(rpx(10)),
+                  child: Column(
                     children: [
-                      Container(
-                        width: rpx(2),
-                        height: rpx(16),
-                        color: MyColors.red,
+                      Row(
+                        children: [
+                          Container(
+                            width: rpx(2),
+                            height: rpx(16),
+                            color: MyColors.red,
+                          ),
+                          SizedBox(
+                            width: rpx(16),
+                          ),
+                          const TextWidget(
+                            "选择充值方式",
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: rpx(16),
-                      ),
-                      const TextWidget(
-                        "选择充值方式",
-                        fontWeight: FontWeight.bold,
+                      Column(
+                        children: List.generate(
+                          payList.length,
+                          (index) => RadioListTile<String>(
+                            title: Row(
+                              children: [
+                                TextWidget(
+                                  payList[index]["pay_name"],
+                                  textAlign: TextAlign.left,
+                                ),
+                                SizedBox(
+                                  width: rpx(10),
+                                ),
+                                netImg(
+                                    payList[index]["icon"], rpx(25), rpx(25)),
+                              ],
+                            ),
+                            value: payList[index]["pay_name"],
+                            groupValue: _selectedPayment,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedPayment = newValue;
+                              });
+                            },
+                          ),
+                        ),
                       ),
                     ],
-                  ),
-                  Column(
-                    children: List.generate(
-                      payList.length,
-                      (index) => RadioListTile<String>(
-                        title: Row(
-                          children: [
-                            TextWidget(
-                              payList[index]["pay_name"],
-                              textAlign: TextAlign.left,
-                            ),
-                            SizedBox(
-                              width: rpx(10),
-                            ),
-                            netImg(payList[index]["icon"], rpx(25), rpx(25)),
-                          ],
-                        ),
-                        value: payList[index]["pay_name"],
-                        groupValue: _selectedPayment,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedPayment = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              )),
+                  ))
+              : Container(),
           Container(
             padding: EdgeInsets.all(rpx(10)),
             alignment: Alignment.centerLeft,
@@ -315,7 +326,18 @@ class _RechargePageState extends State<RechargePage> {
             color: MyColors.white,
             alignment: Alignment.center,
             height: rpx(80),
-            child: clickBtn('下一步', () {}),
+            child: clickBtn('下一步', () {
+              if (!_isChecked) {
+                Loading.tip("not", "请同意支付协议");
+                return;
+              }
+              if (Platform.isIOS) {
+                //调起Ios支付
+                BuyEngin _buyEngin = BuyEngin();
+                _buyEngin.initializeInAppPurchase();
+                _buyEngin.buyProduct("60");
+              } else {}
+            }),
           )
         ],
       ),
