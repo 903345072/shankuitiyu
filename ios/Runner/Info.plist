@@ -53,5 +53,12 @@
 	<string>若不允许，您将无法使用麦克风对话</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>若不允许，您将无法播放系统提示音。</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
