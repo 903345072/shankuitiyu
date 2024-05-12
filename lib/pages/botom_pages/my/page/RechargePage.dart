@@ -83,7 +83,7 @@ class _RechargePageState extends State<RechargePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: appbar('充值'),
+      appBar: appbar('充值1'),
       body: ListView(
         children: [
           Container(
