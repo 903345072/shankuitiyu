@@ -85,7 +85,7 @@ class _Home extends State<Home>
     // getData();
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
 
-    getPerMission();
+    // getPerMission();
     super.initState();
   }
 
@@ -93,26 +93,6 @@ class _Home extends State<Home>
     print(123);
     getHotGameData();
     getExpertData();
-  }
-
-  getPerMission() async {
-    var status = await Permission.location.status;
-
-    if (!_permissionStatus.isGranted) {
-      // 如果权限未授予，则请求权限
-      var result = await Permission.location.request();
-      setState(() {
-        _permissionStatus = result;
-      });
-    }
-    // 根据权限状态执行相应操作
-    if (_permissionStatus.isGranted) {
-      // 执行网络请求
-      getData();
-    } else {
-      // 显示权限未授权提示
-      Loading.tip("noq", "请允许网络请求权限");
-    }
   }
 
   Future getExpertData() async {

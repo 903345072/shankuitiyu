@@ -33,6 +33,7 @@ void main() {
   FluroRouter router = FluroRouter();
   Routes.configureRoutes(router);
   G.router = router;
+  print(222);
   runApp(const MyApp());
 }
 
