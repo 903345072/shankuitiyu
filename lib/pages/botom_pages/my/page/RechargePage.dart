@@ -35,7 +35,7 @@ class _RechargePageState extends State<RechargePage> {
   String? _selectedPayment = "pay1";
   StreamSubscription? loginSubscription;
   TextEditingController _controller = TextEditingController();
-
+  BuyEngin _buyEngin = BuyEngin();
   @override
   void initState() {
     super.initState();
@@ -54,6 +54,11 @@ class _RechargePageState extends State<RechargePage> {
           cur_index = -1;
         });
       }
+    });
+    _buyEngin.initializeInAppPurchase((value1) {
+      setState(() {
+        money = double.parse(value1);
+      });
     });
   }
 
@@ -336,12 +341,7 @@ class _RechargePageState extends State<RechargePage> {
 
                 G.api.user.iosRecharge(
                     {"price": data[cur_index]["price"]}).then((value) {
-                  BuyEngin _buyEngin = BuyEngin();
-                  _buyEngin.initializeInAppPurchase(value, (value1) {
-                    setState(() {
-                      money = double.parse(value1);
-                    });
-                  });
+                  _buyEngin.order_no = value;
                   _buyEngin.buyProduct(
                     data[cur_index]["price"].toString(),
                   );

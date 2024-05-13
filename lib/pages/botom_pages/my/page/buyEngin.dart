@@ -11,9 +11,9 @@ class BuyEngin {
   late StreamSubscription<List<PurchaseDetails>> _subscription;
   late InAppPurchase _inAppPurchase;
   late List<ProductDetails> _products; //内购的商品对象集合
-
+  String order_no = "";
   //初始化购买组件
-  void initializeInAppPurchase(String order_no, Function d) {
+  void initializeInAppPurchase(Function d) {
     // 初始化in_app_purchase插件
     _inAppPurchase = InAppPurchase.instance;
 
@@ -21,7 +21,7 @@ class BuyEngin {
     final Stream<List<PurchaseDetails>> purchaseUpdated =
         _inAppPurchase.purchaseStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList, order_no, d);
+      _listenToPurchaseUpdated(purchaseDetailsList, d);
     }, onDone: () {
       _subscription.cancel();
     }, onError: (error) {
@@ -104,9 +104,8 @@ class BuyEngin {
   }
 
   /// 内购的购买更新监听
-  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList,
-      String order_no, Function d) async {
-    _products = [];
+  void _listenToPurchaseUpdated(
+      List<PurchaseDetails> purchaseDetailsList, Function d) async {
     for (PurchaseDetails purchase in purchaseDetailsList) {
       if (purchase.status == PurchaseStatus.pending) {
         // 等待支付完成
@@ -127,7 +126,7 @@ class BuyEngin {
         } else if (Platform.isIOS) {
           var appstoreDetail = purchase as AppStorePurchaseDetails;
 
-          checkApplePayInfo(appstoreDetail, order_no, d);
+          checkApplePayInfo(appstoreDetail, d);
         }
       }
     }
@@ -157,8 +156,8 @@ class BuyEngin {
   }
 
   /// Apple支付成功的校验
-  void checkApplePayInfo(AppStorePurchaseDetails appstoreDetail,
-      String order_no, Function d) async {
+  void checkApplePayInfo(
+      AppStorePurchaseDetails appstoreDetail, Function d) async {
     print("外面支付成功");
     _inAppPurchase.completePurchase(appstoreDetail).then((value1) {
       print("里面支付成功");
