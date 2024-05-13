@@ -335,7 +335,7 @@ class _RechargePageState extends State<RechargePage> {
                 //调起Ios支付
                 BuyEngin _buyEngin = BuyEngin();
                 _buyEngin.initializeInAppPurchase();
-                _buyEngin.buyProduct("60");
+                _buyEngin.buyProduct(data[cur_index]["price"].toString());
               } else {}
             }),
           )
