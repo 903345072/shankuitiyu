@@ -290,17 +290,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         controller: _pageController,
         children: _pageList,
       ),
-
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-        child: TabNavigationWidget(
-          (v) {
-            setState(() {
-              _currentIndex = v;
-              _pageController.jumpToPage(_currentIndex);
-            });
-          },
-        ),
+//
+      bottomNavigationBar: Wrap(
+        children: [
+          TabNavigationWidget(
+            (v) {
+              setState(() {
+                _currentIndex = v;
+                _pageController.jumpToPage(_currentIndex);
+              });
+            },
+          ),
+          Container(
+            height: MediaQuery.of(context).padding.bottom,
+            color: Colors.white,
+          )
+        ],
       ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: _incrementCounter,

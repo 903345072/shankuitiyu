@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:fluro/fluro.dart';
@@ -16,7 +17,9 @@ import 'package:jingcai_app/model/recommendModel.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/util/G.dart';
+import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -46,7 +49,7 @@ class _Home extends State<Home>
   @override
   void initState() {
     super.initState();
-
+    getPerMission();
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
@@ -78,10 +81,24 @@ class _Home extends State<Home>
       });
       //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
     });
+    getData();
+    //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
+  }
+
+  getData() {
     getHotGameData();
     getExpertData();
-    getReCommendData();
-    //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
+  }
+
+  getPerMission() async {
+    if (Platform.isIOS) {
+      Future<PermissionStatus> s = Permission.location.request();
+      if (await s.isGranted) {
+        getData();
+      } else {
+        Loading.tip("nma", "请允许设备访问网络");
+      }
+    }
   }
 
   Future getExpertData() async {
@@ -103,17 +120,6 @@ class _Home extends State<Home>
                 .toList())
             .toList();
       });
-    });
-  }
-
-  Future getReCommendData() async {
-    //通过rootBundle.loadString();解析并返回
-    String jsonData = await rootBundle.loadString("assets/mock/recommend.json");
-    final List jsonresult = json.decode(jsonData)["data"];
-    setState(() {
-      recmmend_data = jsonresult
-          .map((e) => recommendModel.fromJson((e as Map<String, dynamic>)))
-          .toList();
     });
   }
 
@@ -141,7 +147,7 @@ class _Home extends State<Home>
           },
           child: _contentView(context, "123"),
           onRefresh: () async {
-            await Future.delayed(Duration(milliseconds: 1000));
+            getData();
             //返回值以结束刷新
             return Future.value(true);
           }),
@@ -208,7 +214,7 @@ class _Home extends State<Home>
                 }),
               ],
             )),
-            expandedHeight: rpx(160),
+            expandedHeight: rpx(170),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: GestureDetector(
@@ -218,7 +224,7 @@ class _Home extends State<Home>
                 },
                 child: Image.asset(
                   "assets/images/HomeBanner.jpg",
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
