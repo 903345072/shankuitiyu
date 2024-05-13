@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/loading.dart';
 
 class BuyEngin {
@@ -12,7 +13,7 @@ class BuyEngin {
   late List<ProductDetails> _products; //内购的商品对象集合
 
   //初始化购买组件
-  void initializeInAppPurchase() {
+  void initializeInAppPurchase(String order_no, Function d) {
     // 初始化in_app_purchase插件
     _inAppPurchase = InAppPurchase.instance;
 
@@ -20,7 +21,7 @@ class BuyEngin {
     final Stream<List<PurchaseDetails>> purchaseUpdated =
         _inAppPurchase.purchaseStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList);
+      _listenToPurchaseUpdated(purchaseDetailsList, order_no, d);
     }, onDone: () {
       _subscription.cancel();
     }, onError: (error) {
@@ -87,7 +88,8 @@ class BuyEngin {
         //     "一切正常，开始购买,信息如下：title: ${productDetails.title}  desc:${productDetails.description} "
         //     "price:${productDetails.price}  currencyCode:${productDetails.currencyCode}  currencySymbol:${productDetails.currencySymbol}");
         _inAppPurchase.buyConsumable(
-            purchaseParam: PurchaseParam(productDetails: productDetails));
+            purchaseParam: PurchaseParam(
+                productDetails: productDetails, applicationUserName: '23456'));
       } catch (e) {
         Loading.tip("购买失败了", "购买失败了");
       }
@@ -102,8 +104,8 @@ class BuyEngin {
   }
 
   /// 内购的购买更新监听
-  void _listenToPurchaseUpdated(
-      List<PurchaseDetails> purchaseDetailsList) async {
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList,
+      String order_no, Function d) async {
     for (PurchaseDetails purchase in purchaseDetailsList) {
       if (purchase.status == PurchaseStatus.pending) {
         // 等待支付完成
@@ -123,7 +125,8 @@ class BuyEngin {
           checkAndroidPayInfo(googleDetail);
         } else if (Platform.isIOS) {
           var appstoreDetail = purchase as AppStorePurchaseDetails;
-          checkApplePayInfo(appstoreDetail);
+
+          checkApplePayInfo(appstoreDetail, order_no, d);
         }
       }
     }
@@ -141,6 +144,7 @@ class BuyEngin {
 
   /// 取消支付
   void _handleCancel(PurchaseDetails purchase) {
+    print("取消支付");
     _inAppPurchase.completePurchase(purchase);
   }
 
@@ -152,12 +156,17 @@ class BuyEngin {
   }
 
   /// Apple支付成功的校验
-  void checkApplePayInfo(AppStorePurchaseDetails appstoreDetail) async {
+  void checkApplePayInfo(AppStorePurchaseDetails appstoreDetail,
+      String order_no, Function d) async {
     _inAppPurchase.completePurchase(appstoreDetail);
 
-    print("Apple支付交易ID为" + appstoreDetail.purchaseID.toString());
-    print("Apple支付验证收据为" +
-        appstoreDetail.verificationData.serverVerificationData);
+    // print("Apple支付交易ID为" + appstoreDetail.purchaseID.toString());
+    // print("Apple支付验证收据为" +
+    //     appstoreDetail.verificationData.serverVerificationData);
+
+    G.api.user.iosNotify({"order_no": order_no}).then((value) {
+      d(value);
+    });
   }
 
   void onClose() {

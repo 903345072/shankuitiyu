@@ -333,9 +333,18 @@ class _RechargePageState extends State<RechargePage> {
               }
               if (Platform.isIOS) {
                 //调起Ios支付
-                BuyEngin _buyEngin = BuyEngin();
-                _buyEngin.initializeInAppPurchase();
-                _buyEngin.buyProduct(data[cur_index]["price"].toString());
+
+                G.api.user.iosRecharge({}).then((value) {
+                  BuyEngin _buyEngin = BuyEngin();
+                  _buyEngin.initializeInAppPurchase(value, (value1) {
+                    setState(() {
+                      money = double.parse(value1);
+                    });
+                  });
+                  _buyEngin.buyProduct(
+                    data[cur_index]["price"].toString(),
+                  );
+                });
               } else {}
             }),
           )

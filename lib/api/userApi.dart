@@ -88,6 +88,18 @@ class userApi {
     return res.data["msg"];
   }
 
+  Future iosNotify(Map<String, dynamic> p) async {
+    Response res = await dio_.post("/api/user/iosNotify", data: p);
+
+    return res.data["msg"];
+  }
+
+  Future iosRecharge(Map<String, dynamic> p) async {
+    Response res = await dio_.post("/api/user/iosRecharge", data: p);
+
+    return res.data["data"];
+  }
+
   Future realName(Map<String, dynamic> p) async {
     Response res = await dio_.post("/api/user/RealNameAuthentication", data: p);
 
