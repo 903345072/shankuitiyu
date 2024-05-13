@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:fluro/fluro.dart';
@@ -22,6 +23,7 @@ import 'package:jingcai_app/pages/pushBf.dart';
 import 'package:jingcai_app/routes/routes.dart';
 import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -31,7 +33,19 @@ void main() {
   FluroRouter router = FluroRouter();
   Routes.configureRoutes(router);
   G.router = router;
+  getPerMission();
   runApp(const MyApp());
+}
+
+getPerMission() async {
+  if (Platform.isIOS) {
+    Future<PermissionStatus> s = Permission.location.request();
+    if (await s.isGranted) {
+      print("权限已申请");
+    } else {
+      print("权限被拒绝");
+    }
+  }
 }
 
 class MyApp extends StatelessWidget {
