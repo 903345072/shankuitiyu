@@ -96,12 +96,17 @@ class _Home extends State<Home>
 
   getPerMission() async {
     print("开始授权");
+    print("版本" + Platform.version);
     if (Platform.isIOS) {
+      print("是ios");
       var s = await Permission.location.request().isGranted;
+      print("权限状态" + s.toString());
       if (s) {
         print("授权了");
         getData();
       }
+    } else {
+      print("是安卓");
     }
   }
 
