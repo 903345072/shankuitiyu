@@ -158,15 +158,17 @@ class BuyEngin {
   /// Apple支付成功的校验
   void checkApplePayInfo(AppStorePurchaseDetails appstoreDetail,
       String order_no, Function d) async {
-    _inAppPurchase.completePurchase(appstoreDetail);
+    print("外面支付成功");
+    _inAppPurchase.completePurchase(appstoreDetail).then((value1) {
+      print("里面支付成功");
+      G.api.user.iosNotify({"order_no": order_no}).then((value) {
+        d(value);
+      });
+    });
 
     // print("Apple支付交易ID为" + appstoreDetail.purchaseID.toString());
     // print("Apple支付验证收据为" +
     //     appstoreDetail.verificationData.serverVerificationData);
-
-    G.api.user.iosNotify({"order_no": order_no}).then((value) {
-      d(value);
-    });
   }
 
   void onClose() {
