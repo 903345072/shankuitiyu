@@ -48,7 +48,7 @@ class _Home extends State<Home>
   List<List<HotGameModel>> hot_data = [];
   List<recommendModel> recmmend_data = [];
   StreamSubscription<PermissionStatus>? subscription;
-  late PermissionStatus _permissionStatus;
+
   @override
   void initState() {
     var headLogo_ = "assets/images/headLogo.png";
@@ -85,14 +85,24 @@ class _Home extends State<Home>
     // getData();
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
 
-    // getPerMission();
+    getPerMission();
     super.initState();
   }
 
   getData() {
-    print(123);
     getHotGameData();
     getExpertData();
+  }
+
+  getPerMission() async {
+    print("开始授权");
+    if (Platform.isIOS) {
+      var s = await Permission.location.request().isGranted;
+      if (s) {
+        print("授权了");
+        getData();
+      }
+    }
   }
 
   Future getExpertData() async {
