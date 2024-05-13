@@ -92,16 +92,15 @@ class _Home extends State<Home>
     getExpertData();
   }
 
-  getPerMission() {
+  getPerMission() async {
     if (Platform.isIOS) {
-      var sd = Permission.location.request();
-      sd.then((value) {
-        print("权限状态:");
-        print(value);
-        if (value.isGranted) {
-          getData();
-        }
-      });
+      print("开始授权");
+      var sd = await Permission.location.request().isGranted;
+
+      if (sd) {
+        print("授权成功");
+        getData();
+      }
     }
   }
 
