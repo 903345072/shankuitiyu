@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +47,36 @@ class _Home extends State<Home>
   List<expert> expert_data = [];
   List<List<HotGameModel>> hot_data = [];
   List<recommendModel> recmmend_data = [];
-  StreamSubscription<PermissionStatus>? subscription;
 
+  late StreamSubscription<List<ConnectivityResult>> subscription;
   @override
   void initState() {
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> connectivityResult) {
+      if (connectivityResult.contains(ConnectivityResult.mobile)) {
+        // Mobile network available.
+        print("脸上无线");
+      } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
+        getData();
+        // Wi-fi is available.
+        // Note for Android:
+        // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
+      } else if (connectivityResult.contains(ConnectivityResult.ethernet)) {
+        // Ethernet connection available.
+      } else if (connectivityResult.contains(ConnectivityResult.vpn)) {
+        // Vpn connection active.
+        // Note for iOS and macOS:
+        // There is no separate network interface type for [vpn].
+        // It returns [other] on any device (also simulator)
+      } else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
+        // Bluetooth connection available.
+      } else if (connectivityResult.contains(ConnectivityResult.other)) {
+        // Connected to a network which is not in the above mentioned networks.
+      } else if (connectivityResult.contains(ConnectivityResult.none)) {
+        // No available network types
+      }
+    });
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
