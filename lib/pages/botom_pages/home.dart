@@ -50,8 +50,7 @@ class _Home extends State<Home>
   StreamSubscription<PermissionStatus>? subscription;
   @override
   void initState() {
-    super.initState();
-
+    print(222222222);
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
@@ -86,7 +85,8 @@ class _Home extends State<Home>
     // getData();
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
 
-    print("123");
+    getPerMission();
+    super.initState();
   }
 
   getData() {
