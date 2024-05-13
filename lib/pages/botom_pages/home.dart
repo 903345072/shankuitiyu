@@ -93,6 +93,8 @@ class _Home extends State<Home>
   }
 
   getPerMission() async {
+    print("平台");
+    print(Platform.isIOS);
     if (Platform.isIOS) {
       print("开始授权");
       var sd = await Permission.location.request().isGranted;
