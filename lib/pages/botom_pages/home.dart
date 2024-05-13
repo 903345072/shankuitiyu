@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +47,11 @@ class _Home extends State<Home>
   List<expert> expert_data = [];
   List<List<HotGameModel>> hot_data = [];
   List<recommendModel> recmmend_data = [];
-
+  StreamSubscription<PermissionStatus>? subscription;
   @override
   void initState() {
     super.initState();
-    // getPerMission();
+    getPerMission();
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
@@ -81,7 +83,7 @@ class _Home extends State<Home>
       });
       //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
     });
-    getData();
+    // getData();
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
   }
 
@@ -90,15 +92,14 @@ class _Home extends State<Home>
     getExpertData();
   }
 
-  getPerMission() async {
+  getPerMission() {
     if (Platform.isIOS) {
       Future<PermissionStatus> s = Permission.location.request();
-      if (await s.isGranted) {
-        print("权限已申请");
-        getData();
-      } else {
-        print("权限已申请");
-      }
+      s.then((value) {
+        if (value.isGranted) {
+          getData();
+        }
+      });
     }
   }
 
