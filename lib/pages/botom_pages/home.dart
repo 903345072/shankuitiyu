@@ -108,6 +108,11 @@ class _Home extends State<Home>
     } else {
       print("是安卓");
     }
+
+    Permission.location.onGrantedCallback(() {
+      print(123);
+      getData();
+    });
   }
 
   Future getExpertData() async {
