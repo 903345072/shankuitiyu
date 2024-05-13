@@ -49,7 +49,7 @@ class _Home extends State<Home>
   @override
   void initState() {
     super.initState();
-    getPerMission();
+    // getPerMission();
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
@@ -94,9 +94,10 @@ class _Home extends State<Home>
     if (Platform.isIOS) {
       Future<PermissionStatus> s = Permission.location.request();
       if (await s.isGranted) {
+        print("权限已申请");
         getData();
       } else {
-        Loading.tip("nma", "请允许设备访问网络");
+        print("权限已申请");
       }
     }
   }
