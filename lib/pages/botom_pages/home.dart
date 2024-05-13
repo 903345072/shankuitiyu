@@ -94,8 +94,10 @@ class _Home extends State<Home>
 
   getPerMission() {
     if (Platform.isIOS) {
-      Future<PermissionStatus> s = Permission.location.request();
-      s.then((value) {
+      var sd = Permission.location.request();
+      sd.then((value) {
+        print("权限状态:");
+        print(value);
         if (value.isGranted) {
           getData();
         }
