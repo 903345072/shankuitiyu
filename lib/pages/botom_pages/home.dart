@@ -90,6 +90,7 @@ class _Home extends State<Home>
   }
 
   getData() {
+    print(123);
     getHotGameData();
     getExpertData();
   }
