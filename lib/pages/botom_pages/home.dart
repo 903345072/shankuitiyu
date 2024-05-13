@@ -58,8 +58,10 @@ class _Home extends State<Home>
         if (connectivityResult.contains(ConnectivityResult.mobile)) {
           // Mobile network available.
           print("脸上无线");
+          getData();
         } else if (connectivityResult.contains(ConnectivityResult.wifi)) {
           getData();
+          print("脸上wifi");
           // Wi-fi is available.
           // Note for Android:
           // When both mobile and Wi-Fi are turned on system will return Wi-Fi only as active network type
