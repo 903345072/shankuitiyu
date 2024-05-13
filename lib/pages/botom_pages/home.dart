@@ -85,8 +85,8 @@ class _Home extends State<Home>
     });
     // getData();
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
-    print(123);
-    getPerMission();
+
+    print("123");
   }
 
   getData() {

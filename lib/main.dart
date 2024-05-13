@@ -33,17 +33,19 @@ void main() {
   FluroRouter router = FluroRouter();
   Routes.configureRoutes(router);
   G.router = router;
-  //getPerMission();
+  getPerMission();
   runApp(const MyApp());
 }
 
 getPerMission() async {
+  print("平台");
+  print(Platform.isIOS);
   if (Platform.isIOS) {
-    Future<PermissionStatus> s = Permission.location.request();
-    if (await s.isGranted) {
-      print("权限已申请");
-    } else {
-      print("权限被拒绝");
+    print("开始授权");
+    var sd = await Permission.location.request().isGranted;
+
+    if (sd) {
+      print("授权成功");
     }
   }
 }
