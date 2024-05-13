@@ -86,6 +86,7 @@ class _Home extends State<Home>
     //animation = Tween(begin: 0.0, end: 1) as Animation<double>;
 
     getPerMission();
+    getData();
     super.initState();
   }
 
@@ -94,26 +95,7 @@ class _Home extends State<Home>
     getExpertData();
   }
 
-  getPerMission() async {
-    print("开始授权");
-    print("版本" + Platform.version);
-    if (Platform.isIOS) {
-      print("是ios");
-      var s = await Permission.location.request().isGranted;
-      print("权限状态" + s.toString());
-      if (s) {
-        print("授权了");
-        getData();
-      }
-    } else {
-      print("是安卓");
-    }
-
-    Permission.location.onGrantedCallback(() {
-      print(123);
-      getData();
-    });
-  }
+  getPerMission() async {}
 
   Future getExpertData() async {
     G.api.game.getHotTalent({}).then((value) {

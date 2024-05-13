@@ -47,6 +47,7 @@ Dio initDio() {
       ErrorInterceptorHandler handler,
     ) async {
       Loading.complete(e.requestOptions.uri);
+      print("请求错误");
       return handler.next(e);
     },
   ));
