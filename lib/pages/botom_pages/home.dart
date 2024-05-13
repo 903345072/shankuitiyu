@@ -48,9 +48,9 @@ class _Home extends State<Home>
   List<List<HotGameModel>> hot_data = [];
   List<recommendModel> recmmend_data = [];
   StreamSubscription<PermissionStatus>? subscription;
+  late PermissionStatus _permissionStatus;
   @override
   void initState() {
-    print(222222222);
     var headLogo_ = "assets/images/headLogo.png";
     controller = AnimationController(vsync: this);
     Color c = Colors.transparent;
@@ -95,16 +95,22 @@ class _Home extends State<Home>
   }
 
   getPerMission() async {
-    print("平台");
-    print(Platform.isIOS);
-    if (Platform.isIOS) {
-      print("开始授权");
-      var sd = await Permission.location.request().isGranted;
+    var status = await Permission.location.status;
 
-      if (sd) {
-        print("授权成功");
-        getData();
-      }
+    if (!_permissionStatus.isGranted) {
+      // 如果权限未授予，则请求权限
+      var result = await Permission.location.request();
+      setState(() {
+        _permissionStatus = result;
+      });
+    }
+    // 根据权限状态执行相应操作
+    if (_permissionStatus.isGranted) {
+      // 执行网络请求
+      getData();
+    } else {
+      // 显示权限未授权提示
+      Loading.tip("noq", "请允许网络请求权限");
     }
   }
 
