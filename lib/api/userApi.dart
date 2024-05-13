@@ -91,7 +91,7 @@ class userApi {
   Future iosNotify(Map<String, dynamic> p) async {
     Response res = await dio_.post("/api/user/iosNotify", data: p);
 
-    return res.data["msg"];
+    return res.data["data"];
   }
 
   Future iosRecharge(Map<String, dynamic> p) async {
