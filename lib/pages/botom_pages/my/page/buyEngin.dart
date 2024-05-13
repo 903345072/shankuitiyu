@@ -106,6 +106,7 @@ class BuyEngin {
   /// 内购的购买更新监听
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList,
       String order_no, Function d) async {
+    _products = [];
     for (PurchaseDetails purchase in purchaseDetailsList) {
       if (purchase.status == PurchaseStatus.pending) {
         // 等待支付完成
