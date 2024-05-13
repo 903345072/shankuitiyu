@@ -201,7 +201,7 @@ class dataReport_ extends State<indexDiff> {
                 background: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/indexDiffBack.png",
+                      "assets/images/indexDiffBack.jpg",
                       fit: BoxFit.cover,
                       width: rpx(375),
                     ),

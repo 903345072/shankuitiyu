@@ -199,7 +199,7 @@ class dataReport_ extends State<boSongDistribute> {
                 background: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/bsfb_back.png",
+                      "assets/images/bsfb_back.jpg",
                       fit: BoxFit.cover,
                       width: rpx(375),
                     ),

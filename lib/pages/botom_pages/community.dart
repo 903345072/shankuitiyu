@@ -159,7 +159,7 @@ class _community extends State<community>
                 }),
               ],
             )),
-            expandedHeight: rpx(175),
+            expandedHeight: rpx(160),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: Swiper(
@@ -178,7 +178,7 @@ class _community extends State<community>
                     return onClick(
                         Image.asset(
                           "assets/images/sq_banner_$index_.jpg",
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                         ), () {
                       if (index == 1) {
                         G.api.user.getUserIfno({}).then((value) {

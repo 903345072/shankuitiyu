@@ -199,7 +199,7 @@ class dataReport_ extends State<companyDiff> {
                 background: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/indexDiffBack.png",
+                      "assets/images/companyDiffBack.jpg",
                       fit: BoxFit.cover,
                       width: rpx(375),
                     ),

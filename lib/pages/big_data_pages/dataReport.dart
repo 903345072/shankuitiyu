@@ -170,7 +170,7 @@ class dataReport_ extends State<dataReport> {
               background: Stack(
                 children: [
                   Image.asset(
-                    "assets/images/bigDataBack.png",
+                    "assets/images/bigDataBack.jpg",
                     fit: BoxFit.cover,
                     width: rpx(375),
                   ),

@@ -120,7 +120,7 @@ flutter:
     - assets/images/second.png
     - assets/images/third.png
     - assets/images/data_model_banner.png
-    - assets/images/jingcaiai.png
+    - assets/images/jingcaiai.jpg
     - assets/images/hong.png
     - assets/images/hei.png
     - assets/images/zou.png
@@ -147,16 +147,17 @@ flutter:
     - assets/images/rang.png
     - assets/images/talent_check.png
     - assets/images/checkFail.png
-    - assets/images/bigDataBack.png
+    - assets/images/bigDataBack.jpg
     - assets/images/gameBigData.png
-    - assets/images/index_change_back.png
+    - assets/images/index_change_back.jpg
     - assets/images/direct_up.png
     - assets/images/direct_down.png
     - assets/images/noGameData.png
-    - assets/images/bsfb_back.png
-    - assets/images/indexDiffBack.png
+    - assets/images/bsfb_back.jpg
+    - assets/images/indexDiffBack.jpg
     - assets/images/nodata.png
     - assets/images/corner.png
+    - assets/images/companyDiffBack.jpg
     - assets/images/red_card.png
     - assets/images/yellow_card.png
     - assets/images/jingcaizuqiu.png

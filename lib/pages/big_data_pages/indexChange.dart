@@ -111,7 +111,7 @@ class dataReport_ extends State<indexChange> with TickerProviderStateMixin {
                 background: Stack(
                   children: [
                     Image.asset(
-                      "assets/images/index_change_back.png",
+                      "assets/images/index_change_back.jpg",
                       fit: BoxFit.cover,
                       width: rpx(375),
                     ),

@@ -183,7 +183,7 @@ class _Home extends State<Home>
   _contentView(context, title) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    double pinnedHeaderHeight = rpx(60) + rpx(statusBarHeight);
+    double pinnedHeaderHeight = rpx(45) + rpx(statusBarHeight);
     return ExtendedNestedScrollView(
       controller: _scrollController,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -208,7 +208,7 @@ class _Home extends State<Home>
                 }),
               ],
             )),
-            expandedHeight: rpx(175),
+            expandedHeight: rpx(160),
             backgroundColor: Colors.white,
             flexibleSpace: FlexibleSpaceBar(
               background: GestureDetector(
@@ -218,7 +218,7 @@ class _Home extends State<Home>
                 },
                 child: Image.asset(
                   "assets/images/HomeBanner.jpg",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),

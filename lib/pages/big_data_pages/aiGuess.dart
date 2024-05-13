@@ -114,7 +114,7 @@ class aiGuess_ extends State<aiGuess> with TickerProviderStateMixin {
                           ],
                         ),
                         Image.asset(
-                          "assets/images/jingcaiai.png",
+                          "assets/images/jingcaiai.jpg",
                           width: rpx(160),
                           fit: BoxFit.cover,
                         )

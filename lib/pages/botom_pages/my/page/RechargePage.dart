@@ -83,7 +83,7 @@ class _RechargePageState extends State<RechargePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.white,
-      appBar: appbar('充值1'),
+      appBar: appbar('充值'),
       body: ListView(
         children: [
           Container(
@@ -176,7 +176,7 @@ class _RechargePageState extends State<RechargePage> {
                     ],
                   ),
                 ),
-                Platform.isIOS
+                Platform.isAndroid
                     ? InputWidget(
                         hintText: "自定义充值金额",
                         focusNode: focusNode,
@@ -189,7 +189,7 @@ class _RechargePageState extends State<RechargePage> {
                         },
                       )
                     : Container(),
-                Platform.isIOS
+                Platform.isAndroid
                     ? Divider(
                         height: rpx(1),
                       )
