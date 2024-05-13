@@ -33,8 +33,6 @@ void main() {
   FluroRouter router = FluroRouter();
   Routes.configureRoutes(router);
   G.router = router;
-
-  runApp(const MyApp());
 }
 
 getPerMission() async {
@@ -45,8 +43,12 @@ getPerMission() async {
     var sd = await Permission.location.request().isGranted;
 
     if (sd) {
-      print("授权成功");
+      runApp(const MyApp());
+    } else {
+      runApp(const MyApp());
     }
+  } else {
+    runApp(const MyApp());
   }
 }
 
