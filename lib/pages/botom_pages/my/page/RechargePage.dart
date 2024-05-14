@@ -36,6 +36,7 @@ class _RechargePageState extends State<RechargePage> {
   StreamSubscription? loginSubscription;
   TextEditingController _controller = TextEditingController();
   BuyEngin _buyEngin = BuyEngin();
+  bool is_click = true;
   @override
   void initState() {
     super.initState();
@@ -56,9 +57,11 @@ class _RechargePageState extends State<RechargePage> {
       }
     });
     _buyEngin.initializeInAppPurchase((value1) {
-      setState(() {
-        money = double.parse(value1);
-      });
+      if (value1 != "recharge_over") {
+        setState(() {
+          money = double.parse(value1);
+        });
+      }
     });
   }
 
@@ -326,29 +329,40 @@ class _RechargePageState extends State<RechargePage> {
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: rpx(20)),
-            color: MyColors.white,
-            alignment: Alignment.center,
-            height: rpx(80),
-            child: clickBtn('下一步', () {
-              if (!_isChecked) {
-                Loading.tip("not", "请同意支付协议");
-                return;
-              }
-              if (Platform.isIOS) {
-                //调起Ios支付
+          is_click
+              ? Container(
+                  margin: EdgeInsets.symmetric(horizontal: rpx(20)),
+                  color: MyColors.white,
+                  alignment: Alignment.center,
+                  height: rpx(80),
+                  child: clickBtn('下一步', () {
+                    if (!_isChecked) {
+                      Loading.tip("not", "请同意支付协议");
+                      return;
+                    }
+                    setState(() {
+                      is_click = false;
+                    });
+                    if (Platform.isIOS) {
+                      //调起Ios支付
 
-                G.api.user.iosRecharge(
-                    {"price": data[cur_index]["price"]}).then((value) {
-                  _buyEngin.order_no = value;
-                  _buyEngin.buyProduct(
-                    data[cur_index]["id"].toString(),
-                  );
-                });
-              } else {}
-            }),
-          )
+                      G.api.user.iosRecharge(
+                          {"price": data[cur_index]["price"]}).then((value) {
+                        _buyEngin.order_no = value;
+                        _buyEngin.buyProduct(
+                          data[cur_index]["id"].toString(),
+                        );
+                      });
+                    } else {}
+                  }),
+                )
+              : Container(
+                  margin: EdgeInsets.symmetric(horizontal: rpx(20)),
+                  color: Colors.grey,
+                  alignment: Alignment.center,
+                  height: rpx(80),
+                  child: disableBtn('下一步', () {}),
+                )
         ],
       ),
     );

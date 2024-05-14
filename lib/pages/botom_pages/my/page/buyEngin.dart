@@ -113,8 +113,10 @@ class BuyEngin {
       } else if (purchase.status == PurchaseStatus.canceled) {
         // 取消支付
         _handleCancel(purchase);
+        d("recharge_over");
       } else if (purchase.status == PurchaseStatus.error) {
         // 购买失败
+        d("recharge_over");
         _handleError(purchase.error);
       } else if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
