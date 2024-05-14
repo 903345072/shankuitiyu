@@ -116,19 +116,19 @@ class _RechargePageState extends State<RechargePage> {
                     ),
                   ],
                 ),
-                onClick(
-                    Container(
-                      height: rpx(30),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: rpx(15)),
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: TextWidget(
-                        "提现",
-                        color: Colors.white,
-                      ),
-                    ), () {
-                  G.router.navigateTo(context, "/withdraw");
-                })
+                // onClick(
+                //     Container(
+                //       height: rpx(30),
+                //       alignment: Alignment.center,
+                //       padding: EdgeInsets.symmetric(horizontal: rpx(15)),
+                //       decoration: BoxDecoration(color: Colors.blue),
+                //       child: TextWidget(
+                //         "提现",
+                //         color: Colors.white,
+                //       ),
+                //     ), () {
+                //   G.router.navigateTo(context, "/withdraw");
+                // })
               ],
             ),
           ),
@@ -343,7 +343,7 @@ class _RechargePageState extends State<RechargePage> {
                     {"price": data[cur_index]["price"]}).then((value) {
                   _buyEngin.order_no = value;
                   _buyEngin.buyProduct(
-                    data[cur_index]["price"].toString(),
+                    data[cur_index]["id"].toString(),
                   );
                 });
               } else {}
