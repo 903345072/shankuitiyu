@@ -62,6 +62,9 @@ class _RechargePageState extends State<RechargePage> {
           money = double.parse(value1);
         });
       }
+      setState(() {
+        is_click = true;
+      });
     });
   }
 
@@ -358,7 +361,7 @@ class _RechargePageState extends State<RechargePage> {
                 )
               : Container(
                   margin: EdgeInsets.symmetric(horizontal: rpx(20)),
-                  color: Colors.grey,
+                  color: MyColors.white,
                   alignment: Alignment.center,
                   height: rpx(80),
                   child: disableBtn('下一步', () {}),
