@@ -193,7 +193,7 @@ class dataReport_ extends State<boSongDistribute> {
                   ),
                 ],
               )),
-              expandedHeight: rpx(170),
+              expandedHeight: rpx(180),
               backgroundColor: Colors.white,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
@@ -201,7 +201,7 @@ class dataReport_ extends State<boSongDistribute> {
                     Image.asset(
                       "assets/images/bsfb_back.jpg",
                       fit: BoxFit.cover,
-                      width: rpx(375),
+                      height: rpx(210),
                     ),
                     Positioned(
                         top: rpx(80),
@@ -312,15 +312,10 @@ class dataReport_ extends State<boSongDistribute> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
-                                            flex: 12,
+                                            flex: 13,
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.only(
-                                                      left: rpx(10)),
                                                   child: Container(
                                                     width: rpx(70),
                                                     child: TextWidget(
@@ -347,7 +342,7 @@ class dataReport_ extends State<boSongDistribute> {
                                                 data[index]["elapsed"]),
                                           ),
                                           Expanded(
-                                              flex: 12, child: Container()),
+                                              flex: 13, child: Container()),
                                         ],
                                       ),
                                       SizedBox(
@@ -361,7 +356,7 @@ class dataReport_ extends State<boSongDistribute> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Expanded(
-                                              flex: 12,
+                                              flex: 13,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -403,7 +398,7 @@ class dataReport_ extends State<boSongDistribute> {
                                                   data[index]["current_score"]),
                                             ),
                                             Expanded(
-                                              flex: 12,
+                                              flex: 13,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.end,

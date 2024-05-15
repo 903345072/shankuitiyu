@@ -19,7 +19,7 @@ Dio initDio() {
           await SharedPreferences.getInstance();
 
       String? token = sharedPreferences.getString("token");
-      //  print(options.uri);
+      print(options.uri);
       options.headers["bear_token"] = token;
       Loading.show(options.uri, "玩命加载中");
       return handler.next(options);
