@@ -193,18 +193,18 @@ class dataReport_ extends State<boSongDistribute> {
                   ),
                 ],
               )),
-              expandedHeight: rpx(180),
+              expandedHeight: rpx(200),
               backgroundColor: Colors.white,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
                   children: [
                     Image.asset(
                       "assets/images/bsfb_back.jpg",
-                      height: rpx(210),
+                      height: rpx(230),
                       fit: BoxFit.cover,
                     ),
                     Positioned(
-                        bottom: rpx(10),
+                        bottom: rpx(20),
                         left: rpx(15),
                         child: Wrap(
                           direction: Axis.vertical,
