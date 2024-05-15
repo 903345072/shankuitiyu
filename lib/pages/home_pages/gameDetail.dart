@@ -430,9 +430,8 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
           //因为有两个tabar所以写死了两个Container
           //在实际开发中我们通过接口获取tabar和children的数量 用list存储
           gameDetailPlan(id: widget.id),
-          home_data.isNotEmpty
-              ? living(home_data: home_data, away_data: away_data, foot: foot)
-              : Container(),
+          living(home_data: home_data, away_data: away_data, foot: foot),
+
           Container(
             alignment: Alignment.center,
             child: const Text(

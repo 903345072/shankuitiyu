@@ -635,7 +635,7 @@ class allIndexChangeList_ extends State<allIndexChangeList> {
                       is_buy = data["is_buy"] == 1 ? true : false;
                     });
                   },
-                  map: {"id": 1},
+                  map: {"id": 2},
                   type: 2,
                 ))
             : Container(),

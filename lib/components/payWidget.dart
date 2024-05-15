@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:jingcai_app/pages/botom_pages/my/page/RechargePage.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/routes.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
+import 'package:jingcai_app/pages/login/login_back.dart';
+import 'package:jingcai_app/pages/login/userEvent.dart';
 import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
@@ -31,11 +37,23 @@ class payWidget_ extends State<payWidget> {
   String? _selectedPayment = "pay1";
   double money = 0;
   bool is_click = true;
-
+  StreamSubscription? loginSubscription;
+  StreamSubscription? loginBackSubscription;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loginSubscription = eventlog.on<loginBack>().listen((event) {
+      setState(() {
+        is_click = true;
+      });
+    });
+
+    loginBackSubscription = eventBus.on<userEvent>().listen((event) {
+      setState(() {
+        is_click = true;
+      });
+    });
   }
 
   Future getUser() async {
@@ -204,20 +222,8 @@ class payWidget_ extends State<payWidget> {
                                             setss(() {
                                               is_click = false;
                                             });
+                                            Navigator.of(context).pop();
                                             if (_selectedPayment == "金豆") {
-                                              if (money <
-                                                  double.parse(widget.price
-                                                      .toString())) {
-                                                setss(() {
-                                                  is_click = true;
-                                                });
-                                                showConfirmationDialog(
-                                                    context, () {},
-                                                    title: "金豆数量不足,请换个支付方式",
-                                                    rightTxt: "前往充值");
-                                                return;
-                                              }
-
                                               if (widget.type == 1) {
                                                 G.api.pay
                                                     .payOrderWithHongBi(
@@ -227,10 +233,15 @@ class payWidget_ extends State<payWidget> {
                                                     setss(() {
                                                       is_click = true;
                                                     });
+
                                                     showConfirmationDialog(
-                                                        context, () {},
+                                                        context, () {
+                                                      Routes.pushPage(
+                                                          const RechargePage());
+                                                    },
                                                         title: "金豆数量不足,请换个支付方式",
-                                                        rightTxt: "前往充值");
+                                                        rightTxt: "前往充值",
+                                                        close_: true);
                                                     return;
                                                   }
 
@@ -239,7 +250,7 @@ class payWidget_ extends State<payWidget> {
                                                     "buy_user":
                                                         value["buy_user"]
                                                   });
-                                                  Navigator.of(context).pop();
+                                                  //  Navigator.of(context).pop();
                                                 });
                                               }
 
@@ -252,17 +263,22 @@ class payWidget_ extends State<payWidget> {
                                                     setss(() {
                                                       is_click = true;
                                                     });
+
                                                     showConfirmationDialog(
-                                                        context, () {},
+                                                        context, () {
+                                                      Routes.pushPage(
+                                                          const RechargePage());
+                                                    },
                                                         title: "金豆数量不足,请换个支付方式",
-                                                        rightTxt: "前往充值");
+                                                        rightTxt: "前往充值",
+                                                        close_: true);
                                                     return;
                                                   }
                                                   getUser();
                                                   widget.pay_after({
                                                     "is_buy": 1,
                                                   });
-                                                  Navigator.of(context).pop();
+                                                  // Navigator.of(context).pop();
                                                 });
                                               }
                                             }

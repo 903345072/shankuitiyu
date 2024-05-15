@@ -606,7 +606,7 @@ class dataReport_ extends State<boSongDistribute> {
                           is_buy = data["is_buy"] == 1 ? true : false;
                         });
                       },
-                      map: {"id": 1},
+                      map: {"id": 3},
                       type: 2,
                     ))
                 : Container(),

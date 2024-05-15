@@ -32,7 +32,7 @@ class _basketGame extends State<basketGame> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        flex: 6,
+                        flex: 8,
                         child: Container(
                           child: Row(
                             children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
+import 'package:jingcai_app/util/G.dart';
 import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/rpx.dart';
 
@@ -21,49 +23,56 @@ class planPreview extends StatelessWidget {
             child: Column(
               children: [
                 show_head
-                    ? Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: rpx(3)),
-                              child: CircleAvatar(
-                                radius: rpx(25),
-                                backgroundImage: NetworkImage(
-                                  data["user"]["avatar"].toString(),
+                    ? onClick(
+                        Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(top: rpx(3)),
+                                child: CircleAvatar(
+                                  radius: rpx(25),
+                                  backgroundImage: NetworkImage(
+                                    data["user"]["avatar"].toString(),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: rpx(10),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: rpx(10),
-                                ),
-                                TextWidget(data["user"]["real_name"]),
-                                Container(
-                                  height: rpx(5),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: rpx(3), horizontal: rpx(6)),
-                                  decoration:
-                                      BoxDecoration(color: Color(0xffffece8)),
-                                  child: TextWidget(
-                                    data["user"]["lable"],
-                                    color: Color(0xffef2f2f),
-                                    fontSize: rpx(12),
+                              Container(
+                                width: rpx(10),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: rpx(10),
                                   ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      )
+                                  TextWidget(data["user"]["real_name"]),
+                                  Container(
+                                    height: rpx(5),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: rpx(3), horizontal: rpx(6)),
+                                    decoration:
+                                        BoxDecoration(color: Color(0xffffece8)),
+                                    child: TextWidget(
+                                      data["user"]["lable"],
+                                      color: Color(0xffef2f2f),
+                                      fontSize: rpx(12),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ), () {
+                        G.router.navigateTo(
+                            context,
+                            "/talentDetail" +
+                                G.parseQuery(
+                                    params: {"uid": data["user"]["uid"]}));
+                      })
                     : Container(),
                 SizedBox(
                   height: rpx(10),

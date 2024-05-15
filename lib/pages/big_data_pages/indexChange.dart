@@ -105,18 +105,18 @@ class dataReport_ extends State<indexChange> with TickerProviderStateMixin {
                   )
                 ],
               )),
-              expandedHeight: rpx(170),
+              expandedHeight: rpx(200),
               backgroundColor: Color(0xfff0f0f0),
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
                   children: [
                     Image.asset(
                       "assets/images/index_change_back.jpg",
-                      fit: BoxFit.cover,
-                      width: rpx(375),
+                      height: rpx(330),
+                      fit: BoxFit.fitHeight,
                     ),
                     Positioned(
-                        top: rpx(80),
+                        bottom: rpx(20),
                         left: rpx(15),
                         child: Wrap(
                           direction: Axis.vertical,

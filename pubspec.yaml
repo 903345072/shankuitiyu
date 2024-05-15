@@ -108,6 +108,7 @@ flutter:
     - assets/images/mine_grey.png
     - assets/images/mine.png
     - assets/images/score_grey.png
+    - assets/images/noPlan.png
     - assets/images/score.png
     - assets/images/search_grey.png
     - assets/images/search.png

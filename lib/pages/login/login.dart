@@ -7,6 +7,7 @@ import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/colors.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/routes.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
+import 'package:jingcai_app/pages/login/login_back.dart';
 import 'package:jingcai_app/pages/login/privacy.dart';
 import 'package:jingcai_app/pages/login/userServiceDue.dart';
 import 'package:jingcai_app/util/G.dart';
@@ -328,6 +329,7 @@ class login_ extends State<login> {
                                 color: Colors.white,
                               ), () {
                             G.router.pop(context);
+                            eventlog.fire(loginBack(false));
                           }))
                     ],
                   )

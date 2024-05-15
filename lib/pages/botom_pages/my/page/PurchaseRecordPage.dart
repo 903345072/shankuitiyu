@@ -4,6 +4,7 @@ import 'package:jingcai_app/pages/botom_pages/my/page/talentPlanRecord.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/util/rpx.dart';
 import '../../widget/PreferredSizeWidget.dart';
+import 'buyRecord.dart';
 
 class PurchaseRecordPage extends StatefulWidget {
   const PurchaseRecordPage({Key? key}) : super(key: key);
@@ -76,8 +77,8 @@ class _PurchaseRecordPageState extends State<PurchaseRecordPage>
         body: TabBarView(
           controller: _tabC,
           children: [
-            talentPlanRecord(type: 1),
-            talentPlanRecord(type: 2),
+            buyRecord(type: 1),
+            buyRecord(type: 2),
             dataSubscribeRecord(),
           ],
         ),

@@ -77,7 +77,7 @@ class jqRqRate extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     color: Colors.red,
                     height: rpx(25),
-                    width: (MediaQuery.of(context).size.width - 30) *
+                    width: (MediaQuery.of(context).size.width - rpx(50)) *
                         dq_rate /
                         100,
                     child: TextWidget(
@@ -88,7 +88,7 @@ class jqRqRate extends StatelessWidget {
                   Container(
                     color: Color(0xff002868),
                     height: rpx(25),
-                    width: (MediaQuery.of(context).size.width - 30) *
+                    width: (MediaQuery.of(context).size.width - rpx(50)) *
                         xq_rate /
                         100,
                   ),
@@ -141,7 +141,7 @@ class jqRqRate extends StatelessWidget {
                     padding: EdgeInsets.only(left: rpx(10)),
                     color: Colors.red,
                     height: rpx(25),
-                    width: (MediaQuery.of(context).size.width - 30) *
+                    width: (MediaQuery.of(context).size.width - rpx(50)) *
                         rq_win_rate /
                         100,
                     child: TextWidget(
@@ -152,7 +152,7 @@ class jqRqRate extends StatelessWidget {
                   Container(
                       color: Color(0xff002868),
                       height: rpx(25),
-                      width: (MediaQuery.of(context).size.width - 30) *
+                      width: (MediaQuery.of(context).size.width - rpx(50)) *
                           rq_lose_rate /
                           100),
                 ],

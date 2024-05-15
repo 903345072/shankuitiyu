@@ -121,54 +121,62 @@ class talentDetail_ extends State<planDetail> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(top: rpx(3)),
-                                      child: CircleAvatar(
-                                        radius: rpx(25),
-                                        backgroundImage: NetworkImage(
-                                          widget.user.avatar.toString(),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: rpx(18),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                onClick(
+                                    Row(
                                       children: [
-                                        TextWidget(
-                                          widget.user.realName.toString(),
-                                          color: Colors.white,
-                                          fontSize: rpx(25),
-                                          fontWeight: FontWeight.bold,
+                                        Container(
+                                          padding: EdgeInsets.only(top: rpx(3)),
+                                          child: CircleAvatar(
+                                            radius: rpx(25),
+                                            backgroundImage: NetworkImage(
+                                              widget.user.avatar.toString(),
+                                            ),
+                                          ),
                                         ),
-                                        Wrap(
+                                        SizedBox(
+                                          width: rpx(18),
+                                        ),
+                                        Column(
                                           crossAxisAlignment:
-                                              WrapCrossAlignment.center,
-                                          spacing: rpx(5),
+                                              CrossAxisAlignment.start,
                                           children: [
                                             TextWidget(
-                                              "${userBattle["fans_count"]}粉丝",
+                                              widget.user.realName.toString(),
                                               color: Colors.white,
+                                              fontSize: rpx(25),
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            TextWidget(
-                                              "|",
-                                              color: Colors.white,
-                                              fontSize: rpx(14),
-                                            ),
-                                            TextWidget(
-                                              "${userBattle["plan_count"]}方案",
-                                              color: Colors.white,
-                                            ),
+                                            Wrap(
+                                              crossAxisAlignment:
+                                                  WrapCrossAlignment.center,
+                                              spacing: rpx(5),
+                                              children: [
+                                                TextWidget(
+                                                  "${userBattle["fans_count"]}粉丝",
+                                                  color: Colors.white,
+                                                ),
+                                                TextWidget(
+                                                  "|",
+                                                  color: Colors.white,
+                                                  fontSize: rpx(14),
+                                                ),
+                                                TextWidget(
+                                                  "${userBattle["plan_count"]}方案",
+                                                  color: Colors.white,
+                                                ),
+                                              ],
+                                            )
                                           ],
                                         )
                                       ],
-                                    )
-                                  ],
-                                ),
+                                    ), () {
+                                  G.router.navigateTo(
+                                      context,
+                                      "/talentDetail" +
+                                          G.parseQuery(params: {
+                                            "uid": widget.user.uid
+                                          }));
+                                }),
                                 getFlowButton(userBattle["is_subscribe"])
                               ],
                             ),

@@ -280,37 +280,37 @@ class teamAnasy_ extends State<teamAnasy> {
 
   double getHomeGetWidh() {
     if (home_get_balls + away_get_balls > 0) {
-      return (MediaQuery.of(context).size.width - 30) *
+      return (MediaQuery.of(context).size.width - rpx(50)) *
           (home_get_balls / (home_get_balls + away_get_balls));
     } else {
-      return (MediaQuery.of(context).size.width - 30) * 0.5;
+      return (MediaQuery.of(context).size.width - rpx(50)) * 0.5;
     }
   }
 
   double getAwayGetWidh() {
     if (home_get_balls + away_get_balls > 0) {
-      return (MediaQuery.of(context).size.width - 30) *
+      return (MediaQuery.of(context).size.width - rpx(50)) *
           (away_get_balls / (home_get_balls + away_get_balls));
     } else {
-      return (MediaQuery.of(context).size.width - 30) * 0.5;
+      return (MediaQuery.of(context).size.width - rpx(50)) * 0.5;
     }
   }
 
   double getHomeLossWidh() {
     if (home_loss_balls + away_loss_balls > 0) {
-      return (MediaQuery.of(context).size.width - 30) *
+      return (MediaQuery.of(context).size.width - rpx(50)) *
           (home_loss_balls / (home_loss_balls + away_loss_balls));
     } else {
-      return (MediaQuery.of(context).size.width - 30) * 0.5;
+      return (MediaQuery.of(context).size.width - rpx(50)) * 0.5;
     }
   }
 
   double getAwayLossWidh() {
     if (home_loss_balls + away_loss_balls > 0) {
-      return (MediaQuery.of(context).size.width - 30) *
+      return (MediaQuery.of(context).size.width - rpx(50)) *
           (away_loss_balls / (home_loss_balls + away_loss_balls));
     } else {
-      return (MediaQuery.of(context).size.width - 30) * 0.5;
+      return (MediaQuery.of(context).size.width - rpx(50)) * 0.5;
     }
   }
 }

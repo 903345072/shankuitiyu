@@ -74,75 +74,88 @@ class basketSubject_ extends State<gameDetailPlan> {
         onRefresh: _onRefresh,
         onLoading: _onLoading,
         footer: classFooter(),
-        child: ListView(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: rpx(10), left: rpx(10)),
-              child: Text(
-                "达人解读",
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: rpx(15)),
+        child: expert_data.length > 0
+            ? ListView(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: rpx(10), left: rpx(10)),
+                    child: Text(
+                      "达人解读",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: rpx(15)),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: rpx(15), top: rpx(5)),
+                    height: rpx(80),
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: List.generate(
+                          expert_data.length,
+                          (index) => onClick(
+                                  Container(
+                                    margin: EdgeInsets.only(left: rpx(5)),
+                                    child:
+                                        expertExplain(data: expert_data[index]),
+                                  ), () {
+                                G.router.navigateTo(
+                                    context,
+                                    "/talentDetail" +
+                                        G.parseQuery(params: {
+                                          "uid": expert_data[index]["uid"]
+                                        }));
+                              })),
+                    ),
+                  ),
+                  Container(
+                    height: rpx(4),
+                    color: Colors.grey.shade200,
+                  ),
+                  Container(
+                    height: rpx(10),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: rpx(10)),
+                    child: Text(
+                      "方案推荐",
+                      style: TextStyle(
+                          fontSize: rpx(16), fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Column(
+                    children: List.generate(
+                        recommend_list.length,
+                        (index) => onClick(
+                                planPreview(
+                                  data: recommend_list[index],
+                                  show_head: true,
+                                ), () {
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => planDetail(
+                                    user: userModel.fromJson(
+                                        recommend_list[index]["user"]),
+                                    plan: recommend_list[index],
+                                    uid: recommend_list[index]["uid"],
+                                  ),
+                                ),
+                              );
+                            })),
+                  )
+                ],
+              )
+            : Container(
+                child: Column(
+                  children: [
+                    Image.asset("assets/images/noPlan.png"),
+                    TextWidget(
+                      "暂无达人方案",
+                      color: Colors.grey,
+                    )
+                  ],
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: rpx(15), top: rpx(5)),
-              height: rpx(80),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(
-                    expert_data.length,
-                    (index) => onClick(
-                            Container(
-                              margin: EdgeInsets.only(left: rpx(5)),
-                              child: expertExplain(data: expert_data[index]),
-                            ), () {
-                          G.router.navigateTo(
-                              context,
-                              "/talentDetail" +
-                                  G.parseQuery(params: {
-                                    "uid": expert_data[index]["uid"]
-                                  }));
-                        })),
-              ),
-            ),
-            Container(
-              height: rpx(4),
-              color: Colors.grey.shade200,
-            ),
-            Container(
-              height: rpx(10),
-            ),
-            Container(
-              padding: EdgeInsets.only(left: rpx(10)),
-              child: Text(
-                "方案推荐",
-                style:
-                    TextStyle(fontSize: rpx(16), fontWeight: FontWeight.bold),
-              ),
-            ),
-            Column(
-              children: List.generate(
-                  recommend_list.length,
-                  (index) => onClick(
-                          planPreview(
-                            data: recommend_list[index],
-                            show_head: true,
-                          ), () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => planDetail(
-                              user: userModel
-                                  .fromJson(recommend_list[index]["user"]),
-                              plan: recommend_list[index],
-                              uid: recommend_list[index]["uid"],
-                            ),
-                          ),
-                        );
-                      })),
-            )
-          ],
-        ),
       ),
     );
   }

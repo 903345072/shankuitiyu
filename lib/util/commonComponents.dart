@@ -482,7 +482,8 @@ getClassify(Map e) {
 void showConfirmationDialog(BuildContext context, Function confirm,
     {String title = "你确定要执行这个操作吗？",
     String leftTxt = "取消",
-    String rightTxt = "确定"}) {
+    String rightTxt = "确定",
+    bool close_ = false}) {
   // 设置对话框的标题、内容、以及操作按钮
 
   showDialog(
@@ -519,7 +520,11 @@ void showConfirmationDialog(BuildContext context, Function confirm,
                       color: Colors.red,
                     ),
                     onPressed: () {
+                      if (close_) {
+                        G.router.pop(context);
+                      }
                       confirm();
+                      //  Navigator.of(context).pop();
                     },
                   ),
                 ],

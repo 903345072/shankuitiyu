@@ -779,7 +779,7 @@ class dataReport_ extends State<companyDiff> {
                           is_buy = data["is_buy"] == 1 ? true : false;
                         });
                       },
-                      map: {"id": 1},
+                      map: {"id": 5},
                       type: 2,
                     ))
                 : Container(),
