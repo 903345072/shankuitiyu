@@ -200,7 +200,7 @@ class dataReport_ extends State<boSongDistribute> {
                   children: [
                     Image.asset(
                       "assets/images/bsfb_back.jpg",
-                      height: rpx(230),
+                      height: rpx(210),
                       fit: BoxFit.cover,
                     ),
                     Positioned(
