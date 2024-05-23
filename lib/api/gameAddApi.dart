@@ -21,6 +21,19 @@ class gameAddApi {
     return d;
   }
 
+  Future getGen(Map<String, dynamic> p) async {
+    Response res = await dio_.get("/common/gameAdd/getGen", queryParameters: p);
+    dynamic d = res.data["data"];
+    return d;
+  }
+
+  Future getBasketGen(Map<String, dynamic> p) async {
+    Response res =
+        await dio_.get("/common/gameAdd/getBasketGen", queryParameters: p);
+    dynamic d = res.data["data"];
+    return d;
+  }
+
   Future getHotGame(Map<String, dynamic> p) async {
     Response res =
         await dio_.get("/common/gameAdd/getHotGame", queryParameters: p);

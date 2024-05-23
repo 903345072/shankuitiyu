@@ -21,7 +21,15 @@ Dio initDio() {
       String? token = sharedPreferences.getString("token");
       print(options.uri);
       options.headers["bear_token"] = token;
-      Loading.show(options.uri, "玩命加载中");
+      Map dd = options.queryParameters;
+      if (dd["is_show"] != null) {
+        if (dd["is_show"] == true) {
+          Loading.show(options.uri, "玩命加载中");
+        }
+      } else {
+        Loading.show(options.uri, "玩命加载中");
+      }
+
       return handler.next(options);
     },
     onResponse: (

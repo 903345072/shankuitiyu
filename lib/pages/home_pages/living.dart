@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:jingcai_app/model/jcFootModel.dart';
 import 'package:jingcai_app/pages/big_data_pages/components/gamePieChart.dart';
@@ -27,16 +29,41 @@ class living extends StatefulWidget {
 
 class living_ extends State<living> {
   List live_data = [];
+  Timer? _heartbeatTimer;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _heartbeatTimer!.cancel();
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    _heartbeatTimer = Timer.periodic(Duration(seconds: 20), (timer) {
+      getData(is_show: false);
+      getGameDetail(is_show: false);
+    });
   }
 
-  getData() {
-    G.api.game.getLiving({"id": widget.foot.id}).then((value) {
+  getData({is_show = true}) {
+    G.api.game
+        .getLiving({"id": widget.foot.id, "is_show": is_show}).then((value) {
       setState(() {
         live_data = value;
+      });
+    });
+  }
+
+  getGameDetail({is_show = true}) {
+    G.api.game.getGameDetail({"id": widget.foot.id, "is_show": is_show}).then(
+        (value) {
+      setState(() {
+        widget.foot =
+            JcFootModel.fromJson((value["footData"] as Map<String, dynamic>));
+        widget.home_data = value["home_detail"] ?? {};
+        widget.away_data = value["away_detail"] ?? {};
       });
     });
   }
@@ -237,7 +264,7 @@ class living_ extends State<living> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Wrap(
-                          spacing: rpx(13),
+                          spacing: rpx(9),
                           children: [
                             Image.asset(
                               "assets/images/corner.png",
@@ -251,12 +278,13 @@ class living_ extends State<living> {
                               "assets/images/red_card.png",
                               width: rpx(17),
                             ),
-                            TextWidget(
-                                widget.home_data["shots_on_goal"].toString())
+                            Container(
+                              width: rpx(20),
+                              alignment: Alignment.center,
+                              child: TextWidget(
+                                  widget.home_data["shots_on_goal"].toString()),
+                            )
                           ],
-                        ),
-                        Container(
-                          width: rpx(5),
                         ),
                         Row(
                           children: [
@@ -297,14 +325,15 @@ class living_ extends State<living> {
                             ),
                           ],
                         ),
-                        Container(
-                          width: rpx(5),
-                        ),
                         Wrap(
-                          spacing: rpx(13),
+                          spacing: rpx(9),
                           children: [
-                            TextWidget(
-                                widget.away_data["shots_on_goal"].toString()),
+                            Container(
+                              alignment: Alignment.center,
+                              width: rpx(20),
+                              child: TextWidget(
+                                  widget.away_data["shots_on_goal"].toString()),
+                            ),
                             Image.asset(
                               "assets/images/red_card.png",
                               width: rpx(17),
@@ -337,7 +366,7 @@ class living_ extends State<living> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Wrap(
-                          spacing: rpx(13),
+                          spacing: rpx(9),
                           children: [
                             Container(
                               width: rpx(17),
@@ -355,20 +384,19 @@ class living_ extends State<living> {
                               width: rpx(17),
                             ),
                             Container(
+                              alignment: Alignment.center,
+                              width: rpx(20),
                               child: TextWidget(widget
                                   .home_data["shots_off_goal"]
                                   .toString()),
                             )
                           ],
                         ),
-                        Container(
-                          width: rpx(5),
-                        ),
                         Row(
                           children: [
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: rpx(6)),
-                              alignment: Alignment.centerLeft,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.only(
@@ -402,13 +430,12 @@ class living_ extends State<living> {
                             ),
                           ],
                         ),
-                        Container(
-                          width: rpx(5),
-                        ),
                         Wrap(
-                          spacing: rpx(13),
+                          spacing: rpx(9),
                           children: [
                             Container(
+                              alignment: Alignment.center,
+                              width: rpx(20),
                               child: TextWidget(
                                   widget.away_data["shots_off_goal"] ?? "0"),
                             ),
@@ -483,6 +510,7 @@ class living_ extends State<living> {
 
   List<Widget> getChild() {
     List<Widget> c = [];
+
     c = List.generate(
         live_data.length,
         (index) => Container(
@@ -589,6 +617,41 @@ class living_ extends State<living> {
         ],
       ),
     ));
+    if (widget.foot.statusId == 10) {
+      c.insert(
+          0,
+          Container(
+            margin: EdgeInsets.only(left: rpx(8), right: rpx(10)),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/whistle.png",
+                  width: rpx(16),
+                ),
+                Container(
+                  width: rpx(20),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: rpx(6), vertical: rpx(6)),
+                  width: rpx(290),
+                  height: rpx(50),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(rpx(4)),
+                      color: Color(0xfff0f0f0),
+                      border: Border.all(width: rpx(0.5), color: Colors.grey)),
+                  child: Text(
+                    "本场比赛结束，最终比分:${widget.foot.currentScore} ," +
+                        "感谢大家关注，下次再会！",
+                    softWrap: true,
+                    style: TextStyle(fontSize: rpx(13)),
+                  ),
+                )
+              ],
+            ),
+          ));
+    }
     return c;
   }
 

@@ -7,10 +7,12 @@ import 'package:jingcai_app/model/footModel.dart';
 import 'package:jingcai_app/model/jcFootModel.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
+import 'package:jingcai_app/pages/home_pages/basketGen.dart';
 import 'package:jingcai_app/pages/home_pages/basketLiving.dart';
 import 'package:jingcai_app/pages/home_pages/basketPlayerData.dart';
 import 'package:jingcai_app/pages/home_pages/basketgameIndex.dart';
 import 'package:jingcai_app/pages/home_pages/gameIndex.dart';
+import 'package:jingcai_app/pages/home_pages/gen.dart';
 import 'package:jingcai_app/pages/home_pages/historyData.dart';
 import 'package:jingcai_app/pages/home_pages/lineUp.dart';
 import 'package:jingcai_app/pages/home_pages/living.dart';
@@ -35,8 +37,8 @@ class BasketGameDetail extends StatefulWidget {
 class gameDetail_ extends State<BasketGameDetail>
     with TickerProviderStateMixin {
   late TabController _tabC;
-  var tabs = ["方案", "直播", "统计", "指数"];
-  var easy_tabs = ["方案", "直播", "统计", "指数"];
+  var tabs = ["方案", "情报", "直播", "统计", "指数"];
+  var easy_tabs = ["方案", "情报", "直播", "统计", "指数"];
   late ScrollController _scrollController = ScrollController();
   JcFootModel foot = JcFootModel.fromJson({
     "leagues": Map<String, dynamic>.from({}),
@@ -374,6 +376,7 @@ class gameDetail_ extends State<BasketGameDetail>
           //因为有两个tabar所以写死了两个Container
           //在实际开发中我们通过接口获取tabar和children的数量 用list存储
           gameDetailPlan(id: widget.id),
+          basketGen(id: widget.id, foot: foot),
           basketLiving(home_data: home_team, away_data: away_team, foot: foot),
           basketPlayerData(
             foot: foot,
@@ -394,6 +397,7 @@ class gameDetail_ extends State<BasketGameDetail>
           //因为有两个tabar所以写死了两个Container
           //在实际开发中我们通过接口获取tabar和children的数量 用list存储
           gameDetailPlan(id: widget.id),
+
           basketLiving(home_data: home_team, away_data: away_team, foot: foot),
           Container(
             alignment: Alignment.center,

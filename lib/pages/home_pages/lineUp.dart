@@ -261,7 +261,7 @@ class lineUp_ extends State<lineUp> {
                       ? Container(
                           width: rpx(50),
                           child: TextWidget(
-                            element["player"]["name_short"],
+                            element["player"]["name_short"].toString(),
                             fontSize: rpx(12),
                           ),
                         )

@@ -218,17 +218,44 @@ class talentDetail_ extends State<talentDetail> {
           SizedBox(
             height: rpx(15),
           ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                getCon(userBattle["back_rate"].toString() + "%", "盈利率"),
-                getCon(userBattle["hong_rate"].toString() + "%", "命中率"),
-                getCon(userBattle["late_hong"].toString() + "连红", "近期情况"),
-                getCon(userBattle["history_hong"].toString() + "连红", "最高连红")
-              ],
-            ),
-          ),
+          userBattle.isNotEmpty
+              ? Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // userBattle["back_rate"] >= 0
+                      //     ? getCon(userBattle["back_rate"].toString() + "%", "盈利率")
+                      //     : Container(
+                      //         color: Color.fromRGBO(0, 0, 0, .04),
+                      //         width: MediaQuery.of(context).size.width * 0.215,
+                      //         height: rpx(70),
+                      //         child: Column(
+                      //           mainAxisAlignment: MainAxisAlignment.center,
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             TextWidget(
+                      //               "亏损中",
+                      //               fontSize: rpx(18),
+                      //               color: Colors.green,
+                      //             ),
+                      //             SizedBox(
+                      //               height: rpx(5),
+                      //             ),
+                      //             TextWidget(
+                      //               "盈利率",
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      getCon(userBattle["back_rate"].toString(), "%", "盈利率"),
+                      getCon(userBattle["hong_rate"].toString(), "%", "命中率"),
+                      getCon(userBattle["late_hong"].toString(), "连红", "近期情况"),
+                      getCon(
+                          userBattle["history_hong"].toString(), "连红", "最高连红")
+                    ],
+                  ),
+                )
+              : Container(),
           SizedBox(
             height: rpx(15),
           ),
@@ -275,18 +302,19 @@ class talentDetail_ extends State<talentDetail> {
     );
   }
 
-  Widget getCon(String num, String title) {
+  Widget getCon(String num, String tag, String title) {
     return Container(
       color: Color.fromRGBO(0, 0, 0, .04),
       width: MediaQuery.of(context).size.width * 0.215,
-      padding: EdgeInsets.symmetric(vertical: rpx(12)),
+      height: rpx(70),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextWidget(
-            num,
+            num + tag,
             fontSize: rpx(18),
-            color: Colors.red,
+            color: getColor(num),
           ),
           SizedBox(
             height: rpx(5),
@@ -297,6 +325,16 @@ class talentDetail_ extends State<talentDetail> {
         ],
       ),
     );
+  }
+
+  Color getColor(String num) {
+    Color c = Colors.red;
+
+    if (double.parse(num) < 0) {
+      c = Colors.green;
+    }
+
+    return c;
   }
 
   int getResultNum(int i) {

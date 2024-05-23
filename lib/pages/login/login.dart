@@ -67,6 +67,7 @@ class login_ extends State<login> {
             children: [
               Image.asset(
                 "assets/images/login_logo.png",
+                height: rpx(300),
                 fit: BoxFit.cover,
               ),
               Container(

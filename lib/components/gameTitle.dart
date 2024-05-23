@@ -117,6 +117,58 @@ class rqGameTitle extends StatelessWidget {
   }
 }
 
+class rfsfTitle extends StatelessWidget {
+  JcFootModel? footModel_;
+  rfsfTitle({super.key, this.footModel_});
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Column(
+      children: [
+        Container(
+          height: rpx(45),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: MyColors.red.withOpacity(0.1)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/images/rangqiu.png",
+                width: rpx(30),
+              ),
+              TextWidget(
+                footModel_!.leagues!.nameShort.toString(),
+                fontSize: rpx(15),
+              ),
+              TextWidget(
+                '|',
+                fontSize: rpx(15),
+              ),
+              TextWidget(
+                footModel_!.awayTeam!.nameShort.toString(),
+                fontSize: rpx(15),
+              ),
+              TextWidget(
+                'VS',
+                fontSize: rpx(15),
+              ),
+              TextWidget(
+                footModel_!.homeTeam!.nameShort.toString(),
+                fontSize: rpx(15),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: rpx(5),
+        )
+      ],
+    );
+  }
+}
+
 class daxiaoGameTitle extends StatelessWidget {
   JcFootModel? footModel_;
   daxiaoGameTitle({super.key, this.footModel_});
@@ -147,7 +199,7 @@ class daxiaoGameTitle extends StatelessWidget {
                 fontSize: rpx(13),
               ),
               TextWidget(
-                footModel_!.homeTeam!.nameShort.toString(),
+                footModel_!.awayTeam!.nameShort.toString(),
                 fontSize: rpx(13),
               ),
               TextWidget(
@@ -155,7 +207,7 @@ class daxiaoGameTitle extends StatelessWidget {
                 fontSize: rpx(13),
               ),
               TextWidget(
-                footModel_!.awayTeam!.nameShort.toString(),
+                footModel_!.homeTeam!.nameShort.toString(),
                 fontSize: rpx(13),
               ),
             ],

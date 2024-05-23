@@ -96,12 +96,12 @@ class _MyPageState extends State<MyPage> {
           'widget': const ManualCustomerServicePage(),
           'img': 'assets/images/real_serve.png'
         },
-        {
-          'name': '帮助中心',
-          'icon': Icons.settings,
-          'widget': const HelpPage(),
-          'img': 'assets/images/help_center.png'
-        },
+        // {
+        //   'name': '帮助中心',
+        //   'icon': Icons.settings,
+        //   'widget': const HelpPage(),
+        //   'img': 'assets/images/help_center.png'
+        // },
         {
           'name': '关于我们',
           'icon': Icons.error_outline,
@@ -177,12 +177,12 @@ class _MyPageState extends State<MyPage> {
               'widget': const ManualCustomerServicePage(),
               'img': 'assets/images/real_serve.png'
             },
-            {
-              'name': '帮助中心',
-              'icon': Icons.settings,
-              'widget': const HelpPage(),
-              'img': 'assets/images/help_center.png'
-            },
+            // {
+            //   'name': '帮助中心',
+            //   'icon': Icons.settings,
+            //   'widget': const HelpPage(),
+            //   'img': 'assets/images/help_center.png'
+            // },
             {
               'name': '关于我们',
               'icon': Icons.error_outline,
@@ -222,12 +222,12 @@ class _MyPageState extends State<MyPage> {
               'widget': const ManualCustomerServicePage(),
               'img': 'assets/images/real_serve.png'
             },
-            {
-              'name': '帮助中心',
-              'icon': Icons.settings,
-              'widget': const HelpPage(),
-              'img': 'assets/images/help_center.png'
-            },
+            // {
+            //   'name': '帮助中心',
+            //   'icon': Icons.settings,
+            //   'widget': const HelpPage(),
+            //   'img': 'assets/images/help_center.png'
+            // },
             {
               'name': '关于我们',
               'icon': Icons.error_outline,
@@ -288,7 +288,6 @@ class _MyPageState extends State<MyPage> {
                               ),
                               child: TextWidget(
                                 user.type == 0 ? '申请达人' : "+发布方案",
-                                color: Colors.blue,
                                 fontSize: rpx(15),
                               ),
                             ),

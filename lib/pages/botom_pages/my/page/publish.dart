@@ -21,8 +21,10 @@ import 'package:jingcai_app/model/jcFootMetModel.dart';
 import 'package:jingcai_app/model/jcFootModel.dart';
 import 'package:jingcai_app/model/jcFootPlModel.dart';
 import 'package:jingcai_app/util/G.dart';
+import 'package:jingcai_app/util/commonComponents.dart';
 import 'package:jingcai_app/util/loading.dart';
 import 'package:jingcai_app/util/rpx.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../widget/InputWidget.dart';
 import '../../widget/PreferredSizeWidget.dart';
 import '../../widget/colors.dart';
@@ -45,11 +47,16 @@ class _SubmitExpertInformationPageState extends State<publish> {
   String title = "";
   String introduce = "";
   String desc = "";
+  int page = 1;
+  String key_word = "";
   List<JcFootModel> jcFootList = [];
   List<JcFootModel> checkFootList = [];
   TextEditingController titleController = TextEditingController();
   TextEditingController introduceController = TextEditingController();
+  TextEditingController search_c = TextEditingController();
   TextEditingController descController = TextEditingController();
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   List<File> imgs = [];
   bool is_add = true;
   Map<String, publishPlanFactory> map = {
@@ -78,33 +85,85 @@ class _SubmitExpertInformationPageState extends State<publish> {
         imgs = widget.planModel!.files!.map((e) => File(e)).toList();
       });
     }
+    search_c.addListener(() {
+      setState(() {
+        key_word = search_c.text;
+      });
+    });
     getData();
   }
 
-  getData() async {
+  Future getData({Function? d, bool s = false}) async {
+    if (s) {
+      setState(() {
+        page = 1;
+      });
+      if (key_word.isEmpty) {
+        refreshController.loadComplete();
+      } else {
+        refreshController.loadNoData();
+      }
+    }
+
     if (widget.type == planType.jcFoot.value) {
-      await G.api.game.getJcFootList().then((value) {
-        setState(() {
-          jcFootList = value;
-        });
+      return await G.api.game
+          .getJcFootList({"page": page, "key_word": key_word}).then((value) {
+        if (d != null) {
+          d(() {
+            if (s) {
+              jcFootList = value;
+            } else {
+              jcFootList.addAll(value);
+            }
+          });
+        } else {
+          setState(() {
+            jcFootList = value;
+          });
+        }
+        return value;
       });
     }
 
     if (widget.type == planType.rq.value ||
         widget.type == planType.daxiaoqiu.value) {
-      await G.api.game.getrQFootList().then((value) {
-        setState(() {
-          jcFootList = value;
-        });
+      return await G.api.game
+          .getrQFootList(q: {"page": page, "key_word": key_word}).then((value) {
+        if (d != null) {
+          d(() {
+            if (s) {
+              jcFootList = value;
+            } else {
+              jcFootList.addAll(value);
+            }
+          });
+        } else {
+          setState(() {
+            jcFootList = value;
+          });
+        }
+        return value;
       });
     }
 
     if (widget.type == planType.rfsf.value ||
         widget.type == planType.dxf.value) {
-      await G.api.game.getBaketList({"type": widget.type}).then((value) {
-        setState(() {
-          jcFootList = value;
-        });
+      return await G.api.game.getBaketList(
+          {"type": widget.type, "key_word": key_word}).then((value) {
+        if (d != null) {
+          d(() {
+            if (s) {
+              jcFootList = value;
+            } else {
+              jcFootList.addAll(value);
+            }
+          });
+        } else {
+          setState(() {
+            jcFootList = value;
+          });
+        }
+        return value;
       });
     }
   }
@@ -410,42 +469,103 @@ class _SubmitExpertInformationPageState extends State<publish> {
           ),
         ),
         builder: (BuildContext context) {
-          return Container(
-            color: Colors.transparent,
-            padding: EdgeInsets.fromLTRB(15.w, rpx(20), 15.w, 0),
-            child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: TextWidget(
-                        '选择比赛',
-                        fontWeight: FontWeight.w500,
-                        fontSize: rpx(15),
-                      ),
-                    ),
-                    onClick(
-                        const Icon(
-                          Icons.close,
-                          color: MyColors.tip,
-                        ), () {
-                      Routes.popPage();
-                    })
-                  ],
-                ),
-                SizedBox(
-                  height: rpx(10),
-                ),
-                Expanded(
+          return StatefulBuilder(builder: (context, setss) {
+            return Container(
+              color: Colors.transparent,
+              padding: EdgeInsets.fromLTRB(15.w, rpx(20), 15.w, 0),
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      onClick(
+                          Container(
+                            alignment: Alignment.center,
+                            child: TextWidget(
+                              '搜索',
+                              fontWeight: FontWeight.w500,
+                              fontSize: rpx(15),
+                              color: Colors.blue,
+                            ),
+                          ), () {
+                        getData(d: setss, s: true);
+                      }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: InputWidget(
+                                    controller: search_c,
+                                    hintText: "输入联赛或队伍名称",
+                                    textStyle: TextStyle(fontSize: rpx(11)),
+                                  ),
+                                ),
+                                Container(
+                                  child: Divider(
+                                    height: rpx(1),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: rpx(110),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: onClick(
+                                const Icon(
+                                  Icons.close,
+                                  color: MyColors.tip,
+                                ), () {
+                              Routes.popPage();
+                            }),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: rpx(10),
+                  ),
+                  Expanded(
+                      child: SmartRefresher(
+                    enablePullDown: false,
+                    enablePullUp: true,
+                    header: classHeader(),
+                    controller: refreshController,
+                    onLoading: () => _onLoading(setss),
+                    footer: classFooter(),
                     child: ListView(
-                  children: getChild(id),
-                )),
-              ],
-            ),
-          );
+                      children: getChild(id),
+                    ),
+                  )),
+                ],
+              ),
+            );
+          });
         });
+  }
+
+  _onLoading(Function ff) async {
+    setState(() {
+      page++;
+    });
+
+    setState(() {
+      page++;
+    });
+    getData(d: ff).then((value) {
+      if (value.isEmpty) {
+        refreshController.loadNoData();
+      } else {
+        refreshController.loadComplete();
+      }
+    });
   }
 
   getChild(int id) {

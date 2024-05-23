@@ -94,7 +94,7 @@ class bigData_ extends State<bigData> with TickerProviderStateMixin {
       tabs: tabs
           .map(
             (label) => Container(
-              width: MediaQuery.of(context).size.width * 0.23,
+              width: MediaQuery.of(context).size.width * 0.28,
               child: Tab(text: "$label"),
             ),
           )

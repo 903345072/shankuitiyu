@@ -374,15 +374,32 @@ class talentDetail_ extends State<planDetail> {
                                           ],
                                         ),
                                       ), () {
-                                    G.router.navigateTo(
-                                        context,
-                                        // ignore: prefer_interpolation_to_compose_strings
-                                        "/gameDetail" +
-                                            G.parseQuery(params: {
-                                              "id": widget.plan["game_content"]
-                                                  [index]["id"],
-                                              "is_detail": 1
-                                            }));
+                                    if (widget.plan["game_type"] == "dxf" ||
+                                        widget.plan["game_type"] == "rfsf") {
+                                      G.router.navigateTo(
+                                          context,
+                                          // ignore: prefer_interpolation_to_compose_strings
+
+                                          "/basketGameDetail" +
+                                              G.parseQuery(params: {
+                                                "id":
+                                                    widget.plan["game_content"]
+                                                        [index]["id"],
+                                                "is_detail": 1
+                                              }));
+                                    } else {
+                                      G.router.navigateTo(
+                                          context,
+                                          // ignore: prefer_interpolation_to_compose_strings
+
+                                          "/gameDetail" +
+                                              G.parseQuery(params: {
+                                                "id":
+                                                    widget.plan["game_content"]
+                                                        [index]["id"],
+                                                "is_detail": 1
+                                              }));
+                                    }
                                   })),
                         ),
                       )

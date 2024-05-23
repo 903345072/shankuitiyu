@@ -6,8 +6,9 @@ import 'package:jingcai_app/model/expert.dart';
 class gameApi {
   Dio dio_;
   gameApi(this.dio_);
-  Future<List<JcFootModel>> getJcFootList() async {
-    Response res = await dio_.get("/common/game/getJcFootGameList");
+  Future<List<JcFootModel>> getJcFootList(Map<String, dynamic> q) async {
+    Response res =
+        await dio_.get("/common/game/getJcFootGameList", queryParameters: q);
 
     List d = res.data["data"];
 

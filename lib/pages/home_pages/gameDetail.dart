@@ -9,6 +9,7 @@ import 'package:jingcai_app/pages/botom_pages/my/page/WebViewPage.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/PreferredSizeWidget.dart';
 import 'package:jingcai_app/pages/botom_pages/widget/textWidget.dart';
 import 'package:jingcai_app/pages/home_pages/gameIndex.dart';
+import 'package:jingcai_app/pages/home_pages/gen.dart';
 import 'package:jingcai_app/pages/home_pages/historyData.dart';
 import 'package:jingcai_app/pages/home_pages/lineUp.dart';
 import 'package:jingcai_app/pages/home_pages/living.dart';
@@ -432,13 +433,7 @@ class gameDetail_ extends State<gameDetail> with TickerProviderStateMixin {
           gameDetailPlan(id: widget.id),
           living(home_data: home_data, away_data: away_data, foot: foot),
 
-          Container(
-            alignment: Alignment.center,
-            child: const Text(
-              "暂无情报",
-              style: TextStyle(fontSize: 18.0, color: Colors.grey),
-            ),
-          ),
+          gen(id: foot.id, foot: foot),
           gameIndex(
             id: foot.id,
             have_bd: have_bd,

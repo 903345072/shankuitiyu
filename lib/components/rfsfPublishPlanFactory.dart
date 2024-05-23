@@ -35,7 +35,7 @@ class rfsfPublishPlanFactory implements publishPlanFactory {
   @override
   Widget PlanGameTitle(JcFootModel f) {
     // TODO: implement PlanGameTitle
-    return rqGameTitle(
+    return rfsfTitle(
       footModel_: f,
     );
   }
