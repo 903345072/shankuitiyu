@@ -31,6 +31,7 @@ class winRateList_ extends State<winRateList> {
       setState(() {
         mzList = value;
       });
+      print(mzList);
     });
   }
 
@@ -135,38 +136,43 @@ class winRateList_ extends State<winRateList> {
   }
 
   Widget getFlowButton(int index) {
-    return onClick(
-        mzList[index]["is_subscribe"] == 1
-            ? Container(
-                alignment: Alignment.center,
-                width: rpx(70),
-                height: rpx(30),
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(15)),
-                child: const Text(
-                  "已关注",
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(15)),
-                alignment: Alignment.center,
-                width: rpx(70),
-                height: rpx(30),
-                child: const Text(
-                  "+关注",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ), () {
-      G.api.user.flowUser({"uid": mzList[index]["uid"]}).then((value) {
-        setState(() {
-          mzList[index]["is_subscribe"] =
-              mzList[index]["is_subscribe"] == 1 ? 0 : 1;
+    if (index < mzList.length) {
+      return onClick(
+          mzList[index]["is_subscribe"] == 1
+              ? Container(
+                  alignment: Alignment.center,
+                  width: rpx(70),
+                  height: rpx(30),
+                  decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: const Text(
+                    "已关注",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(15)),
+                  alignment: Alignment.center,
+                  width: rpx(70),
+                  height: rpx(30),
+                  child: const Text(
+                    "+关注",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ), () {
+        G.api.user.flowUser({"uid": mzList[index]["uid"]}).then((value) {
+          setState(() {
+            mzList[index]["is_subscribe"] =
+                mzList[index]["is_subscribe"] == 1 ? 0 : 1;
+          });
         });
       });
-    });
+    } else {
+      return Container();
+    }
   }
 
   getTop3() {
