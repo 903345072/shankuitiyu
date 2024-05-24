@@ -174,13 +174,13 @@ class _community extends State<community>
                     ),
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    var index_ = index + 1;
+                    var index_ = index + 2;
                     return onClick(
                         Image.asset(
                           "assets/images/sq_banner_$index_.jpg",
                           fit: BoxFit.fill,
                         ), () {
-                      if (index == 1) {
+                      if (index == 0) {
                         G.api.user.getUserIfno({}).then((value) {
                           if (value.uid! > 0) {
                             G.router.navigateTo(context, "/applyTalent",
@@ -190,13 +190,13 @@ class _community extends State<community>
                           }
                         });
                       }
-                      if (index == 2) {
+                      if (index == 1) {
                         G.router.navigateTo(context,
                             "/talentRank" + G.parseQuery(params: {"index": 0}));
                       }
                     });
                   },
-                  itemCount: 3),
+                  itemCount: 2),
             ),
             pinned: true,
             floating: true,

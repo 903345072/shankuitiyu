@@ -38,6 +38,7 @@ class login_ extends State<login> {
   bool is_gree = false;
   String password = "";
   bool can_click = true;
+  String invite_code = "";
   bool obscure = true;
   @override
   void initState() {
@@ -66,7 +67,7 @@ class login_ extends State<login> {
           Column(
             children: [
               Image.asset(
-                "assets/images/login_logo.png",
+                "assets/images/login_logo.jpg",
                 height: rpx(300),
                 fit: BoxFit.cover,
               ),
@@ -187,6 +188,34 @@ class login_ extends State<login> {
                       height: rpx(2),
                       color: Colors.grey.shade300,
                     ),
+                    type == 1
+                        ? Container(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: InputWidget(
+                                  hintText: '邀请码(选填)',
+                                  hintStyle: const TextStyle(
+                                      color: MyColors.tip, fontSize: 14),
+                                  textStyle: const TextStyle(
+                                      color: MyColors.black_33, fontSize: 14),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      invite_code = value;
+                                      print(invite_code);
+                                    });
+                                  },
+                                )),
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    type == 1
+                        ? Divider(
+                            height: rpx(2),
+                            color: Colors.grey.shade300,
+                          )
+                        : Container(),
                     Container(
                       margin: EdgeInsets.symmetric(vertical: rpx(10)),
                       child: TextWidget(
@@ -378,7 +407,8 @@ class login_ extends State<login> {
       "type": type,
       "password": password,
       "code": code,
-      "phone": phone
+      "phone": phone,
+      "invite_code": invite_code
     }).then((value) async {
       if (value["msg"] != "ok") {
         setState(() {

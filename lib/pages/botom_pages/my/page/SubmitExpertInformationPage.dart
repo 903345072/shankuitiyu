@@ -115,14 +115,14 @@ class _SubmitExpertInformationPageState
               height: 10,
             ),
             TextWidget(
-              '名称',
+              '达人标签',
               fontSize: rpx(14),
             ),
             InputWidget(
               hintText: '名称不可含有敏感词、引流信息等',
               hintStyle: TextStyle(color: MyColors.tip, fontSize: rpx(14)),
               textStyle: TextStyle(color: MyColors.black_33, fontSize: rpx(14)),
-              inputFormatters: [LengthLimitingTextInputFormatter(8)],
+              inputFormatters: [LengthLimitingTextInputFormatter(6)],
               onChanged: (s) {
                 name = s;
               },

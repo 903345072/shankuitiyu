@@ -31,7 +31,6 @@ class winRateList_ extends State<winRateList> {
       setState(() {
         mzList = value;
       });
-      print(mzList);
     });
   }
 
@@ -47,92 +46,96 @@ class winRateList_ extends State<winRateList> {
     if (index == 2) {
       url = "assets/images/third.png";
     }
-    return Container(
-      child: Stack(
-        children: [
-          Image.asset(
-            url,
-            fit: BoxFit.cover,
-            width: rpx(110),
-          ),
-          Positioned(
-              left: rpx(15),
-              top: rpx(45),
-              child: Container(
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: rpx(5),
-                  direction: Axis.vertical,
-                  children: [
-                    Stack(
+    return onClick(
+        Container(
+          child: Stack(
+            children: [
+              Image.asset(
+                url,
+                fit: BoxFit.cover,
+                width: rpx(110),
+              ),
+              Positioned(
+                  left: rpx(15),
+                  top: rpx(45),
+                  child: Container(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: rpx(5),
+                      direction: Axis.vertical,
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(top: rpx(3)),
-                          child: CircleAvatar(
-                            radius: rpx(20),
-                            backgroundImage: NetworkImage(
-                              data["avatar"].toString(),
+                        Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: rpx(3)),
+                              child: CircleAvatar(
+                                radius: rpx(20),
+                                backgroundImage: NetworkImage(
+                                  data["avatar"].toString(),
+                                ),
+                              ),
                             ),
+                            Positioned(
+                                right: rpx(0),
+                                child: Container(
+                                  height: 16,
+                                  alignment: Alignment(0, 0),
+                                  padding: EdgeInsets.only(
+                                      left: rpx(4), right: rpx(4)),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1, color: Colors.white),
+                                      color: Colors.red,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8))),
+                                  child: TextWidget(
+                                    data["plan_num"].toString(),
+                                    color: Colors.white,
+                                    fontSize: rpx(10),
+                                  ),
+                                )),
+                          ],
+                        ),
+                        Container(
+                          width: rpx(78),
+                          child: TextWidget(data["real_name"].toString()),
+                        ),
+                        Container(
+                          width: rpx(80),
+                          padding: EdgeInsets.only(
+                              left: rpx(3),
+                              right: rpx(3),
+                              top: rpx(2),
+                              bottom: rpx(2)),
+                          color: Color(0xfffdeaea),
+                          child: TextWidget(
+                            data["desc"].toString(),
+                            color: Color(0xffd92b2b),
+                            textAlign: TextAlign.center,
+                            fontSize: rpx(10),
                           ),
                         ),
-                        Positioned(
-                            right: rpx(0),
-                            child: Container(
-                              height: 16,
-                              alignment: Alignment(0, 0),
-                              padding:
-                                  EdgeInsets.only(left: rpx(4), right: rpx(4)),
-                              decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.white),
-                                  color: Colors.red,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8))),
-                              child: TextWidget(
-                                data["plan_num"].toString(),
-                                color: Colors.white,
-                                fontSize: rpx(10),
-                              ),
-                            )),
+                        Container(
+                          child: Text(
+                            data["data"].toString(),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: rpx(18),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        getFlowButton(index)
                       ],
                     ),
-                    Container(
-                      width: rpx(78),
-                      child: TextWidget(data["real_name"].toString()),
-                    ),
-                    Container(
-                      width: rpx(80),
-                      padding: EdgeInsets.only(
-                          left: rpx(3),
-                          right: rpx(3),
-                          top: rpx(2),
-                          bottom: rpx(2)),
-                      color: Color(0xfffdeaea),
-                      child: TextWidget(
-                        data["desc"].toString(),
-                        color: Color(0xffd92b2b),
-                        textAlign: TextAlign.center,
-                        fontSize: rpx(10),
-                      ),
-                    ),
-                    Container(
-                      child: Text(
-                        data["data"].toString(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: rpx(18),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    getFlowButton(index)
-                  ],
-                ),
-              ))
-        ],
-      ),
-    );
+                  ))
+            ],
+          ),
+        ), () {
+      G.router.navigateTo(context,
+          "/talentDetail" + G.parseQuery(params: {"uid": data["uid"]}));
+    });
   }
 
   Widget getFlowButton(int index) {
@@ -214,97 +217,104 @@ class winRateList_ extends State<winRateList> {
     return Column(
       children: List.generate(
           list.length,
-          (index) => Container(
-                padding: EdgeInsets.all(rpx(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: rpx(10),
+          (index) => onClick(
+                  Container(
+                    padding: EdgeInsets.all(rpx(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          margin: EdgeInsets.only(left: rpx(5)),
-                          child: Text(
-                            (index + 4).toString(),
-                            style: TextStyle(
-                                color: Colors.grey, fontSize: rpx(20)),
-                          ),
-                        ),
-                        Stack(
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          spacing: rpx(10),
                           children: [
                             Container(
-                              padding: EdgeInsets.only(top: rpx(3)),
-                              child: CircleAvatar(
-                                radius: rpx(20),
-                                backgroundImage: NetworkImage(
-                                  list[index]["avatar"].toString(),
-                                ),
+                              margin: EdgeInsets.only(left: rpx(5)),
+                              child: Text(
+                                (index + 4).toString(),
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: rpx(20)),
                               ),
                             ),
-                            list[index]["plan_num"] > 0
-                                ? Positioned(
-                                    right: rpx(0),
-                                    child: Container(
-                                      height: 16,
-                                      alignment: Alignment(0, 0),
-                                      padding: EdgeInsets.only(
-                                          left: rpx(4), right: rpx(4)),
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1, color: Colors.white),
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8))),
-                                      child: Text(
-                                        list[index]["plan_num"].toString(),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: rpx(10)),
-                                      ),
-                                    ))
-                                : Container(),
-                          ],
-                        ),
-                        Wrap(
-                          spacing: rpx(4),
-                          direction: Axis.vertical,
-                          children: [
-                            Text(list[index]["real_name"].toString()),
-                            Wrap(
-                              spacing: rpx(3),
+                            Stack(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.only(
-                                      left: rpx(5), right: rpx(5)),
-                                  alignment: Alignment.center,
-                                  color: Color(0xffffece8),
-                                  child: TextWidget(
-                                    list[index]["desc"].toString(),
-                                    color: Color(0xffef2f2f),
+                                  padding: EdgeInsets.only(top: rpx(3)),
+                                  child: CircleAvatar(
+                                    radius: rpx(20),
+                                    backgroundImage: NetworkImage(
+                                      list[index]["avatar"].toString(),
+                                    ),
                                   ),
-                                )
+                                ),
+                                list[index]["plan_num"] > 0
+                                    ? Positioned(
+                                        right: rpx(0),
+                                        child: Container(
+                                          height: 16,
+                                          alignment: Alignment(0, 0),
+                                          padding: EdgeInsets.only(
+                                              left: rpx(4), right: rpx(4)),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.white),
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8))),
+                                          child: Text(
+                                            list[index]["plan_num"].toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: rpx(10)),
+                                          ),
+                                        ))
+                                    : Container(),
+                              ],
+                            ),
+                            Wrap(
+                              spacing: rpx(4),
+                              direction: Axis.vertical,
+                              children: [
+                                Text(list[index]["real_name"].toString()),
+                                Wrap(
+                                  spacing: rpx(3),
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                          left: rpx(5), right: rpx(5)),
+                                      alignment: Alignment.center,
+                                      color: Color(0xffffece8),
+                                      child: TextWidget(
+                                        list[index]["desc"].toString(),
+                                        color: Color(0xffef2f2f),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
                           ],
                         ),
+                        Container(
+                          child: Text(
+                            list[index]["data"].toString(),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontSize: rpx(18),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        getFlowButton(index + 3)
                       ],
                     ),
-                    Container(
-                      child: Text(
-                        list[index]["data"].toString(),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: rpx(18),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    getFlowButton(index + 3)
-                  ],
-                ),
-              )),
+                  ), () {
+                G.router.navigateTo(
+                    context,
+                    "/talentDetail" +
+                        G.parseQuery(params: {"uid": list[index]["uid"]}));
+              })),
     );
   }
 

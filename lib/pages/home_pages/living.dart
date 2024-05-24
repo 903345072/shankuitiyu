@@ -143,6 +143,7 @@ class living_ extends State<living> {
                                   color: const Color.fromARGB(
                                       255, 235, 235, 235)))),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextWidget(widget.home_data["attacks"].toString()),
                           Stack(
@@ -171,6 +172,7 @@ class living_ extends State<living> {
                       ),
                     ),
                     Container(
+                      alignment: Alignment.center,
                       height: rpx(80),
                       width: MediaQuery.of(context).size.width * 0.33,
                       decoration: BoxDecoration(
@@ -180,6 +182,7 @@ class living_ extends State<living> {
                                   color: const Color.fromARGB(
                                       255, 235, 235, 235)))),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextWidget(
                               widget.home_data["dangerous_attacks"].toString()),
@@ -214,34 +217,38 @@ class living_ extends State<living> {
                       ),
                     ),
                     widget.home_data["ball_possession"] != null
-                        ? Row(
-                            children: [
-                              TextWidget(widget.home_data["ball_possession"]
-                                  .toString()),
-                              Stack(
-                                children: [
-                                  Container(
-                                    width: rpx(60),
-                                    height: rpx(60),
-                                    child: twoSidePie(
-                                        pie1: double.parse(widget
-                                            .home_data["ball_possession"]),
-                                        pie2: double.parse(widget
-                                            .away_data["ball_possession"])),
-                                  ),
-                                  Positioned(
-                                    top: rpx(23),
-                                    left: rpx(14),
-                                    child: TextWidget(
-                                      "控球率",
-                                      fontSize: rpx(10),
+                        ? Container(
+                            width: MediaQuery.of(context).size.width * 0.33,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextWidget(widget.home_data["ball_possession"]
+                                    .toString()),
+                                Stack(
+                                  children: [
+                                    Container(
+                                      width: rpx(60),
+                                      height: rpx(60),
+                                      child: twoSidePie(
+                                          pie1: double.parse(widget
+                                              .home_data["ball_possession"]),
+                                          pie2: double.parse(widget
+                                              .away_data["ball_possession"])),
                                     ),
-                                  )
-                                ],
-                              ),
-                              TextWidget(widget.away_data["ball_possession"]
-                                  .toString()),
-                            ],
+                                    Positioned(
+                                      top: rpx(23),
+                                      left: rpx(14),
+                                      child: TextWidget(
+                                        "控球率",
+                                        fontSize: rpx(10),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                TextWidget(widget.away_data["ball_possession"]
+                                    .toString()),
+                              ],
+                            ),
                           )
                         : Container(),
                   ],

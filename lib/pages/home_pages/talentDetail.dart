@@ -312,7 +312,7 @@ class talentDetail_ extends State<talentDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextWidget(
-            num + tag,
+            double.parse(num) >= 0 ? num + tag : "亏损中",
             fontSize: rpx(18),
             color: getColor(num),
           ),
